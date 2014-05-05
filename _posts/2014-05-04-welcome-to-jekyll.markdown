@@ -17,7 +17,9 @@ $$\sum_{n=1}^\infty 1/n^2 = \frac{\pi^2}{6}$$
 Maxwell's equations:
 
 \begin{equation}
-\frac{1}{\sqrt{\pi}}
+ \lim_{x\to 0}{\frac{e^x-1}{2x}}
+ =
+ \lim_{x\to 0}{\frac{e^x}{2}}={\frac{1}{2}}
 \end{equation}
 
 
