@@ -4,6 +4,8 @@ title:  "Welcome to Jekyll!"
 date:   2014-05-04 20:55:02
 categories: jekyll update
 ---
+Here is an example MathJax inline rendering \\( 1/x^{2} \\), and here is a block rendering: 
+\\[ \frac{1}{n^{2}} \\]
 
 You'll find this post in your `_posts` directory - edit this post and re-build (or run with the `-w` switch) to see your changes!
 To add new posts, simply add a file in the `_posts` directory that follows the convention: YYYY-MM-DD-name-of-post.ext.
@@ -17,7 +19,7 @@ $$\sum_{n=1}^\infty 1/n^2 = \frac{\pi^2}{6}$$
 Maxwell's equations:
 
 \begin{equation}
- \lim_{x\to 0}{\frac{e^x-1}{2x}}
+\lim_{x\to 0}{\frac{e^x-1}{2x}}
  =
  \lim_{x\to 0}{\frac{e^x}{2}}={\frac{1}{2}}
 \end{equation}
