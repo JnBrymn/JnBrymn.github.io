@@ -4,7 +4,7 @@ title:  "Welcome to Jekyll!"
 date:   2014-05-04 20:55:02
 categories: jekyll update
 ---
-Here is an example MathJax inline rendering \\( 1/x^{2} \\), and here is a block rendering: 
+Here is an example MathJax inline rendering \\( 1/x^{2} \\), and here \\( x_4 \\) is a block rendering: 
 \\[ \frac{1}{n^{2}} \\]
 
 You'll find this post in your `_posts` directory - edit this post and re-build (or run with the `-w` switch) to see your changes!
