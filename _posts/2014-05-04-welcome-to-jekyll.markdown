@@ -1,12 +1,13 @@
 ---
 layout: post
-title:  "My first post!"
+title:  "Welcome to Jekyll!"
+date:   2014-05-04 20:55:02
 categories: jekyll update
 ---
 Here is an example MathJax inline rendering \\( 1/x^{2} \\), and here \\( x_4 \\) is a block rendering: 
 \\[ \frac{1}{n^{2}} \\]
 
-You'll find this post in your `_posts` directory -  edit this post and re-build (or run with the `-w` switch) to see your changes!
+You'll find this post in your `_posts` directory - edit this post and re-build (or run with the `-w` switch) to see your changes!
 To add new posts, simply add a file in the `_posts` directory that follows the convention: YYYY-MM-DD-name-of-post.ext.
 
 Jekyll also offers powerful support for code snippets:
@@ -36,5 +37,3 @@ Check out the [Jekyll docs][jekyll] for more info on how to get the most out of 
 
 [jekyll-gh]: https://github.com/mojombo/jekyll
 [jekyll]:    http://jekyllrb.com
-
-

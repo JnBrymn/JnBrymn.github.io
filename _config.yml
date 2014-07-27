@@ -1,4 +1,25 @@
-name: Life on the Pareto Frontier
-markdown: kramdown
-highlighter: true
-timezone: America/New_York
+# Dependencies
+markdown:         redcarpet
+highlighter:         true
+
+# Permalinks
+permalink:        pretty
+
+# Setup
+title:            Life on the Pareto Frontier
+tagline:          'A random walk'
+description:      ''
+url:              http://blog.jnbrymn.com
+baseurl:          /
+
+author:
+  name:           'John Berryman'
+  url:            https://twitter.com/JnBrymn
+
+paginate:         5
+
+# Custom vars
+version:          2.1.0
+
+github:
+  repo:           https://github.com/JnBrymn/
