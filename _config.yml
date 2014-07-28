@@ -6,9 +6,9 @@ highlighter:         true
 permalink:        pretty
 
 # Setup
-title:            Life on the Pareto Frontier
+title:            Thought Box
 tagline:          'A random walk'
-description:      ''
+description:      'Life on the Pareto Frontier'
 url:              http://blog.jnbrymn.com
 baseurl:          /
 
@@ -23,3 +23,6 @@ version:          2.1.0
 
 github:
   repo:           https://github.com/JnBrymn/
+
+exclude:
+  - _drafts/hidden

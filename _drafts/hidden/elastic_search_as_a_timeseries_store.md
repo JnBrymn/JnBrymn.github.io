@@ -1,3 +1,7 @@
+---
+layout: post
+title: Elastic Search as as Timeseries data store
+---
 Hey Baron (and others if you're interested),
 
 You indicated that we sould talk about ElasticSearch after I got back, so this is an attempt to organize my thoughts. We can talk about the details when you have time:
