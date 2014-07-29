@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Understanding Eigenvalue Centrality with the Metaphor of Political Power
+title: Understanding Eigenvector Centrality with the Metaphor of Political Power
 ---
 If you play around much with graphs, one of the first things that you'll run into is the idea of network centrality. Centrality is a value associated with a node which represents how important and how central that node is to the network as a whole. There are actually quite a few way of defining network centrality - here are just a few:
 
@@ -10,10 +10,10 @@ If you play around much with graphs, one of the first things that you'll run int
 </figure>
 
 * *Degree centrality* - This, the simplest measure of centrality, is simply the count of how many a connections a particular node has.
-* *Closeness centrality* - This is the inverse of a nodes *farness*. Farness, in turn, is the sum of the length of the shortest paths connecting the node in question to all other nodes.
+* *Closeness centrality* - This is the inverse of a node's *farness*. Farness, in turn, is the sum of the length of the shortest paths connecting the node in question to all other nodes.
 * *Betweenness centrality* - This is the count of number of shortest paths that pass through a given node.
 
-But, my favorite measure of centrality is *eigenvalue centrality*. Why? Because I invented it! Ok, ok... that's not exactly true, but I did at least *independently* discover it. And the way I discovered it helped it stick in my mind ever since.
+But, my favorite measure of centrality is *eigenvector centrality*. Why? Because I invented it! Ok, ok... that's not exactly true, but I did at least *independently* discover it. And the way I discovered it helped it stick in my mind ever since.
 
 
 
@@ -31,7 +31,7 @@ Perhaps the most simplistic way to put this to math is to assume that *political
   	\end{array}
 $$</div>
 
-Here \\(P\_i\\) represents the power of a politician and sum on the right hand side represents the cumulative power of all his buddies. The proportionality itself is represented by the value \\(\lambda\\). What's the value of \\(\lambda\\)? Is it \\(\frac{1}{2}\\)? Is it \\(\pi\\)? We don't know quite yet, but we will soon.
+Here \\(P\_i\\) represents the power of a politician and sum on the right hand side represents the cumulative power of all his buddies. The proportionality itself is represented by the value some constant \\(\lambda\\). What is the value of \\(\lambda\\)? Is it \\(\frac{1}{2}\\)? Is it \\(\pi\\)? We don't know quite yet, but we will soon.
 
 Now, based upon our assumptions, this equation should hold for any politician. So, let's consider an example set of politicians.
 
@@ -92,11 +92,11 @@ So, how do our politician friends fare? Here is the solution to the eigenvalue p
 	\end{bmatrix}
 $$</div>
 
-As you can see Bob holds the most power in the group followed soon after by Dave, while Cindy holds the least power in the group. Referring back to the diagram above, this result should agree well with your intuition as Bob seems well connected while Cindy is barely connected at all.
+ As you can see Bob holds the most power in the group followed soon after by Dave, while Cindy holds the least power in the group. Referring back to the diagram above, this result should agree well with your intuition as Bob seems well connected while Cindy is barely connected at all. (And, in case you're wondering, \\(\lambda=2.686\\).)
 
-## The Eigenvalue Centrality Metric
-If you haven't figured it out by now, this quantity that I'm call *political power* in the discussion above is none other than the Eigenvalue Centrality of the politicians based upon their connection to one another. But is this notion of centrality actually useful? Yes, quite. Perhaps most obviously, the above analysis can be applied to any social network to help identify who the big players are. Want to know how you rank among your friends? Download everyone on Twitter within two jumps away from you, pull out the adjacency matrix and solve the eigenvalue problem - there's your answer.
+## The Eigenvector Centrality Metric
+If you haven't figured it out by now, this quantity that I'm call *political power* in the discussion above is none other than the eigenvector centrality of the politicians based upon their connection to one another. But is this notion of centrality actually useful? Yes, quite. Perhaps most obviously, the above analysis can be applied to any social network to help identify who the big players are. Want to know how you rank among your friends? Download everyone on Twitter within two jumps away from you, pull out the adjacency matrix and solve the eigenvalue problem - there's your answer.
 
-Outside of social circles, eigenvalue centrality pops up again with text summarization. In this case, rather than looking at people in a social network, the analysis considers sentences in a document. In this case the values of the adjacency matrix are merely a measure of how similarly each sentences is worded to all of the others.
+Outside of social circles, eigenvector centrality pops up again with text summarization. In this case, rather than looking at *people* in a *social network*, the analysis considers *sentences* in a *document*. In this case the values of the adjacency matrix are merely a measure of how similarly each sentences is worded to all of the others.
 
-Any finally, the reason that you read this post at all is likely because you searched for it on Google. In Google search, the importance of a web page is established in part by the Page Rank algorithm which is a variant of eigenvector centrality analysis described above!
+Any finally, the reason that you read this post at all is likely because you searched for eigenvector centrality on Google. In Google search, the importance of a web page is established in part by the Page Rank algorithm which is a variant of eigenvector centrality analysis described above!
