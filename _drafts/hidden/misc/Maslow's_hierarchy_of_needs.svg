@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   version="1.0"
+   width="1717.1801"
+   height="1124.03"
+   id="svg1936"
+   inkscape:version="0.48.2 r9819"
+   sodipodi:docname="Maslow's_hierarchy_of_needs.svg"
+   inkscape:export-filename="/Users/jnbrymn/Personal/blog/_drafts/hidden/misc/Maslow's_hierarchy_of_needs.png"
+   inkscape:export-xdpi="29.011421"
+   inkscape:export-ydpi="29.011421">
+  <metadata
+     id="metadata3047">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1436"
+     inkscape:window-height="856"
+     id="namedview3045"
+     showgrid="false"
+     inkscape:zoom="0.57979147"
+     inkscape:cx="1068.1343"
+     inkscape:cy="561.12923"
+     inkscape:window-x="4"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="group1" />
+  <defs
+     id="gradients">
+    <linearGradient
+       id="linearGradient1">
+      <stop
+         style="stop-color:#ffffff;stop-opacity:1"
+         offset="0"
+         id="stop1a" />
+      <stop
+         style="stop-color:#807eed;stop-opacity:1"
+         offset="1"
+         id="stop1b" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient2">
+      <stop
+         style="stop-color:#ffffff;stop-opacity:1"
+         offset="0"
+         id="stop2a" />
+      <stop
+         style="stop-color:#18fe04;stop-opacity:1"
+         offset="1"
+         id="stop2b" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient3">
+      <stop
+         style="stop-color:#ffffff;stop-opacity:1"
+         offset="0"
+         id="stop3a" />
+      <stop
+         style="stop-color:#fefc04;stop-opacity:1"
+         offset="1"
+         id="stop3b" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient4">
+      <stop
+         style="stop-color:#ffffff;stop-opacity:1"
+         offset="0"
+         id="stop4a" />
+      <stop
+         style="stop-color:#ff8207;stop-opacity:1"
+         offset="1"
+         id="stop4b" />
+    </linearGradient>
+    <linearGradient
+       id="linearGradient5">
+      <stop
+         style="stop-color:#ffffff;stop-opacity:1"
+         offset="0"
+         id="stop5a" />
+      <stop
+         style="stop-color:#f90909;stop-opacity:1"
+         offset="1"
+         id="stop5b" />
+    </linearGradient>
+    <radialGradient
+       cx="334.28568"
+       cy="439.51736"
+       r="262.46866"
+       fx="334.28568"
+       fy="439.51736"
+       id="gradient1"
+       xlink:href="#linearGradient1"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(-1.134697,1.134697,-1.156074,-1.156074,1957.031,347.5224)" />
+    <radialGradient
+       cx="279.99408"
+       cy="530.66846"
+       r="263.681"
+       fx="279.99408"
+       fy="530.66846"
+       id="gradient2"
+       xlink:href="#linearGradient2"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(-2.842556,2.842556,-2.463476,-2.463476,3172.792,661.2344)" />
+    <radialGradient
+       cx="279.99408"
+       cy="530.66846"
+       r="263.681"
+       fx="279.99408"
+       fy="530.66846"
+       id="gradient3"
+       xlink:href="#linearGradient3"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(-3.449006,3.449006,-2.989051,-2.989051,3621.501,801.9635)" />
+    <radialGradient
+       cx="279.99408"
+       cy="530.66846"
+       r="263.681"
+       fx="279.99408"
+       fy="530.66846"
+       id="gradient4"
+       xlink:href="#linearGradient4"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(-4.010533,4.010533,-3.475693,-3.475693,4036.971,932.2677)" />
+    <radialGradient
+       cx="279.99408"
+       cy="530.66846"
+       r="263.681"
+       fx="279.99408"
+       fy="530.66846"
+       id="gradient5"
+       xlink:href="#linearGradient5"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(-4.56083,4.56083,-3.952603,-3.952603,4444.131,1059.966)" />
+  </defs>
+  <g
+     id="group5">
+    <path
+       d="M 1069.6036,4.5858812 L 1714.1962,1121.0529 L 425.01104,1121.0529 L 1069.6036,4.5858812 z "
+       style="fill:url(#gradient5);stroke:#000000;stroke-width:5"
+       id="triangle5" />
+    <text
+       style="font-size:40px;text-align:center;text-anchor:middle;font-family:Bitstream Vera Sans"
+       id="text5">
+      <tspan
+         x="1070"
+         y="1070"
+         id="tspan9320">breathing, food, water, sleep, homeostasis</tspan>
+    </text>
+    <path
+       d="M 1714.1959,1121.0517 L 3.0132427,1121.0361"
+       style="stroke:#000000;stroke-width:5"
+       id="line5" />
+    <text
+       x="5"
+       y="1100"
+       style="font-size:65px;fill:#f90909;stroke:#747474;font-family:Bitstream Vera Sans"
+       id="label5">Physiological</text>
+  </g>
+  <g
+     id="group4">
+    <path
+       d="M 1069.6037,4.2265997 L 1636.4215,985.98392 L 502.78582,985.98389 L 1069.6037,4.2265997 z "
+       style="fill:url(#gradient4);stroke:#000000;stroke-width:5"
+       id="triangle4" />
+    <text
+       style="font-size:40px;text-align:center;text-anchor:middle;font-family:Bitstream Vera Sans"
+       id="text4"
+       y="-3.4495161"
+       x="0.48256624">
+      <tspan
+         x="1070.4825"
+         y="906.55048"
+         id="tspan2788">security of body, of health, of family,</tspan>
+    </text>
+    <text
+       style="font-size:40px;text-align:center;text-anchor:middle;font-family:Bitstream Vera Sans"
+       id="text3056"
+       x="-1.0116168"
+       y="44.843708">
+      <tspan
+         x="1068.9884"
+         y="954.84369"
+         id="tspan3058">of resources, of property, of employment</tspan>
+    </text>
+    <path
+       d="M 1632.6356,985.98101 L 3.0364741,985.98101"
+       style="stroke:#000000;stroke-width:5"
+       id="line4" />
+    <text
+       x="5"
+       y="970"
+       style="font-size:65px;fill:#ff8207;stroke:#747474;font-family:Bitstream Vera Sans"
+       id="label4">Safety</text>
+  </g>
+  <g
+     id="group3">
+    <path
+       d="M 1069.6038,3.860196 L 1557.0598,848.15874 L 582.14781,848.15872 L 1069.6038,3.860196 z "
+       style="fill:url(#gradient3);stroke:#000000;stroke-width:5"
+       id="triangle3" />
+    <text
+       style="font-size:40px;text-align:center;text-anchor:middle;font-family:Bitstream Vera Sans"
+       id="text3">
+      <tspan
+         x="1070"
+         y="790"
+         id="tspan2796">friendship, family, sexual intimacy</tspan>
+    </text>
+    <path
+       d="M 1556.2724,849.22481 L 3.1526313,847.52627"
+       style="stroke:#000000;stroke-width:5"
+       id="line3" />
+    <text
+       x="5"
+       y="830"
+       style="font-size:65px;fill:#fefc04;stroke:#747474;font-family:Bitstream Vera Sans"
+       id="label3">Love/Belonging</text>
+  </g>
+  <g
+     id="group2">
+    <path
+       d="M 1069.6038,3.464222 L 1471.3488,699.307 L 667.85875,699.30699 L 1069.6038,3.464222 z "
+       style="fill:url(#gradient2);stroke:#000000;stroke-width:5"
+       id="triangle2" />
+    <text
+       style="font-size:40px;text-align:center;text-anchor:middle;font-family:Bitstream Vera Sans"
+       id="text2">
+      <tspan
+         x="1070"
+         y="570"
+         id="tspan2880">self-esteem,</tspan>
+      <tspan
+         x="1070"
+         y="620"
+         id="tspan2888">confidence, achievement,</tspan>
+      <tspan
+         x="1070"
+         y="670"
+         id="tspan2852">respect of others, respect by others</tspan>
+    </text>
+    <path
+       d="M 1467.1583,698.38122 L 3.0325679,700.07976"
+       style="stroke:#000000;stroke-width:5"
+       id="line2" />
+    <text
+       x="5"
+       y="690"
+       style="font-size:65px;fill:#18fe04;stroke:#747474;font-family:Bitstream Vera Sans"
+       id="label2">Esteem</text>
+  </g>
+  <g
+     id="group1">
+    <path
+       d="M 1069.6034,2.9801776 L 1366.5903,517.37667 L 772.6164,517.37666 L 1069.6034,2.9801776 z "
+       style="fill:url(#gradient1);stroke:#000000;stroke-width:5"
+       id="triangle1" />
+    <text
+       style="font-size:40px;text-align:center;text-anchor:middle;font-family:Bitstream Vera Sans"
+       id="text1"
+       x="0.46267161"
+       y="-50.017986">
+      <tspan
+         x="1070.4628"
+         y="219.98201"
+         id="tspan2874">creativity,</tspan>
+    </text>
+    <text
+       style="font-size:40px;text-align:center;text-anchor:middle;font-family:Bitstream Vera Sans"
+       id="text3060"
+       y="9.054985"
+       x="0.48222956">
+      <tspan
+         x="1070.4823"
+         y="279.05499"
+         id="tspan3062">spontaneity,</tspan>
+    </text>
+    <text
+       style="font-size:40px;text-align:center;text-anchor:middle;font-family:Bitstream Vera Sans"
+       id="text3064"
+       x="-0.25023475"
+       y="68.127937">
+      <tspan
+         x="1069.7499"
+         y="338.12796"
+         id="tspan3066">problem solving,</tspan>
+    </text>
+    <text
+       style="font-size:40px;text-align:center;text-anchor:middle;font-family:Bitstream Vera Sans"
+       id="text3068"
+       x="-0.31849828"
+       y="127.20096">
+      <tspan
+         x="1069.6815"
+         y="397.20096"
+         id="tspan3070">lack of prejudice,</tspan>
+    </text>
+    <text
+       style="font-size:40px;text-align:center;text-anchor:middle;font-family:Bitstream Vera Sans"
+       x="-0.61144084"
+       y="186.27386"
+       id="text3072">
+      <tspan
+         x="1069.3885"
+         y="456.27386"
+         id="tspan3074">acceptance of facts</tspan>
+    </text>
+    <path
+       d="M 1365.6537,517.37685 L 3.0247554,518.55739"
+       style="stroke:#000000;stroke-width:5"
+       id="line1" />
+    <text
+       x="5"
+       y="510"
+       style="font-size:65px;fill:#807eed;stroke:#747474;font-family:Bitstream Vera Sans"
+       id="label1">Self-Transcendence</text>
+  </g>
+</svg>
