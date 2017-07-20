@@ -1,0 +1,13 @@
+.centered {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.read-more {
+  display: block;
+  margin-left: -.5rem;
+  margin-bottom: 1rem;
+  margin-left: 1rem;
+  color: #9a9a9a;
+}
