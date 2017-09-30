@@ -62,4 +62,4 @@ MEG measures the induced magnetic fields created from electronic circuits in you
 So while I haven't unraveled the mystery of how we think, I did learn a lot! An maybe I even got a little bit closer. Thanks Stephen for your time. Let's make sure to do it again often.
 
 ## Penny University
-The above conversation was from a "Penny Chat". Are you interested in learning with others? Come check out our community an find more people like you: http://pennyuniversity.org
+The above conversation was from a "Penny Chat". Are you interested in learning with others? [Come check out our community an find more people like you.](http://pennyuniversity.org)
