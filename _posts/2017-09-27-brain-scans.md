@@ -34,9 +34,9 @@ MRIs are typically used to measure activity in the grey matter. The changes in b
 This is exactly what Stephen is working towards with his research. He is refining the MRI techniques and data processing so that we can have this more complete picture and understand how parts of the brain are interconnected.
 
 ## Why am I so Interested in the Brain?
-What!? You're not?! It's like a blob of magic jello that can process information and learns things. Hook it up to a human meat vehicle and what it go! It learns to walk upright. It can taking in visual information from stereo cameras and avoid obstacles. It can capture and process information and use it again later ... you see where I'm going.
+What!? You're not?! It's like a blob of magic jello that can process information and learns things. Hook it up to a human meat vehicle and watch it go! It learns to walk upright. It can take in visual information from stereo cameras and avoid obstacles. It can capture and process information and use it again later ... you see where I'm going.
 
-One thing I would really love to do is to understand just _how_ we learn and how we think. I was once of the opinion that only God was allowed to make thinking things. But these days I've softened my stance. Maybe we can make a truly intelligent system. (God is still in charge of making conscious things... but let's save that for a different discussion.)
+One thing I would really love is to understand just _how_ we learn and how we think. I was once of the opinion that only God was allowed to make thinking things. But these days I've softened my stance. Maybe we can make a truly intelligent system. (God is still in charge of making conscious things... but let's save that for a different discussion.)
 
 One of my longstanding dreams is to understand learning and thinking to the point where I can describe the necessary and sufficient requirements for building such a system. And then I want to build it. (Yeah, yeah... seems like a long shot, but let me dream.) So part of my discussion with Stephen was describing my thoughts about learning and cognition and seeing if my understanding was valid or was science fiction. I was happy to find out that I wasn't too far off! One thing that Stephen made clearer to me though is that an MRI isn't _quite_ the measurement system that I am looking for with my research. An MRI isn't really watching you think, it's more like watching which parts of your brain you use to think. The timescales of thought are in tens of milliseconds while the timescales of MRIs are in tens of seconds. So I also learned a little more from Stephen about the devices out there which can be used to "measure" thought: the EEG and the MEG.
 
@@ -59,7 +59,7 @@ Between EEG and MRI is Magnetoencephalography (MEG).
 MEG measures the induced magnetic fields created from electronic circuits in your head (aka "thought"). However the capture rate isn't as fast as EEG and the spatial resolution isn't as fast as MEG. So it really is an intermediate solution. Oh yeah... and there's only a handful of these expensive machines in the world.
 
 ## Conclusion
-So while I haven't unraveled the mystery of how we think, I did learn a lot! An maybe I even got a little bit closer. Thanks Stephen for your time. Let's make sure to do it again often.
+So while I haven't yet unraveled the mystery of how we think, I did learn a lot! An maybe I even got a little bit closer. Thanks Stephen for your time. Let's make sure to do it again often.
 
 ## Penny University
 The above conversation was from a "Penny Chat". Are you interested in learning with others? [Come check out our community an find more people like you.](http://pennyuniversity.org)
