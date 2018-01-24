@@ -2,14 +2,12 @@
 layout: post
 title: Neuroscience Penny Chat with David Simon
 ---
+As many of my friends know, I've picked up neuroscience as a sort of side hobby. (Some people collect stamps, I memorize anatomical structures of the brain.) Last time I blogged about this was regarding my [Penny Chat with Stephen Bailey on his work with MRIs]({{ site.baseurl }}{% post_url 2017-09-27-brain-scans %}). But this week I sat down with one of Stephen's friends David Simon to talk about his research involving Electroencephalography a.k.a. EEG.
 
 <figure>
     <img src='/assets/EEG_cap.jpg' alt='missing' class="centered"/>
     <figcaption><a href="https://en.wikipedia.org/wiki/Electroencephalography">Electroencephalography a.k.a. EEG.</a></figcaption>
 </figure>
-
-
-As many of my friends know, I've picked up neuroscience as a sort of side hobby. (Some people collect stamps, I memorize anatomical structures of the brain.) Last time I blogged about this was regarding my [Penny Chat with Stephen Bailey on his work with MRIs]({{ site.baseurl }}{% post_url 2017-09-27-brain-scans %}). But this week I sat down with one of Stephen's friends David Simon to talk about his research involving Electroencephalography a.k.a. EEG.
 
 ## EEG - the "opposite" of MRI
 I touched on this in my blog post with Steven, but EEG technology is in some ways on the opposite end of the spectrum from MRIs. The spatial resolution of MRIs is pretty good - on the order of a millimeter; but the temporal resolution of MRIs is rather large - on the order of several seconds. The speed of _thought_ is much faster than the speed of an MRI.
