@@ -20,7 +20,7 @@ Despite the fact that EEGs are limited in spatial resolution, I am still very in
 
 <figure>
     <img src='/assets/lorenz_attractor.gif' alt='missing' class="centered"/>
-    <figcaption><a href="https://en.wikipedia.org/wiki/Lorenz_system">A Lorenz Attractor</a>)</figcaption>
+    <figcaption><a href="https://en.wikipedia.org/wiki/Lorenz_system">A Lorenz Attractor</a></figcaption>
 </figure>
 
 The Lorenz Attractor is a type of system called a strange attractor. Well, backing up a bit, an attractor is a mathematical construct. It is a set of points that a dynamic system is destined to converge upon as time increases. ([Checkout the Wikipedia page](https://en.wikipedia.org/wiki/Attractor).) But with a _strange_ attractor like the Lorenz attractor above, the dynamic system doesn't settle down on any final position or loop, but it can do strange things like flip-flopping between two patterns as shown above, or orbiting in a region of space without actually ever converging, also shown above.
