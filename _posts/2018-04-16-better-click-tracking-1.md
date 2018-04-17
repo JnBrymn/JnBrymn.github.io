@@ -14,7 +14,9 @@ This is the first in a series of blog posts where we will examine how a more sop
 ## Meet Milton Acme, the Founder and CEO of Acme Plumbing
 
 > **Milton Acme, Founder/CEO:** Howdy! I'm Milton Acme, Founder and CEO of ACME Plumbing and it's high time that we joined the ranks of our competitors and became part of the computer-net-world.
+>
 > **Me:** Uh... the Internet. Right. So I've got a pretty extensive history working with companies like yo...
+>
 > **Milton Acme, Founder/CEO:** And here's how we're going to do it! Introducing *ACME Thing-o-the-Moment!!*
 
 Milton asks his secretary to pull up their home page and then points a fat finger at the screen.
@@ -26,12 +28,19 @@ Milton asks his secretary to pull up their home page and then points a fat finge
 It might be _the_ dumbest application I've ever seen. You go to the website, click the "Show Me a Thing" button and *poof!* you are shown a random item in the catalog. Wanna buy it? Then click the "Buy Now" button.
 
 > **Milton Acme, Founder/CEO:** This has been running for weeks now. But the idiot programmers I fired last week just weren't showing the right products. And that's why I called you. I heard you have some special, click tracking contraption and I want you to deploy it for ACME Plumbing.
+>
 > **Me:** Sure, yeah, but this is a ridiculous interface. Why don't you invest in a search app like a normal e-commerce company.
+>
 > **Milton Acme, Founder/CEO:** Non-sense! We are on the World-Wide-Web. Corporate domination is at hand.
+>
 > **Me:** Yeah but, how do your customers find what...
+>
 > **Milton Acme, Founder/CEO:** ...This is a new day! The world is our oyster!
+>
 > **Me:** But let's say I want to buy a toilet seat. How...
+>
 > **Milton Acme, Founder/CEO:** With the power of the inter-nets we will catch more fish than ever. And by "fish" I mean customers. Sales, my boy! _Sales!_
+>
 > **Me:** \<stunned silence\>
 
 So I get to work. We start logging all of the views and all of the clickthrough. The two tables look like this:
@@ -164,8 +173,11 @@ Given these metrics, we will find all the items that have _significantly_ higher
 ## Milton is Pleased!
 
 > **Milton Acme, Founder/CEO:** My boy! You done us good with your work so far...
+>
 > **Me:** Please don't call me "boy", Mr. Acme.
+>
 > **Milton Acme, Founder/CEO:** ...but I've got bigger plans for Acme Plumbing. And Jim, _you_ are the key to getting us there.
+>
 > **Me:** Thank you! I guess. ... And my name's John.
 
 Despite the quirky nature of this project, it demonstrates some of the basic ideas of how to gather logs and extract statistics so that we can estimate the "strength" of an item relative to the rest of the catalog. We measure statistically significance so that we know how confident we can be in the strength values.
