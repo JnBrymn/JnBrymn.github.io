@@ -81,7 +81,7 @@ GROUP BY product_id
 
 resulting in:
 
-| cnt | product_id |
+| product_id | cnt |
 |:----------:|:----------:|
 | presto_plunger | 88 |
 | toilet_seat | 41 |
@@ -127,7 +127,9 @@ But look closer, there's still more to be uncovered here. Check out the clickthr
 
 ## Promoting Items with _Statistically Significant_ Clickthrough
 
-In order to deal with the shiny faucet problem we need to introduce one more piece of information - the overall clickthrough rate across the entire catalog. If we roll up the previous result set...
+So here's where the magic happens. We know that we can't just promote the items with the highest click count otherwise we would promote the Presto Plunger which has the highest click count merely because it's been shown 20 times more than any other item. And we know that we can't just promote the items with the highest clickthrough rate because occasionally you'll get items like the shiny faucet that have superficially high clickthrough rate simply because they've been viewed a few times and one of those times got a click.
+
+Our goal then is to identify the items that we are _confident_ really do have a higher-than-normal clickthrough rate. And in order to identify these items we introduce one more piece of information - the overall clickthrough rate. If we roll up the previous result set across all items in the catalog...
 
 ```
 SELECT
@@ -144,11 +146,9 @@ GROUP BY product_id
 
 ...then we see that the overall clickthrough rate across all products is 5.3%.
 
-So here's where the magic happens. We know that we can't just promote the items with the highest click count otherwise we would promote the Presto Plunger which has the highest click count merely because it's been shown 20 times more than any other item. And we know that we can't just promote the items with the highest clickthrough rate because occasionally you'll get items like the shiny faucet that have superficially high clickthrough rate simply because they've been viewed a few times and one of those times got a click.
+With the overall clickthrough rate we can now identify items whose clickthrough rates are _significantly_ higher than the overall clickthrough rate. And here we mean _significant_ in a _statistical_ sense. What we're talking about here is effectively A/B testing the performance of each individual product against the average performance across all the products.
 
-The trick is to identify items whose clickthrough rates are _significantly_ higher than the overall clickthrough rate. And here we mean _significant_ in a _statistical_ sense. What we're talking about here is effectively A/B testing the performance of each individual product against the average performance across all the products.
-
-Let's take a look at what this means in the case of the shiny faucet and the toilet seat. The shiny faucet had three views and one click. If the _true_ clickthrough rate is 5.3% (the "null hypothesis"), then is seeing a 33.3% clickthrough rate (just one click) significant or not? Well if you have 3 views, then there are only 4 possible outcomes: 0 clicks, 1 click, 2 clicks, or 3 clicks. And since we know that the associated probabilities follow a [binomial distribution](https://en.wikipedia.org/wiki/Binomial_distribution) with n=3 and p=0.053, then we know that the probabilities for each possible outcome is as follows:
+Let's take a look at how we would determing statistical significance in the case of the shiny faucet. The shiny faucet has three views and one click. If the _true_ clickthrough rate is just the same as the overall clickthrough rate, 5.3%, (the "null hypothesis"), then is seeing a 33.3% clickthrough rate (just one click) significant or not? Well if you have 3 views, then there are only 4 possible outcomes: 0 clicks, 1 click, 2 clicks, or 3 clicks. And since we know that the associated probabilities follow a [binomial distribution](https://en.wikipedia.org/wiki/Binomial_distribution) with n=3 and p=0.053, then we know that the probabilities for each possible outcome is as follows:
 
 | outcome | probability of getting _exactly_ this many clicks | probability of getting _at least_ this many clicks |
 |:-------:|:-----------:|:---------------------------------------------------|
@@ -157,9 +157,9 @@ Let's take a look at what this means in the case of the shiny faucet and the toi
 | 2 clicks | 0.0079 | 0.0081 |
 | 3 clicks | 0.0002 | 0.0002 |
 
-So if the actual clickthrough rate is 5.3%, then likelihood of getting 1 or more clicks is ~15%. This result is not that significant at all. This means that the shiny faucet might just be a pretty normal item and we won't know for sure until we see some more views and clicks.
+So if the actual clickthrough rate is 5.3%, then likelihood of getting 1 or more clicks is ~15%. This result is not that significant at all. This means that the shiny faucet might be a pretty normal item but we won't know for sure until we see some more views and clicks.
 
-On the other hand let's look at that toilet seat which was clicked 41 out of the 379 times it was viewed for a clickthrough rate of 10.8%. That's over 2 times better clickthrough rate than the average item. And by applying the exact same analysis as above (though with a list of 380 possible outcomes) we see that the probability of getting 41 or more clicks just by chance is miniscule - roughly 0.0015%! That's one fancy toilet seat! Let's promote it!
+On the other hand let's look at that toilet seat which was clicked 41 out of the 379 times it was viewed for a clickthrough rate of 10.8%. That's 2.04 times better clickthrough rate than the average item. And by applying the exact same analysis as above (though with a list of 380 possible outcomes) we see that the probability of getting 41 or more clicks just by chance is minuscule - roughly 0.0015%! This is very statistically significant! Let's promote the toilet seat!
 
 ## Implementation
 
