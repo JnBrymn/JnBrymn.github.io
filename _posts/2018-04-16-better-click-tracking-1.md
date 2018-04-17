@@ -180,9 +180,9 @@ Given these metrics, we will find all the items that have _significantly_ higher
 >
 > **Me:** Thank you! I guess. ... And my name's John.
 
-Despite the quirky nature of this project, it demonstrates some of the basic ideas of how to gather logs and extract statistics so that we can estimate the "strength" of an item relative to the rest of the catalog. We measure statistically significance so that we know how confident we can be in the strength values.
+Despite the quirky nature of this project, it demonstrates some of the basic ideas of how to gather logs and extract statistics so that we can estimate the "strength" of an item relative to the rest of the catalog. We can also measure statistically significance so that we know how confident we can be in those strength values.
 
-From here we can start doing more complicated and interesting things. In upcoming posts I will extend what we learned here to ordered sets of results like you would see in a real search application. Later we will update our techniques further to understand the strength of items within individual queries. And finally we will show that this same set of data can be used for building judgement lists, which opens up the possibility of learning-to-rank.
+From here we can start doing more complicated and interesting things. In upcoming posts I will extend what we learned here to ordered sets of results like you would see in a real search application. Later we will update our techniques further to understand the strength of items within individual queries. And finally we will show that this same set of data can be used for building judgement lists, which opens up the possibility of [learning-to-rank](https://en.wikipedia.org/wiki/Learning_to_rank).
 
 Till then, thanks for reading!
 
