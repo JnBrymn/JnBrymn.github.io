@@ -3,7 +3,7 @@ layout: post
 title: Will Acuff on Building Relationship and Improving Communities 
 ---
 
-Today I had a Penny Chat with Will Acuff discussing how organizations can form relationships with communities. Will should know, he and his wife Tiffany founded [Corner toCorner|cornertocorner.org] a group that made huge inroads into helping underprivileged communities in Nashville. The reason that I want to learn about this is because my church, ([New Garden Church](http://newgarden.church/)), is making a concerted effort right now to better connect to _our_ community. In some ways we are positioned perfectly to do this - our church services are in [Dupont Tyler Middle School](https://schools.mnps.org/dupont-tyler-middle-prep/#about). However we have yet to make meaningful relationships with the people in our community _outside_ of our congregation. So we're looking for help!
+Today I had a Penny Chat with Will Acuff discussing how organizations can form relationships with communities. Will should know, he and his wife Tiffany founded [Corner toCorner](cornertocorner.org) a group that made huge inroads into helping underprivileged communities in Nashville. The reason that I want to learn about this is because my church, ([New Garden Church](http://newgarden.church/)), is making a concerted effort right now to better connect to _our_ community. In some ways we are positioned perfectly to do this - our church services are in [Dupont Tyler Middle School](https://schools.mnps.org/dupont-tyler-middle-prep/#about). However we have yet to make meaningful relationships with the people in our community _outside_ of our congregation. So we're looking for help!
 
 ## The Story of Corner to Corner
 
