@@ -19,7 +19,7 @@ After dinner Meg was ready to go.
 
 We left out on the 4 wheeler as it was getting dark. The weather was cool but not unpleasant. After settling into the Castle, unrolling our sleeping bag, and getting Meg ready for bed we heard someone approaching - Hey! It was Daddy Berry! (That's my dad.) He popped in told us a quick bedtime story (_The Little Red Hen with the Yellow Feet_ - a Berryman family classic) and dropped off his fleece coat just in case we needed it.
 
-At first things went quite well. Meg zonked out immediately after Daddy Berry left. And I got to work finishing off [a blog post]({{ site.baseurl }}{% post_url 2018-04-30-haystack-highlights %}). As an aside, technical writing inside of a Castle in the Sky in the middle of the boondocks is a blast. The only distraction was Meg's snoring (she gets if from her mama). I did notice that it starting to get kinda chilly. 
+At first things went quite well. Meg zonked out immediately after Daddy Berry left. And I got to work finishing off [a blog post]({{ site.baseurl }}{% post_url 2018-04-30-haystack-highlights %}). As an aside, technical writing inside of a Castle in the Sky in the middle of the boondocks is a blast. The only distraction was Meg's snoring (she gets if from her mama). I did notice that it started to get kinda chilly. 
 
 At roughly midnight I decided to turn it in. I crawled into our sleeping bag and immediately noticed a problem: we didn't quite fit. Now if Meg were a normal human then we might have had a shot. But nope, she's a 3 year old. And when a 3 year old gets cold they apparently sit criss-cross-applesauce and then lay down on top of their own legs. So Meg was now a very hard, bony lump taking up _more than her fair share_ of the sleeping bag.
 
