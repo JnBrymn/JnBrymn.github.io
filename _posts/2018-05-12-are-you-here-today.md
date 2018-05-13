@@ -3,7 +3,11 @@ layout: post
 title: Are You Here Today?
 ---
 
-A notification popped up on my Slack messenger at work; it was from Mary, our office administrator. _"Are you here today?"_ Now Mary has an interesting side career, she's a yoga instructor. But she is not a yoga instructor of the common, everyday, throw-your-leg-over-your-head variety. Rather she prefers to instruct in the more ancient and traditional notions of yoga - notions that include the physical practice but are also related to meditation and to philosophical detachment from the more selfish aspects of the ego. Given that, and the fact that her yoga practice had come up in conversation recently, I decided to poke at the question "Are you here today?":
+A notification popped up on my Slack messenger at work; it was from Mary, our office administrator. 
+
+> Are you here today?
+
+Now Mary has an interesting side career, she's a yoga instructor. But she is not a yoga instructor of the common, everyday, throw-your-leg-over-your-head variety. Rather she prefers to instruct in the more ancient and traditional notions of yoga - notions that include the physical practice but are also related to meditation and to philosophical detachment from the more selfish aspects of the ego. Given that, and the fact that her yoga practice had come up in conversation recently, I decided to poke at the question "Are you here today?":
 
 > Now that's a rather deep question don't you think?
 
