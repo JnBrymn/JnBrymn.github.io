@@ -7,7 +7,7 @@ A notification popped up on my Slack messenger at work; it was from Mary, our of
 
 > Now that's a rather deep question don't you think?
 
-Moments later Mary arrived at my desk with a copy of the [Bhagavad Gita|https://en.wikipedia.org/wiki/Bhagavad_Gita]. Ha! I'd poked fun at her, but she was actually planning to lend me a copy of a book that delves into why this actually _is_ a deep question.
+Moments later Mary arrived at my desk with a copy of the [Bhagavad Gita](https://en.wikipedia.org/wiki/Bhagavad_Gita). Ha! I'd poked fun at her, but she was actually planning to lend me a copy of a book that delves into why this actually _is_ a deep question.
 
 So this really got me thinking. "Are you here today?" When you get right down to it, it _really is_ a deep question! All four words in that expression belie pretty foundational metaphysical assumptions that we casually brush over in everyday life. These assumptions are _so_ deeply internalized that we can ask the question "Are you here today?" with no recognition that any word is really a sort of assumption at all.
 
