@@ -1,23 +1,21 @@
 ---
 layout: post
-title: Load Testing Elasticsearch Using Python `asyncio` and the Slow Log
+title: Load Testing Elasticsearch Using Python asyncio and the Slow Log
 ---
-# Load Testing Elasticsearch by Replaying Slow Logs
+Over the past couple of days I've been reading over Yeray Diaz's wonderful blog posts on python3 `asyncio` ([_AsyncIO for the Working Python Developer_](https://hackernoon.com/asyncio-for-the-working-python-developer-5c468e6e2e8e) and [_Asyncio Coroutine Patterns: Beyond await_](https://medium.com/python-pandemonium/asyncio-coroutine-patterns-beyond-await-a6121486656f)) and I decided to see if I could come up with some sort of Elasticsearch load testing framework.
 
-I found a neat idea in Florian Hopfs blog [_Logging Requests to Elasticsearch_](http://blog.florian-hopf.de/2016/03/logging-requests-to-elasticsearch.html)
-
-If you set all of the slow log thresholds to 0s then you will log all of the traffic coming through elasticsearch in its entirety.
+Soon after directing my attention to Elasticsearch I ran across a neat idea in Florian Hopf's blog post [_Logging Requests to Elasticsearch_](http://blog.florian-hopf.de/2016/03/logging-requests-to-elasticsearch.html): If you set all of the slow log thresholds to 0s then you will log all of the traffic coming through elasticsearch in its entirety.
 ```yaml
 index.search.slowlog.threshold.query.debug: 0s
 index.search.slowlog.threshold.fetch.debug: 0s
 index.indexing.slowlog.threshold.index.debug: 0s
 ```
 
-So for the rest of this post let's assume that you have set the slow loggers to 0s and recorded 100% of production traffic for an hour for all of your elasticsearch servers.
+So I came up with a goal for learning `asyncio` and making something useful in the process:
 
-And I combined this with my newfound knowledge of Python3's asyncio library (thanks largely to Yeray Diaz's posts [_AsyncIO for the Working Python Developer_](https://hackernoon.com/asyncio-for-the-working-python-developer-5c468e6e2e8e) and [_Asyncio Coroutine Patterns: Beyond await_](https://medium.com/python-pandemonium/asyncio-coroutine-patterns-beyond-await-a6121486656f)). The end result is a simple Elasticsearch load tester that replays the requests from the slow log file.
+> Make an `asyncio`-powered Elasticsearch load test utility that consumes production traffic from the slow log and plays it back as requests to a test cluster 
 
-Here's how you run it:
+And after bumping my head on the desk for a few days, I actually built it! Here's how you run it:
 
 ```bash
 $ source activate your_python_3.7_environment
@@ -78,7 +76,7 @@ The `accumulator_information` is the information collected and summarized by `El
 
 So long as your computer can keep up with the load (e.g. the `seconds_behind` should remain near 0) then it makes a lot of sense to spin up several runs like this on one machine. In principle each load simulation would be responsible for replaying the log file from one of the production servers to a clone test cluster.
 
-## Still to do
+## Still To Do
 
 There are plenty of things we can do to improve the current code.
 
@@ -97,3 +95,7 @@ There are plenty of things we can do to improve the current code.
   * Connecting the thing to a neat-o aiohttp-based web app that will let you control the runs.
   * Updating charts and graphs in the web app.
   * Coordination across machines for massively distributed load testing.
+
+## Wanna Help?
+
+If you think this a neat idea, lemme know! I'd love advice on the `asyncio`, the Elasticsearch, or anything else. Send me pull requests or ping me on Twitter @JnBrymn. 
