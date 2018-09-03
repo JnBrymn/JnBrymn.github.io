@@ -26,7 +26,7 @@ Given the specified log file, `load_tester.py` parses the log lines, pulls out t
 
 ## Internal Design
 
-The design is composed of 4 classes: 
+The design is composed of 5 classes: 
 
 * `ElasticsearchRequestLogParser` - This takes a slow log file and parses out the requests(the URL, the JSON body, and the timestamp) and wraps this in the `Request` object below.
 * `LoadTester` - This is the central class, it:
