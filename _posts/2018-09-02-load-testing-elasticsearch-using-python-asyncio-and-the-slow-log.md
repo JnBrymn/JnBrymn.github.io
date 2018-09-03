@@ -15,7 +15,7 @@ So I came up with a goal for learning `asyncio` and making something useful in t
 
 > Make an `asyncio`-powered Elasticsearch load test utility that consumes production traffic from the slow log and plays it back as requests to a test cluster 
 
-And after bumping my head on the desk for a few days, I actually built it! Here's how you run it:
+And after bumping my head on the desk for a few days, I actually built it! [Check it out! Here is the script.](https://github.com/JnBrymn/async_log_replay/blob/master/load_tester.py) And here's how you run it:
 
 ```bash
 $ source activate your_python_3.7_environment
