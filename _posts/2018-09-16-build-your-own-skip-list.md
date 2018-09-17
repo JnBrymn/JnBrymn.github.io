@@ -96,7 +96,11 @@ class SkipList():
                 node = node.down
             else:
                 if self.verbose:
-                    messages.append('\tadding {} after {}'.format(value, node))
+                    messages.append(
+                        '\tadding {} after {}'.format(
+                            value, node
+                        )
+                    )
                 break
            
         # insert new node
@@ -116,7 +120,8 @@ class SkipList():
         while True:
             if random.random() > self.up_prob:
                 # extend upwards
-                projection_node = Node('s' + str(self.index));self.index += 1
+                projection_node = Node('s' + str(self.index))
+                self.index += 1
                 low_node.up = projection_node
                 projection_node.down = low_node
                 
@@ -136,9 +141,14 @@ class SkipList():
                         right_node.left = projection_node
                 else:
                     # we are projecting higher than the head node, so make a new head and a new lane
-                    new_head = Node('s' + str(self.index));self.index += 1
+                    new_head = Node('s' + str(self.index))
+                    self.index += 1
                     if self.verbose:
-                        messages.append('\tpointing new_head {} to new projection_node {}'.format(new_head, projection_node))
+                        messages.append(
+                            '\tpointing new_head {} to new projection_node {}'.format(
+                                new_head, projection_node
+                            )
+                        )
                     projection_node.left = new_head
                     new_head.right = projection_node
                     new_head.down = self.head
@@ -170,7 +180,11 @@ class SkipList():
             left = node.left
             right = node.right
             if self.verbose:
-                messages.append('\tconnecting {} to {}'.format(left, right))
+                messages.append(
+                    '\tconnecting {} to {}'.format(
+                        left, right
+                    )
+                )
 
             if left:
                 left.right = right
@@ -360,4 +374,4 @@ This is the exact same data as the first performance plot, but this time plotted
 
 ## Conclusion
 
-Despite the poor performance of _my_ skip list for low cardinality lists, I still think this data structure is pretty amazing. I'm sure that I (or someone much smarter than me) could reimplement the skip list in c and get much better performance than I. I'm confident of this because otherwise the skip list wouldn't have found such favor among data store builders. The skip list [features prominently in many data stores that I'm sure you've heard of](https://en.wikipedia.org/wiki/Skip_list#Usages): Cassandra, Lucene (e.g. Solr and Elasticsearch), Redis, HBase, and leveldb just to name a few. 
+Despite the poor performance of _my_ skip list for low cardinality lists, I still think this data structure is pretty amazing. I'm sure that I (or someone much smarter than me) could reimplement the skip list in c and get much better performance. I'm confident of this because otherwise the skip list wouldn't have found such favor among data store builders. The skip list [features prominently in many data stores that I'm sure you've heard of](https://en.wikipedia.org/wiki/Skip_list#Usages): Cassandra, Lucene (e.g. Solr and Elasticsearch), Redis, HBase, and leveldb just to name a few. 
