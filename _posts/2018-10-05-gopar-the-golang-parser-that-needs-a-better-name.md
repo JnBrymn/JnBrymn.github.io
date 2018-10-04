@@ -2,9 +2,9 @@
 layout: post
 title: Gopar - The Golang Parser that Needs a Better Name
 ---
-A while back I built a PEG (Parsing Expression Grammer) parser in golang. I wasn't blogging at the time, so the idea slipped under the radar. Here's a link to the codebase: https://github.com/JnBrymn/gopar
+A while back I built a PEG (Parsing Expression Grammer) parser in golang. I wasn't blogging at the time, so the idea slipped under the radar. [Here's a link to the codebase.](https://github.com/JnBrymn/gopar)
 
-And here I am using the parser API to build a JSON parser
+And here I am using the parser API to build a JSON parser. If you've ever dealt with parsers, I think this reads pretty clearly!
 
 ```go
 	digit := OneOfChars("0123456789").Rename("Digit")
