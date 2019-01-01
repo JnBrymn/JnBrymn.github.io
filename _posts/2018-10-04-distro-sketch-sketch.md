@@ -155,7 +155,7 @@ Let's zoom in on the more extreme portions of the distribution greater or equal 
     <img src='/assets/distro-sketch-sketch/exponential_value_error_closeup.png' alt='exponential value error closeup' class="centered"/>
 </figure>
 
-We see that all the way up until the 99.94th percentile the absolute error is less than about 0.2 - not bad considering that the 99.94th percentile value is 7.42. And the worst we ever see is 0.45 out past the 99.99th percentile.
+We see that all the way up until the 99.94th percentile the absolute error is less than about 0.2 - not bad considering that the 99.94th percentile value is 7.42. And the worst we ever see is 0.37 past the 99.96th percentile.
 
 ### Flexible and Assumes No Prior Knowledge
 The Distro Sketch has some interesting properties that make it naturally quite flexible and accurate while using a small amount of memory. Namely, when removing a point, we find the point that, if removed, will contribute least to increasing the area within the distribution bounds. This has several implications.

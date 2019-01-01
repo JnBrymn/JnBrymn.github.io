@@ -11,8 +11,8 @@ title:            Thought Box
 tagline:          'A random walk'
 description:      'Life on the Pareto Frontier'
 url:              http://blog.jnbrymn.com
-baseurl:          http://blog.jnbrymn.com/
-#baseurl:          /
+#baseurl:          http://blog.jnbrymn.com/
+baseurl:          /
 
 author:
   name:           'John Berryman'
