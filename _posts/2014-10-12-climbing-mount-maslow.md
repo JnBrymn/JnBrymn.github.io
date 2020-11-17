@@ -21,7 +21,7 @@ But ah, at the top of the hierarchy, that's where we really want to spend our ti
 
 ## Lowering the Apex
 
-When Sir Edmund Hillary climbed Mount Everest, I bet it never occurred to him that the easiest way to reach the summit might just be to pull the summit down towards him. This is silly of course, but when you're mountain is made of ideas, you should consider this as a real possibility! So, let's look at our approach in conquering Mount Maslow.
+When Sir Edmund Hillary climbed Mount Everest, I bet it never occurred to him that the easiest way to reach the summit might just be to pull the summit down towards him. This is silly of course, but when your mountain is made of ideas, you should consider this as a real possibility! So, let's look at our approach in conquering Mount Maslow.
 
 Let's start at the bottom on the Physiological level. Obviously you're not going to get very far by cutting out breathing, eating, and drinking. And I've tried at several points in my life to cut out sleep, but this doesn't work for long! Rather than cutting things out of this level, I think we can bolster ourselves here so that we'll be better prepared for the rest of the trek. The answer is simple: do things that promote physical wellbeing. Make wise decisions regarding the food you eat. Stay hydrated. Sleep.
 
