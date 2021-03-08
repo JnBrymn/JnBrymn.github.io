@@ -80,9 +80,11 @@ This ability to move between different rates that lead to the same CEWMA is the 
 
 We now have all the theoretical pieces required to build our Recent Average Rate Limiter. Our algorithm requires us to track 2 values, the time of the last update  $$T$$, and the "impulse size" $$N$$, which is basically our assumption that the all of the requests leading to the calculated CEWMA came in at time $$T$$. There are 4 methods for our rate limiter `initialize`, `update`, `evaluate`, and `rate_limited`:
 
-`initialize` - We set $$T_0$$ and $$N_0$$ to 0.
+#### `initialize`
+We set $$T_0$$ and $$N_0$$ to 0.
 
-`update` - For the first update we just set $$N_1=1$$ and $$T_1$$ to now (UNIX timestamp). For all subsequent updates $$T_{i-1}$$ corresponds to the last time a request came, and $$N_{i-1}$$ is some number representing how many requests were assumed to come at that moment. As in the examples at the end of the last section, we calculate the CEWMA of $$N_{i-1}}$$ request happening at $$T_{i-1}$$ plus 1 request (the new one) happening now. Given this CEWMA, we can find $$N_i$$ such that $$N_i$$ requests happening now has the same CEWMA:
+#### `update`
+For the first update we just set $$N_1=1$$ and $$T_1$$ to now (UNIX timestamp). For all subsequent updates $$T_{i-1}$$ corresponds to the last time a request came, and $$N_{i-1}$$ is some number representing how many requests were assumed to come at that moment. As in the examples at the end of the last section, we calculate the CEWMA of $$N_{i-1}}$$ request happening at $$T_{i-1}$$ plus 1 request (the new one) happening now. Given this CEWMA, we can find $$N_i$$ such that $$N_i$$ requests happening now has the same CEWMA:
 
 $$
 \begin{matrix}
@@ -99,7 +101,8 @@ $$
 
 $$T_i$$ is much simpler; we just set it to now.
 
-`evaluate` - This is similar to `update` but we convert from a single impulse representation of the CEWMA to a constant rate representation:
+#### `evaluate`
+This is similar to `update` but we convert from a single impulse representation of the CEWMA to a constant rate representation:
 
 $$
 \begin{matrix}
@@ -116,7 +119,9 @@ $$
 
 It's important to note that this rate is the "weird continuous rate" we talked about earlier which jars with the reality of discrete requests. However, as we'll see shortly, the continuous rate ends up being a good approximation to reality.
 
-`rate_limited` - This is simple, if if the CEWMA is higher than the max allowed request rate, then `rate_limited` returns true, otherwise false. 
+#### `rate_limited`
+
+This is simple, if if the CEWMA is higher than the max allowed request rate, then `rate_limited` returns true, otherwise false. 
 
 There's one bit we haven't discussed. How do you set $$\lambda$$? The most intuitive way is to think about the desired halflife for the CEWMA. Looking at the `evaluate` equation, you can see that if no more request are made after the last request, then the CEWMA value will decay exponentially. It can be shown that setting $$\lambda = -\text{ln}(0.5)/(\text{desired halflife})$$ will achieve the desired effect.
 
@@ -150,7 +155,7 @@ Boy, that was a lot of math mumbo jumbo to arrive at a relatively simple algorit
 ## Does it Really Work?
 * decays to zero if there are no inputs
 * asymptotic convergence - A steady train converges to a(1/(1-e^(?)))  - if halflife is large then this converges to exact solution 
-* if you really wanted to, you could
+* if you really wanted to, you could convert the the representation of an evently spaced train of discrete requests - but where do you put the offset - a NOW or at one timestamp away. It can be shown that the continuous rate is between these numbers, so I stick with that.
 
 
 ## Demo Time
@@ -169,6 +174,7 @@ Reread intro first
 * instead of TTL, LRU expire them and completely forego 
 * https://redis.io/topics/quickstart
 * https://www.compose.com/articles/a-quick-guide-to-redis-lua-scripting/
+* OBJECT IDELTIME https://github.com/redis/redis/issues/1258
 
 
 ## Disclaimers
