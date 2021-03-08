@@ -56,7 +56,7 @@ Since the integral of a weight function is 1, all that is left is $$r$$.
 
 If you're reading carefully, you might notice something weird about the rate function - it's continuous. What does it mean to have a rate of 0.6 requests per second? You can't do partial requests. Even though this feels non-intuitive, it is a generalization of the more realistic scenario where requests come in as discrete units. To demonstrate that you can still represent the more familiar case we need to introduce the idea of an "impulse" (also known as the [Dirac delta function](https://mathworld.wolfram.com/DeltaFunction.html)). An impulse is the application of an _infinitely_ high rate for an _infinitesimally_ short period of time. However the integral of impulse is finite. Whenever you make a request, what you're doing is creating an impulse in the request rate. In an instant the request rate goes infinitely high because it didn't take you a second to submit that request (which would be 1 request per second), it didn't take you a millisecond (which would be 1000 requests per second), it took the twinkling of an eye (which is one request per twinking). But once that moment passed, the actual _number_ of requests that you made (the integral of the rate) was just 1. (Ok, so that's a little difficult to justice in a single paragraph. Contact me on Twitter and I'll set up a time to explain it more clearly.)
 
-An impulse of size $$N$$ (e.g. N requests in this case) and at some time $$T$$ is represented as `N\delta(t-T)`. And the CEWMA of this impulse function is
+An impulse of size $$N$$ (e.g. N requests in this case) and at some time $$T$$ is represented as $$N\delta(t-T)$$. And the CEWMA of this impulse function is
 
 $$
 \int_{-\infty}^{0}w(t) \cdot N\delta(t-T)= N \cdot w(T) = N\lambda  e^{\lambda T}
@@ -84,7 +84,7 @@ We now have all the theoretical pieces required to build our Recent Average Rate
 We set $$T_0$$ and $$N_0$$ to 0.
 
 #### `update`
-For the first update we just set $$N_1=1$$ and $$T_1$$ to now (UNIX timestamp). For all subsequent updates $$T_{i-1}$$ corresponds to the last time a request came, and $$N_{i-1}$$ is some number representing how many requests were assumed to come at that moment. As in the examples at the end of the last section, we calculate the CEWMA of $$N_{i-1}}$$ request happening at $$T_{i-1}$$ plus 1 request (the new one) happening now. Given this CEWMA, we can find $$N_i$$ such that $$N_i$$ requests happening now has the same CEWMA:
+For the first update we just set $$N_1=1$$ and $$T_1$$ to now (UNIX timestamp). For all subsequent updates $$T_{i-1}$$ corresponds to the last time a request came, and $$N_{i-1}$$ is some number representing how many requests were assumed to come at that moment. As in the examples at the end of the last section, we calculate the CEWMA of $$N_{i-1}$$ request happening at $$T_{i-1}$$ plus 1 request (the new one) happening now. Given this CEWMA, we can find $$N_i$$ such that $$N_i$$ requests happening now has the same CEWMA:
 
 $$
 \begin{matrix}
