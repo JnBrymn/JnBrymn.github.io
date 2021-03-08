@@ -59,10 +59,10 @@ If you're reading carefully, you might notice something weird about the rate fun
 An impulse of size $$N$$ (e.g. N requests in this case) and at some time $$T$$ is represented as `N\delta(t-T)`. And the CEWMA of this impulse function is
 
 $$
-\int_{-\infty}^{0}w(t) \cdot N\delta(t-T)= N \cdot w(T) = N\lambda \exp^{\lambda T}
+\int_{-\infty}^{0}w(t) \cdot N\delta(t-T)= N \cdot w(T) = N\lambda  e^{\lambda T}
 $$ 
 
-If the time of the impulse is $$T=0$$ then you can simplify this even more to $$N\lambda$$. Finally, impulses add linearly, so the CEWMA for $$N_1$$ requests occurs simultaneously at $$T_1$$ and $$N_2$$ requests occuring at $$T_2$$ is $$N_1\lambda \exp^{\lambda T_1} + N_2\lambda \exp^{\lambda T_2}$$.
+If the time of the impulse is $$T=0$$ then you can simplify this even more to $$N\lambda$$. Finally, impulses add linearly, so the CEWMA for $$N_1$$ requests occurs simultaneously at $$T_1$$ and $$N_2$$ requests occuring at $$T_2$$ is $$N_1\lambda  e^{\lambda T_1} + N_2\lambda  e^{\lambda T_2}$$.
 
 The last thing to notice is that there are many possible rate functions that can lead to the same CEWMA value. For example, let's say that $$\lambda = 0.07$$, then a request that just arrived (e.g. and impulse of size 1 at time 0) would have the same CEWMA as the constant application of 0.07 requests per second. This would also have the same CEWMA as 2 request occurring simultaneously 9.9 seconds ago.
 
@@ -70,7 +70,7 @@ $$
 \begin{matrix}
 \text{CEWMA of one request just now} &=& 1 \cdot \lambda &=& 0.07 \\
 \text{CEWMA constant rate} &=& r &=& 0.07 \\
-\text{CEWMA of 2 requests 9.9 seconds ago} &=& 2\cdot \lambda \exp^{-9.9\lambda} &=& 0.07 \\
+\text{CEWMA of 2 requests 9.9 seconds ago} &=& 2\cdot \lambda  e^{-9.9\lambda} &=& 0.07 \\
 \end{matrix}
 $$
 
@@ -86,7 +86,7 @@ We now have all the theoretical pieces required to build our Recent Average Rate
 
 $$
 \begin{matrix}
-\text{CEWMA of } N_{i-1} \text{ requests at } T_{i-1} \text{ and 1 more just now } &=&  N_{i-1}\cdot \lambda \exp^{\lambda(T_{i-1}-now)} + 1 \cdot \lambda  \\
+\text{CEWMA of } N_{i-1} \text{ requests at } T_{i-1} \text{ and 1 more just now } &=&  N_{i-1}\cdot \lambda  e^{\lambda(T_{i-1}-now)} + 1 \cdot \lambda  \\
 \text{CEWMA of } N_{i} \text{ requests just now } &=&  N_{i}\cdot \lambda  \\
 \end{matrix}
 $$
@@ -94,7 +94,7 @@ $$
 Setting both of these equations equal and solving for $$N_i$$ we arrive at $$N$$'s update equation.
 
 $$
-N_i = 1 + N_{i-1} \exp^{\lambda(T_{i-1}-now)}
+N_i = 1 + N_{i-1}  e^{\lambda(T_{i-1}-now)}
 $$
 
 $$T_i$$ is much simpler; we just set it to now.
@@ -103,7 +103,7 @@ $$T_i$$ is much simpler; we just set it to now.
 
 $$
 \begin{matrix}
-\text{CEWMA of } N_{i} \text{ requests at } T_{i} &=&  N_{i}\cdot \lambda \exp^{\lambda(T_{i}-now)}  \\
+\text{CEWMA of } N_{i} \text{ requests at } T_{i} &=&  N_{i}\cdot \lambda  e^{\lambda(T_{i}-now)}  \\
 \text{CEWMA of a constant request rate } &=&  r  \\
 \end{matrix}
 $$
@@ -111,30 +111,46 @@ $$
 So the evaluation is 
 
 $$
-r = N_{i}\cdot \lambda e^{\lambda(T_{i}-now)}
+CEWMA = r = N_{i}\cdot \lambda e^{\lambda(T_{i}-now)}
 $$
 
+It's important to note that this rate is the "weird continuous rate" we talked about earlier which jars with the reality of discrete requests. However, as we'll see shortly, the continuous rate ends up being a good approximation to reality.
 
+`rate_limited` - This is simple, if if the CEWMA is higher than the max allowed request rate, then `rate_limited` returns true, otherwise false. 
 
-***********START HERE*******
-  
-  
-  `evaluate`, and `rate_limited`:
- 
- came in right now.
+There's one bit we haven't discussed. How do you set $$\lambda$$? The most intuitive way is to think about the desired halflife for the CEWMA. Looking at the `evaluate` equation, you can see that if no more request are made after the last request, then the CEWMA value will decay exponentially. It can be shown that setting $$\lambda = -\text{ln}(0.5)/(\text{desired halflife})$$ will achieve the desired effect.
 
+## In Code
 
-* initialize -> 0 time and 0 state
-* update -> initially you just track that the first update happened at what time; the next update gets smooshed into "what if everything happened as an impulse now" - emphasis "we need just one number and a time" 
-* evaluation -> considering the last impulse size N happened T seconds ago, the corresponding constant rate is 
+The end result in Python looks like this:
 
-* how do you set lambda -- by choosing halflife
+```python
+class RecentAverageRateLimiter:
+    def __init__(self, halflife, rate_limit):
+        self.N = 0
+        self.T = 0
+        self.lambd = -math.log(0.5)/halflife
+        self.rate_limit = rate_limit
+        
+    def update(self, num_hits, now_timestamp):
+        delta_t = self.T - now_timestamp
+        self.N = num_hits + self.N*math.exp(self.lambd*delta_t)
+        self.T = now_timestamp
+        
+    def evaluate(self, now_timestamp):
+        delta_t = self.T - now_timestamp
+        return self.N*self.lambd * math.exp(self.lambd*delta_t)
+    
+    def rate_limited(self, now_timestamp):
+        return self.cewma.evaluate(now_timestamp) > self.rate_limit
+```
 
-* Here's the code
+Boy, that was a lot of math mumbo jumbo to arrive at a relatively simple algorithm. 
 
 ## Does it Really Work?
-* asymptotic convergence - A steady train converges to a(1/(1-e^(?)))  - if halflife is large then this converges to exact solution 
 * decays to zero if there are no inputs
+* asymptotic convergence - A steady train converges to a(1/(1-e^(?)))  - if halflife is large then this converges to exact solution 
+* if you really wanted to, you could
 
 
 ## Demo Time
