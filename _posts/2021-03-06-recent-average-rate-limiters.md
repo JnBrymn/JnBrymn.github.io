@@ -44,7 +44,6 @@ The integral of this equation sums to 1 (a requirement for the weight function),
 
 Since we're looking for the CEWMA of the rate function, let's look at a couple of important examples. What is the CEWMA if the rate is constant?
 
-TODO! does this work !
 $$
 \begin{matrix}
 \int_{-\infty}^{0} w(t) \cdot  r(t)\:dt &=&  \int_{-\infty}^{0} w(t) \cdot  r\:dt \\ 
@@ -55,15 +54,75 @@ $$
 
 Since the integral of a weight function is 1, all that is left is $$r$$.
 
-If you're reading carefully, you might notice something weird about the rate function - it's continuous. What does it mean to have a rate of 0.6 requests per second? 
+If you're reading carefully, you might notice something weird about the rate function - it's continuous. What does it mean to have a rate of 0.6 requests per second? You can't do partial requests. Even though this feels non-intuitive, it is a generalization of the more realistic scenario where requests come in as discrete units. To demonstrate that you can still represent the more familiar case we need to introduce the idea of an "impulse" (also known as the [Dirac delta function](https://mathworld.wolfram.com/DeltaFunction.html)). An impulse is the application of an _infinitely_ high rate for an _infinitesimally_ short period of time. However the integral of impulse is finite. Whenever you make a request, what you're doing is creating an impulse in the request rate. In an instant the request rate goes infinitely high because it didn't take you a second to submit that request (which would be 1 request per second), it didn't take you a millisecond (which would be 1000 requests per second), it took the twinkling of an eye (which is one request per twinking). But once that moment passed, the actual _number_ of requests that you made (the integral of the rate) was just 1. (Ok, so that's a little difficult to justice in a single paragraph. Contact me on Twitter and I'll set up a time to explain it more clearly.)
 
+An impulse of size $$N$$ (e.g. N requests in this case) and at some time $$T$$ is represented as `N\delta(t-T)`. And the CEWMA of this impulse function is
 
+$$
+\int_{-\infty}^{0}w(t) \cdot N\delta(t-T)= N \cdot w(T) = N\lambda \exp^{\lambda T}
+$$ 
 
-* But astute reader will notice by now that we are measuring the CEWMA of a continuous function. Leads to weird ideas: When the rate is constant in this case, we're saying that if you apply 1 hit per minute for 30 seconds then you use the API one half of a time.
-* Don't worry, you can still represent familiar reality with IMPULSE functions. delta(t-T) says that we have a 0 rate for all time but the BAM! at t=T the rate is infinitely high. However the integral of the rate isn't infinite, it's just one. So if your usage _rate_ is the delta(t-T) then you _usage_ is zero until t=T and then your usage is 1 ever after that b/c you used it just once
-* Let's find CEWMA for delta(t-T) [link] - you just find the value of the function at that point.
+If the time of the impulse is $$T=0$$ then you can simplify this even more to $$N\lambda$$. Finally, impulses add linearly, so the CEWMA for $$N_1$$ requests occurs simultaneously at $$T_1$$ and $$N_2$$ requests occuring at $$T_2$$ is $$N_1\lambda \exp^{\lambda T_1} + N_2\lambda \exp^{\lambda T_2}$$.
+
+The last thing to notice is that there are many possible rate functions that can lead to the same CEWMA value. For example, let's say that $$\lambda = 0.07$$, then a request that just arrived (e.g. and impulse of size 1 at time 0) would have the same CEWMA as the constant application of 0.07 requests per second. This would also have the same CEWMA as 2 request occurring simultaneously 9.9 seconds ago.
+
+$$
+\begin{matrix}
+\text{CEWMA of one request just now} &=& 1 \cdot \lambda &=& 0.07 \\
+\text{CEWMA constant rate} &=& r &=& 0.07 \\
+\text{CEWMA of 2 requests 9.9 seconds ago} &=& 2\cdot \lambda \exp^{-9.9\lambda} &=& 0.07 \\
+\end{matrix}
+$$
+
+This ability to move between different rates that lead to the same CEWMA is the crux of the algorithm that we lay out next.
 
 ## The Algorithm
+
+We now have all the theoretical pieces required to build our Recent Average Rate Limiter. Our algorithm requires us to track 2 values, the time of the last update  $$T$$, and the "impulse size" $$N$$, which is basically our assumption that the all of the requests leading to the calculated CEWMA came in at time $$T$$. There are 4 methods for our rate limiter `initialize`, `update`, `evaluate`, and `rate_limited`:
+
+`initialize` - We set $$T_0$$ and $$N_0$$ to 0.
+
+`update` - For the first update we just set $$N_1=1$$ and $$T_1$$ to now (UNIX timestamp). For all subsequent updates $$T_{i-1}$$ corresponds to the last time a request came, and $$N_{i-1}$$ is some number representing how many requests were assumed to come at that moment. As in the examples at the end of the last section, we calculate the CEWMA of $$N_{i-1}}$$ request happening at $$T_{i-1}$$ plus 1 request (the new one) happening now. Given this CEWMA, we can find $$N_i$$ such that $$N_i$$ requests happening now has the same CEWMA:
+
+$$
+\begin{matrix}
+\text{CEWMA of } N_{i-1} \text{ requests at } T_{i-1} \text{ and 1 more just now } &=&  N_{i-1}\cdot \lambda \exp^{\lambda(T_{i-1}-now)} + 1 \cdot \lambda  \\
+\text{CEWMA of } N_{i} \text{ requests just now } &=&  N_{i}\cdot \lambda  \\
+\end{matrix}
+$$
+
+Setting both of these equations equal and solving for $$N_i$$ we arrive at $$N$$'s update equation.
+
+$$
+N_i = 1 + N_{i-1} \exp^{\lambda(T_{i-1}-now)}
+$$
+
+$$T_i$$ is much simpler; we just set it to now.
+
+`evaluate` - This is similar to `update` but we convert from a single impulse representation of the CEWMA to a constant rate representation:
+
+$$
+\begin{matrix}
+\text{CEWMA of } N_{i} \text{ requests at } T_{i} &=&  N_{i}\cdot \lambda \exp^{\lambda(T_{i}-now)}  \\
+\text{CEWMA of a constant request rate } &=&  r  \\
+\end{matrix}
+$$
+
+So the evaluation is 
+
+$$
+r = N_{i}\cdot \lambda e^{\lambda(T_{i}-now)}
+$$
+
+
+
+***********START HERE*******
+  
+  
+  `evaluate`, and `rate_limited`:
+ 
+ came in right now.
+
 
 * initialize -> 0 time and 0 state
 * update -> initially you just track that the first update happened at what time; the next update gets smooshed into "what if everything happened as an impulse now" - emphasis "we need just one number and a time" 
@@ -71,6 +130,7 @@ If you're reading carefully, you might notice something weird about the rate fun
 
 * how do you set lambda -- by choosing halflife
 
+* Here's the code
 
 ## Does it Really Work?
 * asymptotic convergence - A steady train converges to a(1/(1-e^(?)))  - if halflife is large then this converges to exact solution 
@@ -115,3 +175,4 @@ Reread intro first
   * test latex equations
 * send to Orendorf and GH DS manager
 * post on PennyU and Twitter
+* ask people to contact me if they want to understand better - especially that mumbojumbo about impulses
