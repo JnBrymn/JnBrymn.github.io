@@ -46,14 +46,11 @@ Since we're looking for the CEWMA of the rate function, let's look at a couple o
 
 TODO! does this work !
 $$
-\begin{equation}
-\begin{aligned}
-&\int_{-\infty}^{0} w(t) \cdot  r(t)\:dt \\
-&= \int_{-\infty}^{0} w(t) \cdot  r\:dt \\
-& = r \int_{-\infty}^{0} w(t) \:dt \\
-& = r
-\end{aligned}
-\end{equation}
+\begin{matrix}
+\int_{-\infty}^{0} w(t) \cdot  r(t)\:dt &=&  \int_{-\infty}^{0} w(t) \cdot  r\:dt \\ 
+ &=& r \int_{-\infty}^{0} w(t) \:dt \\ 
+&=& r \\ 
+\end{matrix}
 $$
 
 Since the integral of a weight function is 1, all that is left is $$r$$.
