@@ -44,6 +44,7 @@ The integral of this equation sums to 1 (a requirement for the weight function),
 
 Since we're looking for the CEWMA of the rate function, let's look at a couple of important examples. What is the CEWMA if the rate is constant?
 
+TODO! does this work !
 $$
 \begin{equation}
 \begin{aligned}
@@ -55,9 +56,11 @@ $$
 \end{equation}
 $$
 
+Since the integral of a weight function is 1, all that is left is $$r$$.
+
+If you're reading carefully, you might notice something weird about the rate function - it's continuous. What does it mean to have a rate of 0.6 requests per second? 
 
 
-* But we're looking for the recent average rate - Let's start easy, let's find the CEWMA of a constant rate. CEWMA=R  ... wow, boring, easy
 
 * But astute reader will notice by now that we are measuring the CEWMA of a continuous function. Leads to weird ideas: When the rate is constant in this case, we're saying that if you apply 1 hit per minute for 30 seconds then you use the API one half of a time.
 * Don't worry, you can still represent familiar reality with IMPULSE functions. delta(t-T) says that we have a 0 rate for all time but the BAM! at t=T the rate is infinitely high. However the integral of the rate isn't infinite, it's just one. So if your usage _rate_ is the delta(t-T) then you _usage_ is zero until t=T and then your usage is 1 ever after that b/c you used it just once
