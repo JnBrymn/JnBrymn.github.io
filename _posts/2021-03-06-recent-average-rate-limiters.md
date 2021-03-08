@@ -21,22 +21,42 @@ But there's hope! Drawing inspiration from the EWMA, I will introduce an somethi
 In the sections below I will lay out a mathematical foundation for this approach and then derive an algorithm for a CEWMA-based Recent Average Rate Limiter. The discussion will be a little light on proofs, but heavy on the intuition that helped me come to my conclusions. Following this, I will provide a couple of demonstrations that  drive home how this approach will be beneficial for the problem outlined in the introduction. Finally, I will lay out ideas for how a Recent Average Rate Limiter may be practically implemented. TODO! is last sentence true?
 
 ## Theory
-With the CEWMA we wish to estimate the average rate a which a user's requests arrive. However we don't want to find the average request rate across _all time_ because that seems a little unforgiving doesn't it? Perhaps the user hit the wrong button, got up to make a cup of coffee, and upon returning found that they'd issues 2 million requests. Instead, we're only interested in the user's recent behavior. Let's represented the time history of the user's request rate as $$r(t)$$. The weight function, represented as $$w(t)$$, will be used to weight the more recent request rate (e.g. the $$r(t)$$ for t close to 0) as being more important than the request rate that occurred long ago (e.g. when t is a large negative number). In order to find the weighted average of the rate, we have to solve this integral.
+With the CEWMA we wish to estimate the average rate at which a user's requests arrive. However we don't want to find the average request rate across _all time_ because that seems a little unforgiving doesn't it? Perhaps the user hit the wrong button, got up to make a cup of coffee, and upon returning found that they'd issues 2 million requests. Instead, we're only interested in the user's recent behavior. Let's represented the time history of the user's request rate as $$r(t)$$. The weight function, represented as $$w(t)$$, will be used to weight the more recent request rate (e.g. the $$r(t)$$ for t close to 0) as being more important than the request rate that occurred long ago (e.g. when t is a large negative number). In order to find the weighted average of the rate, we have to evaluate this integral.
 
 $$
-\int_{-\infty}^{0} w(t) \cdot  r(t) dt
+\int_{-\infty}^{0} w(t) \cdot  r(t)\:dt
 $$
 
-(This is very similar to [finding the expected value of function](https://mathworld.wolfram.com/ExpectationValue.html) in statistics.)
+(This is very similar to [finding the expected value of a function](https://mathworld.wolfram.com/ExpectationValue.html) in statistics.)
+
+As of yet, this equation is pretty vague. We can choose the weight function to be whatever we want, and the rate function will be controlled by the user's behavior, but for both of these we can make some assumptions that will simplify our work. Let's start with $$w(t)$$. The most obvious choice for a weight function which weights recent time more heavily is the exponential function:
+
+$$
+w(t) = \lambda e^{\lambda t} 
+$$
+
+<figure>
+    <img src='/assets/TODO! insert figure.' alt='weighting and rate functions' class="centered"/>
+    <figcaption>An exponential weight function along with an arbitrary rate function.</figcaption>
+</figure>
+
+The integral of this equation sums to 1 (a requirement for the weight function), and since we will choose $$\lambda$$ to be greater than 0, the weight function is fat near to current time and becomes exponentially thinner as we move back in time. The choice of an exponential function also brings some nice advantages further down in our analysis.
+
+Since we're looking for the CEWMA of the rate function, let's look at a couple of important examples. What is the CEWMA if the rate is constant?
+
+$$
+\begin{equation}
+\begin{aligned}
+&\int_{-\infty}^{0} w(t) \cdot  r(t)\:dt \\
+&= \int_{-\infty}^{0} w(t) \cdot  r\:dt \\
+& = r \int_{-\infty}^{0} w(t) \:dt \\
+& = r
+\end{aligned}
+\end{equation}
+$$
 
 
 
-* We want to estimate the _rate_, but the average rate across ALL time... that's not very forgiving. they might have sinned in their youth but reformed as adults... besides we can't keep every user key alive in redis forever
-
-
-* Here's how to find a recent expected value (a.k.a. it's average value)  Integral of W(t) and f(t)
-  * You can use any weight function but it has to sum to 1
-  * introduce exponential weight functions
 * But we're looking for the recent average rate - Let's start easy, let's find the CEWMA of a constant rate. CEWMA=R  ... wow, boring, easy
 
 * But astute reader will notice by now that we are measuring the CEWMA of a continuous function. Leads to weird ideas: When the rate is constant in this case, we're saying that if you apply 1 hit per minute for 30 seconds then you use the API one half of a time.
