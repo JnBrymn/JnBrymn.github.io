@@ -169,6 +169,9 @@ Reread intro first
   * windowed is much more permissive of persistent abuse, it lets them in again with every window renewal
   * the CEWMA behavior has an interesting behavior in that it _REQUIRES_ the clients to be well behaved, and if they are not then this eliminates a very common type of abuse completely and instantly. So it's not just their requests that will be blocked, but you'll no longer have the entire class of user that just sprays requests and then depends on 429s from _your server_ to act as their rate limiting.
   * the longer and the more extremely they are misbehaved, the longer they will remain in timeout
+  * you no longer have to investigate heavy hitters and then later ban them - they ban themselves effectively
+* If you don't like this behavior, you can count overage requests as having a fraction of the weight that normal requests have (because, after all, they didn't really cost much to your infrastructure) - this will let their CEWMA decay faster. But IF they are still really over the exceptable rate, then this will never cool down
+  
 
 ## Implementation in Redis
 * instead of TTL, LRU expire them and completely forego 
@@ -198,3 +201,7 @@ Reread intro first
 * send to Orendorf and GH DS manager
 * post on PennyU and Twitter
 * ask people to contact me if they want to understand better - especially that mumbojumbo about impulses
+* "halflife" -> "half-life"
+* Make sure RARL "recent" is turned to EARRL
+  * including file nam
+* spellcheck
