@@ -84,7 +84,7 @@ In the opening, I posted a gripe I had against windowed rate limiters. At the en
 Here's what rate limiting looks like with a windowed rate limiter.
 
 <figure>
-    <img src='/assets/estimated-average-recent-request-rate-limiter/WRL-recovery-after-naughty-user-reforms' alt='Windowed Rate Limiter' class="centered"/>
+    <img src='/assets/estimated-average-recent-request-rate-limiter/WRL-recovery-after-naughty-user-reforms.png' alt='Windowed Rate Limiter' class="centered"/>
 </figure>
 
 Here, initially, the user is making requests at a rate 67% higher than what is allowed. The red line represents the user's cumulative number of requests, and the blue line represent the cumulative number of requests that are permitted. Can you see the pattern? At the beginning of every window the spammy user quickly meets their quota of requests and gets cut off, but they nevertheless keep sending requests (red line). Then at the next window the process starts over again. No good.
@@ -94,7 +94,7 @@ In order to compare the differences between windowed rate limiters and EARRRL, a
 Let's see what happens with EARRRL in this exact same scenario.      
 
 <figure>
-    <img src='/assets/estimated-average-recent-request-rate-limiter/EARRRL-recovery-after-naughty-user-reforms' alt='EARRRL' class="centered"/>
+    <img src='/assets/estimated-average-recent-request-rate-limiter/EARRRL-recovery-after-naughty-user-reforms.png' alt='EARRRL' class="centered"/>
 </figure>
 
 As you can see, EARRRL is more shrewed. Initially it provides the user with a longer grace period than the windowed rate limiter, but then after it decides that this is not a fluke and that the user plans on abusing the rate limit, it locks down and does not let any more requests through. Unlike the naive windowed rate limiter, EARRRL does not constantly forgive the user and let them abuse again. Rather it waits. Once it decides that the user has reformed and the request rates will remain within appropriate bounds, it allows requests to proceed again.
