@@ -150,14 +150,14 @@ This is my first time playing with Lua/Redis but I found it quite easy to work w
  
  Now since we have the script ready, let's upload it to redis.
 
-```shell script
+```sh
 $ redis-cli SCRIPT LOAD "$(cat earrrl.lua)"
 "cb3696c74cc51596d07646e64a17f5f2db510adb"
 ```
 
 The SHA that gets returned is an identifier used to invoke the script. Like so:
 
-```shell script
+```sh
 $ redis-cli EVALSHA cb3696c74cc51596d07646e64a17f5f2db510adb 1 user_key_321
 ```
 
@@ -165,7 +165,7 @@ The first argument after the SHA tell redis how many keys will be passed in, and
 
 Does it work? I dunno, let's find out. Let's do an experiment that tests 2 aspects of EARRRL: convergence to the correct value and expected convergence rate. Here's our test script:
 
-```shell script
+```sh
 $ for i in {0..70} true
   do 
     sleep 1
@@ -178,7 +178,7 @@ $ for i in {0..70} true
 
 Since we are sleeping 1 second between each hit, our request rate is 1 per second. We know that with a half-life of 10 seconds, the algorithm should be about half way to this value by the 10th request.
 
-```shell script
+```sh
 request #0
 1) (nil)      <------------ this means "rate limit not exceeded"
 2) "0"
@@ -219,7 +219,7 @@ request #11
 
 This looks about right. Notice that at request 11 we have hit the rate limit as represented by `(integer) 1`. Next we want to make sure that that at steady state (say after 7 half-lives) that the value should converge to the true rate of 1.0.
 
-```shell script
+```sh
 request #70
 1) (integer) 1
 2) "0.94514712058575"
@@ -229,7 +229,7 @@ Close, but not quite. However, there is a reasonable explanation for this. Our r
 
 Finally, let's check that 10 seconds after the last request, the estimated rate has decayed to half of what it was when the requests ended.
 
-```shell script
+```sh
 1) (integer) 1
 2) "0.50703163627721"
 ``` 

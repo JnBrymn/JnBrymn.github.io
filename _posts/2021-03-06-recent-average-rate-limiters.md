@@ -186,6 +186,7 @@ Reread intro first
 
 
 ## DON;T FIRGET
+* Oh! is the math simpler if you try to assume that each hit is size 1 and is evenly spaced apart - you need to predict T and then rate is 1/T
 * Show the number of instanteous requests that will immediately saturate the limiter - and then prove you can't game the system. Also you want to make sure that users can accidentally sasturate the rate limiter when they have a "reasonable" burst.
   * this bounds the behavior we might see - the most steady rate and the most extreme, impulsive rate
 * Is "recent average rate limiter" a good name - might be the name for the post
