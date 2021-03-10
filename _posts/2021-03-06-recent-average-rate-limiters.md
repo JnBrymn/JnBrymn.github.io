@@ -147,7 +147,7 @@ class RecentAverageRateLimiter:
         return self.N*self.lambd * math.exp(self.lambd*delta_t)
     
     def rate_limited(self, now_timestamp):
-        return self.cewma.evaluate(now_timestamp) > self.rate_limit
+        return self.evaluate(now_timestamp) > self.rate_limit
 ```
 
 Boy, that was a lot of math mumbo jumbo to arrive at a relatively simple algorithm. 
@@ -186,6 +186,8 @@ Reread intro first
 
 
 ## DON;T FIRGET
+* Show the number of instanteous requests that will immediately saturate the limiter - and then prove you can't game the system. Also you want to make sure that users can accidentally sasturate the rate limiter when they have a "reasonable" burst.
+  * this bounds the behavior we might see - the most steady rate and the most extreme, impulsive rate
 * Is "recent average rate limiter" a good name - might be the name for the post
 * you can contact me somehow and I'll explain it to you and fix my post
 * read TODO! 
@@ -193,6 +195,7 @@ Reread intro first
   * expected value integrals
   * impulse functions integrated (dirac delta)
   * link to notebook
+  * make sure to refer from one post to the other
 * Photos - embarrased rate limited user in intro
 * contact https://github.com/github/ecosystem-api/issues/2315
 * maybe::: Does this exist already? I don't know! It seems useful, so I bet someone's figured it out before, but I haven't found the right Google search for it yet. And besides, it's never any fun to just look up the answer in the back of the book 😉. Let's try and figure this one out on our own.
@@ -205,3 +208,4 @@ Reread intro first
 * Make sure RARL "recent" is turned to EARRL
   * including file nam
 * spellcheck
+* Add section for "can the system be gamed?"  

@@ -3,7 +3,7 @@ layout: post
 title: Teaching Abusive Users a Lesson with EARRRL – the Estimated Average Recent Request Rate Limiter
 ---
 
-You've got a problem: a small subset of abusive users are body slamming your API with extremely high request rates. You've added windowed rate limiting, and this reduces the load on your infrastructure, but behavior persists. These naughty users aren't attempting to rate-limit their own requests. They fire off as many requests as they can, immediately hit `HTTP 429 Too Many Requests`, _don't let up_, and as soon as a new rate limit window is available, the pattern starts all over again.
+You've got a problem: a small subset of abusive users are body slamming your API with extremely high request rates. You've added windowed rate limiting, and this reduces the load on your infrastructure, but behavior persists. These naughty users aren't attempting to rate-limit their own requests. They fire off as many requests as they can, almost immediately hit `HTTP 429 Too Many Requests`, _don't let up_, and as soon as a new rate limit window is available, the pattern starts all over again.
 
 In order to curtail this behavior, it would be nice to penalize bad users according to their _recent average_ request rate. If a user responsibly limits their own requests, then they never get a 429. However if the user has the bad habit of _constantly_ exceeding the rate limit, then we stop them from making any more requests – _ever_. No new windows, no second chances... _until_ they mend their ways and start monitoring their own rate more responsibly. Once their average request rate falls below a threshold, then their past sins are forgiven, and they may begin anew as a responsible user of our API.
 
@@ -11,7 +11,7 @@ TODO! photo of vile abuser
 
 ## Introducing the Recent Average Rate Limiter
 
-But there's hope! Drawing inspiration from the [Exponentially Weighted Moving Average](https://github.com/VividCortex/ewma), I propose EARRRL, the Estimated Average Recent Request Rate Limiter. EARRRL estimates the user's recent request rate and rejects requests for users who's request rate exceeds the specified threshold. Here's a Python implementation:
+Drawing inspiration from the [Exponentially Weighted Moving Average](https://github.com/VividCortex/ewma), I propose EARRRL, the Estimated Average Recent Request Rate Limiter. EARRRL estimates the user's recent request rate and rejects requests for users who's request rate exceeds the specified threshold. Here's a Python implementation:
 
 ```python
 class EARRRL:
@@ -62,6 +62,8 @@ For me, the mathy bits about how this all works are the _real_ fun stuff. But I 
 
 Let's see EARRRL in action!
 
+### Convergence
+
 <figure>
     <img src='/assets/estimated-average-recent-request-rate-limiter/filter-estimate-halflife-10.png' alt='EARRRL tracking periodic requests at 3 different rates' class="centered"/>
 </figure>
@@ -74,8 +76,168 @@ At $$t=200\text{s}$$ the user quits making requests and the corresponding estima
     <img src='/assets/estimated-average-recent-request-rate-limiter/filter-estimate-halflife-1.png' alt='EARRRL tracking periodic requests at 3 different rates' class="centered"/>
 </figure>
 
-Additionally, when configuring the half-life, remember that the whole goal is to penalize people misusing your API. Decreasing the half-life too much will effectively make EARRRL forget the abuse too quickly and allow the bad actors to offend again.
+The increased error with lower half-life values is effectively caused because the rate limiter learns too fast, and temporary spike in a user's request rate will send them above the rate limit threshold. But if you go too far in the other direction, an excessively long half-life will cause EARRRL to learn too slowly and a spammy user will fire off more requests than desired before EARRRL catches on. This shouldn't be too hard to deal with, you just need to be mindful of these potential problems when setting the half-life.
 
+### Comparison Between EARRRL and Windowed Rate Limiters
+In the opening, I posted a gripe I had against windowed rate limiters. At the ending of every single window, all since are forgiven, and the rate limit is completely reset. Spammy users rejoice, because they can just keep firing off requests as fast as they please until someone from platform health catches on and bans them. (And then they just make another user and start over again.)
+
+Here's what rate limiting looks like with a windowed rate limiter.
+
+<figure>
+    <img src='/assets/estimated-average-recent-request-rate-limiter/WRL-recovery-after-naughty-user-reforms' alt='Windowed Rate Limiter' class="centered"/>
+</figure>
+
+Here, initially, the user is making requests at a rate 67% higher than what is allowed. The red line represents the user's cumulative number of requests, and the blue line represent the cumulative number of requests that are permitted. Can you see the pattern? At the beginning of every window the spammy user quickly meets their quota of requests and gets cut off, but they nevertheless keep sending requests (red line). Then at the next window the process starts over again. No good.
+
+In order to compare the differences between windowed rate limiters and EARRRL, at 150s the user in this example decided to reduce their rate to exactly match the rate threshold, and in the case of windowed rate limiters, their requests now all succeed.
+
+Let's see what happens with EARRRL in this exact same scenario.      
+
+<figure>
+    <img src='/assets/estimated-average-recent-request-rate-limiter/EARRRL-recovery-after-naughty-user-reforms' alt='EARRRL' class="centered"/>
+</figure>
+
+As you can see, EARRRL is more shrewed. Initially it provides the user with a longer grace period than the windowed rate limiter, but then after it decides that this is not a fluke and that the user plans on abusing the rate limit, it locks down and does not let any more requests through. Unlike the naive windowed rate limiter, EARRRL does not constantly forgive the user and let them abuse again. Rather it waits. Once it decides that the user has reformed and the request rates will remain within appropriate bounds, it allows requests to proceed again.
+
+
+## Implementation in Redis
+
+As I alluded to above, Python is probably not the language you want for implementing this approach... [Lua is](https://en.wikipedia.org/wiki/Lua_(programming_language)). Why? Because Lua is the built-in scripting language for redis and redis is the _ideal_ framework for building EARRRL. Let's see it in action. Here is the Lua/Redis implementation for an EARRRL with a rate limit of 0.5 requests per second and a half-life of 10s (save this to EARRRL.lua). 
+
+```lua
+-- parameters and state
+local lambda = 0.06931471805599453 -- 10 seconds half-life
+local rate_limit = 0.5
+local time_array = redis.call("time")
+local now = time_array[1]+0.000001*time_array[2] -- seconds + microseconds
+local Nkey = KEYS[1]..":N"
+local Tkey = KEYS[1]..":T"
+
+local N = redis.call("get", Nkey)
+if N == false then
+  N = 0
+end
+
+local T = redis.call("get", Tkey)
+if T == false then
+  T = 0
+end
+
+local delta_t = T-now
+
+-- functions
+local function evaluate()
+  return N*lambda*math.exp(lambda*delta_t)
+end
+
+local function update()
+  redis.call("set", Nkey, 1+N*math.exp(lambda*delta_t))
+  redis.call("set", Tkey, now)
+end
+
+local function rate_limited()
+  local estimated_rate = evaluate()
+  local limited = estimated_rate > rate_limit
+  update()
+  return {limited, tostring(estimated_rate)}
+end
+
+-- the whole big show
+return rate_limited()
+```
+
+This is my first time playing with Lua/Redis but I found it quite easy to work with, and even fun! One new thing to notice here is how we deal with Redis keys. A user's `N` (num requests) value is stored in `user_key_123:N` and the user's `T` (last request time) value is stored in `user_key_123:T`. If either of these keys doesn't exist, then they are assumed to be 0 which effectively means that the estimated rate is zero. But the end of the script, the user's `N` and `T` values are guaranteed to exist in Redis.  
+ 
+ Now since we have the script ready, let's upload it to redis.
+
+```shell script
+$ redis-cli SCRIPT LOAD "$(cat earrrl.lua)"
+"cb3696c74cc51596d07646e64a17f5f2db510adb"
+```
+
+The SHA that gets returned is an identifier used to invoke the script. Like so:
+
+```shell script
+$ redis-cli EVALSHA cb3696c74cc51596d07646e64a17f5f2db510adb 1 user_key_321
+```
+
+The first argument after the SHA tell redis how many keys will be passed in, and the second argument in this case is the key, an identifier for the user that just made a request.
+
+Does it work? I dunno, let's find out. Let's do an experiment that tests 2 aspects of EARRRL: convergence to the correct value and expected convergence rate. Here's our test script:
+
+```shell script
+$ for i in {0..70} true
+  do 
+    sleep 1
+    echo "request # $i"
+    redis-cli EVALSHA cb3696c74cc51596d07646e64a17f5f2db510adb 1 user_key_321
+  done
+  sleep 10  # the half-life
+  redis-cli EVALSHA cb3696c74cc51596d07646e64a17f5f2db510adb 1 user_key_321
+```
+
+Since we are sleeping 1 second between each hit, our request rate is 1 per second. We know that with a half-life of 10 seconds, the algorithm should be about half way to this value by the 10th request.
+
+```shell script
+request #0
+1) (nil)      <------------ this means "rate limit not exceeded"
+2) "0"
+request #1
+1) (nil)
+2) "0.064625593423117"
+request #2
+1) (nil)
+2) "0.12483578218756"
+request #3
+1) (nil)
+2) "0.18093794941434"
+request #4
+1) (nil)
+2) "0.2332841604735"
+request #5
+1) (nil)
+2) "0.28208311764286"
+request #6
+1) (nil)
+2) "0.32757287863479"
+request #7
+1) (nil)
+2) "0.36998350934232"
+request #8
+1) (nil)
+2) "0.40940326068647"
+request #9
+1) (nil)
+2) "0.44628146174133"
+request #10
+1) (nil)
+2) "0.48060100760135"
+request #11
+1) (integer) 1      <------------ this means "rate limit IS exceeded"
+2) "0.51262461170605"
+```
+
+This looks about right. Notice that at request 11 we have hit the rate limit as represented by `(integer) 1`. Next we want to make sure that that at steady state (say after 7 half-lives) that the value should converge to the true rate of 1.0.
+
+```shell script
+request #70
+1) (integer) 1
+2) "0.94514712058575"
+```
+
+Close, but not quite. However, there is a reasonable explanation for this. Our rate evaluation comes before we update the EARRRL state. That means in this case, the rate has had roughly 1 second to decay before we evaluate it. If we evaluate just after the update, it will actually evaulate a bit _above_ 1 request per second. So this is the expected behavior. If you would like to have less error here, then a longer half-life is required.
+
+Finally, let's check that 10 seconds after the last request, the estimated rate has decayed to half of what it was when the requests ended.
+
+```shell script
+1) (integer) 1
+2) "0.50703163627721"
+``` 
+
+Yep. So it seems that it works.
+
+The last ingredient in a Redis deployment is how to deal with the lifetime of the keys. With the windowed rate limiters, the keys are given a TTL of, say, 1 minute. This is _not_ what you want to do with EARRRL because that makes EARRRL forget past offenses and EARRRL effectively becomes an overly complicated windowed rate limiter. _Instead_ the keys need to be LRU'ed. This way, the aggressive offenders will remain in EARRRL's memory as long as they remain active. This is a very natural choice because users who get expelled based on LRU probably have a rate limit low enough to justify being expelled anyway.
+ 
 
 
 ## Conclusion
@@ -89,12 +251,6 @@ Reread intro first
 * If you don't like this behavior, you can count overage requests as having a fraction of the weight that normal requests have (because, after all, they didn't really cost much to your infrastructure) - this will let their CEWMA decay faster. But IF they are still really over the exceptable rate, then this will never cool down
   
 
-## Implementation in Redis
-* instead of TTL, LRU expire them and completely forego 
-* https://redis.io/topics/quickstart
-* https://www.compose.com/articles/a-quick-guide-to-redis-lua-scripting/
-* OBJECT IDELTIME https://github.com/redis/redis/issues/1258
-
 
 ## Disclaimers
 * Is this out there all ready? Maybe?
@@ -102,18 +258,6 @@ Reread intro first
 
 
 ## DON;T FIRGET
-* Is "recent average rate limiter" a good name - might be the name for the post
-* you can contact me somehow and I'll explain it to you and fix my post
-* read TODO! 
-* Links
-  * expected value integrals
-  * impulse functions integrated (dirac delta)
-  * link to notebook
-* Photos - embarrased rate limited user in intro
-* contact https://github.com/github/ecosystem-api/issues/2315
-* maybe::: Does this exist already? I don't know! It seems useful, so I bet someone's figured it out before, but I haven't found the right Google search for it yet. And besides, it's never any fun to just look up the answer in the back of the book 😉. Let's try and figure this one out on our own.
-* Push and make sure it works
-  * test latex equations
-* send to Orendorf and GH DS manager
-* post on PennyU and Twitter
+* if you're concerned about users using just a little over their rate being permanently banned (this _would_ happen!) then you can just make the overage hits count less. This way the rate will die down more quickly UNLESS the are really slamming the search
 * ask people to contact me if they want to understand better - especially that mumbojumbo about impulses
+* final note: I'm renaming this to the EARRRRL
