@@ -46,12 +46,13 @@ rate_limiters = {}
 def index(request):
     rate_limiter = rate_limiters.get(request.user.id) 
     if rate_limiter is None:
-        rate_limiter = rate_limiters[request.user.id] = EARRRL(halflife=10.0, rate_limit=0.5)
+        rate_limiter = EARRRL(halflife=10.0, rate_limit=0.5)
+        rate_limiters[request.user.id] = rate_limiter
     
     if rate_limiter.rate_limited():
         return render(request, '429.html', status=429) 
     
-    # otherwise render the view
+    # ... otherwise render the view
 ```
 
 Also, if you'd like to directly check the current estimated request rate, call `rate_limiter.evaluate()`.
