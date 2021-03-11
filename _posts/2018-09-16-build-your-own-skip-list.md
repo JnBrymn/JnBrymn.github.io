@@ -22,7 +22,7 @@ A skip list starts as a plain old linked list. To add a value to a list you star
 The end result after several list insertions is something like you see in the image above. When it's time to insert a value the top "lane" allows for lookups to quickly skip over large chunks of the list until we pass the position of the value. At this point we can back up to the last node that preceded the value, jump down to a slower lane and search again for the point at which we just pass the position of the value. We repeat this until we are in the slowest lane - the bottom linked list - and then we can insert the value like we normally would as a linked list.
 
 ## So let's build one!
-I've always wanted to build my own skip list from scratch and I finally had a chance to take a stab at it today. The code below is not completely general ([I'm building this so that I can use it in a data sketch that I blog about here]({{ site.baseurl }}{% post_url 2018-10-04-distro-sketch-sketch %})) but it does showcase how the data structure works.
+I've always wanted to build my own skip list from scratch and I finally had a chance to take a stab at it today. The code below is not completely general ([I'm building this so that I can use it in a data sketch that I blog about here]({% post_url 2018-10-04-distro-sketch-sketch %})) but it does showcase how the data structure works.
 
 ```python
 import random
