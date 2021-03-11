@@ -3,11 +3,8 @@ layout: post
 title: Teaching Abusive Users a Lesson with Recent Average Rate Limiters
 ---
 
-You've got a problem: a small subset of abusive users are body slamming your API with extremely high request rates. You've added windowed rate limiting, and this reduces the load on your infrastructure, but behavior persists. These naughty users aren't attempting to rate-limit their own requests. They fire off as many requests as they can, immediately hit `HTTP 429 Too Many Requests`, _don't let up_, and as soon as a new rate limit window is available, the pattern starts all over again.
 
-In order to curtail the behavior, wouldn't it be nice if you penalize nefarious users according to their _recent average_ request rate? This way, if a user is responsibly limiting their own requests, then they never get a 429. However if they have a habit of _always_ going over the rate limit, then we stop them from making any more requests. No new windows, no second chances... _until_ they mend their ways and decrease their request rate below our limits. At that point, their recent average falls below the threshold, their past sins are forgiven, and they may begin anew as a responsible user of our API.
 
-TODO! photo of vile abuser
 
 ## Not _Quite_ Solving the Problem with Exponentially Weighted Moving Average
 The Exponentially Weighted Moving Average is a simple method for measuring the recent average of a series of numbers ([Here's a great reference](https://github.com/VividCortex/ewma), written by world-renowned software developer, and friend, Preetam Jinka.) This makes it seem that EWMA would be a perfect fit for building rate limiters. Effectively, it would work like this: For each user, you store 2 values, the number of hits in this window and the "running average" of their recent windows. Whenever a user makes a request, you update hit count. At the end of the time window you [use a simple formula](https://en.wikipedia.org/wiki/Moving_average#Exponential_moving_average) to incorporate the number of hits into the average of the recent windows, and you also reset the hit count to 0 in preparation for the next window.
