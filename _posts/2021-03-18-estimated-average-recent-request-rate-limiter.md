@@ -26,7 +26,7 @@ def send_yo(request, recipient):
         # abusive user has exceeded their "Yo" sending limit
         return render(request, '429.html', status=429) 
 
-    send_yo(recipient)
+    actually_send_the_yo(recipient)
 ```
  
 Internally, `is_rate_limited` will quickly evaluate the user's recent request rate, update the rate based upon the current request, and then return whether or not the user has exceeded the prescribed rate.
