@@ -6,15 +6,17 @@ title: Evolution of Jiggly Stuff
 I like positing hypotheses that are completely unverified and poorly examined. Why? Because it's easier to play with ideas when you don't have to check your work. 🤣 Here are two somewhat related hypotheses about how evolution has made two very different jiggly things more durable and resistant to distress: your brain and trees.
 
  
- ## The Brain and its Ventricles
+## The Brain and its Ventricles
+  
  <figure>
     <img src='/assets/john_brain.png' alt='missing' class="centered"/>
 </figure>
 
 Look at this beautiful brain. [It's mine!]({% post_url 2017-09-27-brain-scans %}) But for the sake of this conversation, notice what's missing from my brain... all the stuff in the middle. That's ok though, the missing part are the ventricles of the brain, they're supposed to be there... ur, _not_ there... and I propose that the missing part provides a structural benefit. Why? Well the brain is effectively a big block of super important thinking tofu, and if the thinking tofu breaks, then it doesn't work so well. But the problem is that humans have historically been a bunch of nuckleheads. We break boards over our heads and devise silly sports where we ram our heads into one another at high speeds. For some sports we just directly punch one another in the heads. This is where the ventricles are important. If the ventricles were instead filled in with brain material, then I posit that a sudden strike to the head, especially a torsional strike, would result in maximum sheer right in the middle of the brain and it would easily rupture the thinking tofu. But if there is no material in the middle of the brain, then the stress that _would_ be focused in the middle of the brain is instead distributed across the surface of the ventricles. Thus the thinking tofu is much less likely to get fractured when you are struck in the head. Fantastic, now we can enjoy our violent sports and worry about the damage we're doing years later.
  
- ## Trees and their Branches and their Twigs
-  <figure>
+## Trees and their Branches and their Twigs
+ 
+<figure>
     <img src='/assets/bradford-pear.jpeg' alt='missing' class="centered"/>
 </figure>
  
