@@ -81,7 +81,7 @@ D = A/np.sum(A, axis=1, keepdims=True)
     <img src='/assets/who-da-boss-clustering/matrix_1.png' alt='missing' class="centered"/>
 </figure>
 
-**Step 2:** Confer with neighboring nodes and create a weighted average of their distributions. With matrices, this step works out beautifully - it's just a matrix multiplication.
+**Step 2:** Confer with neighboring nodes and create a weighted average of their distributions. With matrices, this step works out beautifully - it's just a [matrix multiplication](https://www.codingem.com/numpy-at-operator/).
 
 ```python
 D = D @ D
@@ -152,13 +152,13 @@ def who_da_boss_dense(A, granularity=2):
 ## But Will it Work with Real Data?
 Well duh. It'd be a pretty lame blog post to make all these pretty images and algorithms and only then figure out that it didn't actually work. So let's _see_ it work!
 
-On Twitter I'm [JnBrymn](https://twitter.com/jnbrymn). As of this moment, I follow 299 people and 2,132 people follow me. Of all those people I follow exactly 144 that follow me back. These are those people:
+On Twitter I'm [JnBrymn](https://twitter.com/jnbrymn). As of this moment, I follow 299 people and 2,132 people follow me. Of all those people I follow, exactly 144 follow me back. These are those people:
 
 <figure>
     <img src='/assets/who-da-boss-clustering/jnbrymn_adjacency_mat_unsorted.png' alt='missing' class="centered"/>
 </figure>
 
-More specifically, this is the adjacency matrix for these users, just like the much smaller one I introduced in the previous section. By looking at the adjacency matrix as is, it is impossible to discern a pattern of any kind. But lets apply Who da Boss and then reorganize the rows and columns of this matrix so that people with the same "leader" are in adjacent rows/columns.
+More specifically, this is the adjacency matrix for these users, just like the much smaller one I introduced in the previous section. By looking at the adjacency matrix as-is, it is impossible to discern a pattern of any kind. But let's apply Who da Boss and then reorganize the rows and columns of this matrix so that people with the same "leader" occupy adjacent rows/columns.
 
 <figure>
     <img src='/assets/who-da-boss-clustering/jnbrymn_adjacency_mat_sorted.png' alt='missing' class="centered"/>
