@@ -3,6 +3,10 @@ layout: post
 title: Playing with a Rational Distribution
 ---
 
+<!-- 
+https://gist.github.com/JnBrymn/9933b5471f0e5e06d27ffa8bb04d6d37
+-->
+
 (Note to reader: I think I wrote this post for myself. From an outside perspective, it's by far the most boring one I've ever written. But it's math that's been occupying my mind for a week and from an inside perspective it's been quite fun. Maybe you'll find the fun in it that I did.)
 
 For a project I'm currently working on at GitHub, I ran into my first statistical distribution defined on rational numbers and I found it weird and interesting when compared to the continuous distributions that I'm used to. We were looking at feature adoption on a per-repository basis. We defined adoption to be
@@ -31,16 +35,16 @@ $$f_{X,R}(x,r) = \lambda e^{-\lambda x}/x$$
 
 In order find $$f_R(r)$$ we marginalize out the $$X$$. This is a bit awkward, because we're in "ratio" space. So let's look at what happenes when we marginalize both $$X$$ and $$R$$ out. In this case, the result is 1, meaning that there's a 100% chance that $$X$$ will take on some value from 0 to $$\infty$$ and that $$R$$ will take on some value from 0 to 1.
 
-$$\iint\limits_{X,R}f_{X,R}(x,r) dA = 1$$
+$$\iint\limits_{X,R}f_{X,R}(x,r) \mathrm{d}A = 1$$
 
-The awkward part here is that the differential area in this case is actually $$dA = x\, dx\, dr$$. (Do you remember doing funny things in calc class when integrating in cylindrical space... we have to do something like that here.)
+The awkward part here is that the differential area in this case is actually $$\mathrm{d}A = x\, \mathrm{d}x\, \mathrm{d}r$$. (Do you remember doing funny things in calc class when integrating in cylindrical space... we have to do something like that here.)
 
 $$
 \begin{matrix}
-\iint\limits_{X,R}f_{X,R}(x,r) dA &=& \int_0^1 \int_0^\infty \frac{\lambda e^{-\lambda x}}{x} x\, dx\, dr \\
-&=& \int_0^1 \int_0^\infty \lambda e^{-\lambda x} dx\, dr \\
-&=& \int_0^1 1 dr \\
-&=& \int_0^1 f_{R}(r) dr \\
+\iint\limits_{X,R}f_{X,R}(x,r) \mathrm{d}A &=& \int_0^1 \int_0^\infty \frac{\lambda e^{-\lambda x}}{x} x\, \mathrm{d}x\, \mathrm{d}r \\
+&=& \int_0^1 \int_0^\infty \lambda e^{-\lambda x} \mathrm{d}x\, \mathrm{d}r \\
+&=& \int_0^1 1 \mathrm{d}r \\
+&=& \int_0^1 f_{R}(r) \mathrm{d}r \\
 &=& 1 
 \end{matrix}
 $$
@@ -110,16 +114,16 @@ f_R(r) &=& \Sigma_{i=1}^\infty \frac{q^{di-1}(1-q)}{di+1}  \\
 &=& (1-q)\Sigma_{i=1}^\infty \frac{q^{di-1}}{di+1} & \textrm{pull common term out of sum}  \\
 &=& (1-q)\Sigma_{i=1}^\infty \frac{q^{di-1}}{di+1}\frac{q^2}{q^2}  & \textrm{multiply by 1 so that...} \\
 &=& \frac{1-q}{q^2}\Sigma_{i=1}^\infty \frac{q^{di+1}}{di+1} & \textrm{...the exponent and the denominator are the same} \\
-&=& \frac{1-q}{q^2}\Sigma_{i=1}^\infty \int \frac{d}{dq} \frac{q^{di+1}}{di+1} dq & \textrm{introduce integral and derivative}\\
-&=& \frac{1-q}{q^2}\Sigma_{i=1}^\infty \int q^{di} dq  & \textrm{take the derivative} \\
-&=& \frac{1-q}{q^2}\int \Sigma_{i=1}^\infty q^{di} dq & \textrm{swap the integral and the summation}  \\
-&=& \frac{1-q}{q^2}\int \frac{q^d}{1-q^d} dq & \textrm{rewrite geometric series as fraction}\\
+&=& \frac{1-q}{q^2}\Sigma_{i=1}^\infty \int \frac{\mathrm{d}}{\mathrm{d}q} \frac{q^{di+1}}{di+1} \mathrm{d}q & \textrm{introduce integral and derivative}\\
+&=& \frac{1-q}{q^2}\Sigma_{i=1}^\infty \int q^{di} \mathrm{d}q  & \textrm{take the derivative} \\
+&=& \frac{1-q}{q^2}\int \Sigma_{i=1}^\infty q^{di} \mathrm{d}q & \textrm{swap the integral and the summation}  \\
+&=& \frac{1-q}{q^2}\int \frac{q^d}{1-q^d} \mathrm{d}q & \textrm{rewrite geometric series as fraction}\\
 &=& \frac{(1-q)q^{d+1}}{q^2} \frac{_2F_1 \left( 1,1+\frac{1}{d};2+\frac{1}{d};q^d \right)}{d+1} & \textrm{ask WolframAlpha to solve the integral} \\
 &=& p(1-p)^{d-1} \frac{_2F_1 \left( 1,1+\frac{1}{d};2+\frac{1}{d};(1-p)^d \right)}{d+1} & \textrm{substitute in }q=1-p\\
 \end{matrix}
 $$
 
-It's hard to look at that mess and think that it's simpler. Also we had to introduce the very foreign-looking [hypergeometric function $$_2F_1$$](https://en.wikipedia.org/wiki/Hypergeometric_function). _But it's no longer an infinite series!_ So computing the value is quite a bit faster than attempting to compute enough terms of the infinite series so as to be "close enough". (Still though, it would have made my day if this ended up being a log or something.)
+It's hard to look at that mess and think that it's simpler. Also we had to introduce the very foreign-looking [hypergeometric function $$_2F_1$$](https://en.wikipedia.org/wiki/Hypergeometric_function). _But it's no longer an infinite series!_ So computing the value is quite a bit faster than attempting to compute enough terms of the infinite series so as to be "close enough", especially for low values of $$p$$. (Still though, it would have made my day if this ended up being a log or something.)
 
 Great, fine, whatever, let's see the PMF and CMF.
 
@@ -148,4 +152,4 @@ And as $$p$$ approaches 0:
 (here $$p=0.005$$), the CMF approaches uniformity. However the PMF looks wilder, and more fractal than ever. The shape of the plot appears to be converging to the same shape as a [Farey Diagram](https://en.wikipedia.org/wiki/Farey_sequence), but at the same time, the absolute height of each value is approaching 0. And maybe that's a good note to end this post on... what does it mean to have a function defined on rationals that has a definite shape (in terms of the ratios of the values of $$f_R$$), but has infinitesimal values? Weird, right?
 
 #### Special thanks 
-Thanks to Meijke Balay and Jason Orendorff for some of the tips and tricks above, and for pointing me to the Farey sequence.
+Thanks to Meijke Balay and Jason Orendorff for some of the tips and tricks above, Meijke Balay for pointing me to the Farey sequence, and Taj Singh for helping make my LaTeX prettier.
