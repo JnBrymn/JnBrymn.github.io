@@ -3,9 +3,6 @@ layout: post
 title: Playing with a Rational Distribution
 ---
 
-<!-- 
-https://gist.github.com/JnBrymn/9933b5471f0e5e06d27ffa8bb04d6d37
--->
 
 (Note to reader: I think I wrote this post for myself. From an outside perspective, it's by far the most boring one I've ever written. But it's math that's been occupying my mind for a week and from an inside perspective it's been quite fun. Maybe you'll find the fun in it that I did.)
 
@@ -153,3 +150,8 @@ And as $$p$$ approaches 0:
 
 #### Special thanks 
 Thanks to Meijke Balay and Jason Orendorff for some of the tips and tricks above, Meijke Balay for pointing me to the Farey sequence, and Taj Singh for helping make my LaTeX prettier.
+
+
+<!-- 
+https://gist.github.com/JnBrymn/9933b5471f0e5e06d27ffa8bb04d6d37
+-->
