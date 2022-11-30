@@ -1,5 +1,8 @@
 # Running locally
-`bundle exec jekyll serve`
+```
+bundle install
+bundle exec jekyll serve
+```
 
 # TODO
 * 
