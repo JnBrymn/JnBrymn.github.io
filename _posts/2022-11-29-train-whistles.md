@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Train Whistled
+title: Train Whistles
 ---
 
 A quick post tonight – just relating an interesting observation that I made about train whistles.
