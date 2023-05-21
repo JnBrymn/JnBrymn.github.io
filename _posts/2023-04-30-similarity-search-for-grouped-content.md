@@ -12,7 +12,7 @@ So how _could_ we make this search work? Well the most obvious and naive way is 
 # Gaussian Search
 What if we preserved the cloud of content rather than reducing it to a point? Well first, why would it even be important to preserve the cloud of content? Consider figure A below. The red point represents a user's query "female vocalists", and the green points represent two different subreddits reduced to a point. Which subreddit is more relevant to the query? The answer is ambiguous by design – I've place the query equidistant from the two subreddits.
 
- <figure>
+<figure>
     <img src='/assets/similarity-search-for-grouped-content/A.png' alt='missing' class="centered" style="width:70%;"/>
 </figure>
 
