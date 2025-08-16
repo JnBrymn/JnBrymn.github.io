@@ -3,9 +3,23 @@ layout: post
 title: "The Brain's Amazing Ability to Process Stereo Sound"
 ---
 
-<!-- Rewrite compelling intro -->
+There's a lot of amazing things about how the brain works, and in this post I'm going to explore the phenomenon of binaural hearing – that is, your brain's amazing ability to hear with both ears ("binaural"), combine the signals, and quickly extract useful information in a way that I think should basically be impossible for the slow meat-computer that it is. Crazy stuff! Here we go!
 
-Consider two pure sinusoidal audio signals. The left signal is 220Hz and the right is 225Hz.
+
+<figure style="text-align: center; width: 60%; height: 470px; overflow: hidden; margin: auto;">
+  <img src="/assets/the-brain-is-a-binaural-interferometer/face.png" 
+       alt="Face" 
+       style="width: 100%; height: 100%; object-fit: cover; object-position: top;">
+  <!-- <figcaption></figcaption> -->
+</figure>
+
+
+
+
+
+## Interferometry Basics
+
+Let's get things started by considering two pure sinusoidal audio signals. The left signal is 220Hz and the right is 225Hz.
 
 <figure style="text-align: center">
   <img src="/assets/the-brain-is-a-binaural-interferometer/sinusoidal_waveforms.png" alt="Sinusoidal Waves" style="width: 100%; margin: auto;">
