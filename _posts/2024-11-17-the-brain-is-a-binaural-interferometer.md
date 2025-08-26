@@ -85,3 +85,22 @@ Ok, if you don't have the same bizarre accuracy with the challenge that I do, th
 So what this means, is that your binaural processing is so _spectacularly_ accurate, that even when it's not presented with an "easy" constant tone (cf. the beginning of this post), your brain can still precisely calculate information about how two very complex waveforms relate to one another with millisecond accuracy. (The average human speaking voice is somewhere around 165Hz, which has a period of 6.06 milliseconds.) Even if it's not perfect interferometry, how does a slow computer made of meat even begin to accomplish this feat?
 
 As you can see, _I'm terribly impressed._
+
+---
+
+## Followup from Hearing Researcher Jörg Encke
+
+Whenever I write some nerdy post like this, I often try to seek out specialists and academics in the field so that I can get their professional thoughts on my amateur work. In this case I found Jörg Encke, a postdoctoral research fellow in the Department of Linguistics at Macquarie University, Sydney, who is affiliated with their Hearing Research Centre. Here is his explanation of the phenomenon I am demonstrating above:
+
+
+> What happens in is that your brain needs to solve the problem of creating an "auditory objects" out of each individual speaker.
+>
+> After the auditory periphery (outer ear, inner ear, hair cells, auditory nerve fibres ...) the sounds in each ear has been split into different frequency channels (similar to what would happen in a filter bank, just very non-linear). This means that the brain has access to something similar to a spectrogram. It now needs to decide which of the time-frequency sections belong to speaker 1, speaker 2 speaker 3 .... This usually happens by using grouping cues. The strongest of those are common-onset, harmonicity, common modulation. Once the object has been created, the brain analyses information about the location of all objects (binaural cues and spectral cues). Binaural cues are integrated across the time-frequency sections that belong to a specific object and the object is then placed at the most probable location. The result of this is your perception about the acoustic space.
+>
+> The main binaural cue that is of interest for your example is the interaural phase difference. By using a coincidence detection mechanism, the brain extracts a stream of interaural phase differences within each frequency channels. In your example, phase differences are always zero for the target sentence and +-pi for all other sentences. A phase difference of zero is perceived as a compact image in the centre while phase differences of +-pi are perceived as a spatially more diffuse image towards the left and right of the acoustic space. (If you concentrate on location instead of content, you can hear this very nicely in your example)
+>
+>The next step is trying to pay attention to a specific talker. You have all your masking talkers spatially co-located so it's very hard to split them apart. The only speaker that you can focus on more easily is the target speaker towards at the centre.
+>
+> Above's explanation is a bit simplified but maybe you get an idea of all the stuff that's going on behind the scenes. If you want to read more, Auditory Scene Analysis: The Perceptual Organization of Sound by Albert Bregman is a great introduction.
+
+Thanks for the new insights Jörg!
