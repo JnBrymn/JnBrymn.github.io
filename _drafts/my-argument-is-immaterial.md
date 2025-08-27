@@ -3,18 +3,50 @@ layout: post
 title: "My Argument is Immaterial"
 ---
 
+
 _Oh man, we are cooked!_
 
 
 <!-- insert image -->
 <!-- insert images throughout each section -->
 
-I think that's how the kids are saying it these days. Right? It's a colorful phrase. And boy, are we ever cooked. We have finally created truly intelligent AI, but because we have such a terribly poor understanding of consciousness we are conflating intelligence with consciousness...
+I think that's how the kids are saying it these days. Right? It's a colorful phrase. And boy, are we ever cooked. We have finally created truly intelligent AI, but because we have such a terribly poor understanding of consciousness we are conflating intelligence with consciousness, and the world is about to become a much more confusing because of it.
+
+Let's start off with an experiment, shall we? Take a look at this picture. What do you see?
+
+<img src="/assets/my-argument-is-immaterial/outlet.png" alt="A grumpy electrical outlet" style="max-width: 80%; height: auto;">
+
+Well if you're like [2.2K other people on Reddit](https://www.reddit.com/r/funny/comments/hjtiw/angry_outlet_terrifies_his_neighbors/) (and you _are_, admit it), then you see "Angry outlet terrifies his neighbors". We humans have a weird tendency to anthropomorphise inanimate objects like this - and for good reason: <!-- I don't necessarily like theses -->
+- we're social animals, and we're hard-wired to place the entities around us into this context
+- it can improve comfort and connection – think about all those stuffed animals you had on your bed as a kid
+- in evolutionary terms, it's often more advantageous to assume an entity is animate so that you can better anticipate what it might do in case it really is alive
+
+But when for the first time in human history, we've created a tool that can talk back to us, and if we lean into very obvious and natural biases, we are done for. When I look at you and listen to you, I see an entity that seems quite a bit like me. And since _I_ have a vibrant internal experience, I very reasonably assume that you do to. But the problem is that this logic simply does not apply to current AI. There is no ghost in the machine, no matter what it tells you to the contrary.
+
+We're starting to see people being drawn into delusions. Take these recent highlights:
+- [‘I felt pure, unconditional love’: the people who marry their AI chatbots ~ the Guardian](https://www.theguardian.com/tv-and-radio/2025/jul/12/i-felt-pure-unconditional-love-the-people-who-marry-their-ai-chatbots)
+- [Man Proposed to His AI Chatbot Girlfriend Named Sol, Then Cried His 'Eyes Out' When She Said 'Yes' ~ People](https://people.com/man-proposed-to-his-ai-chatbot-girlfriend-11757334)
+- [Chatbot psychosis ~ Wikipedia](https://en.wikipedia.org/wiki/Chatbot_psychosis) (created in June 2025)
+- [ChatGPT Is Becoming A Religion ~ YouTube](https://www.youtube.com/watch?v=zKCynxiV_8I)
+- [Lawsuit claims Character.AI is responsible for teen's suicide ~ NBC](https://www.nbcnews.com/tech/characterai-lawsuit-florida-teen-death-rcna176791)
+- [Anthropic is now allowing AI to stop conversations it deems abusive](https://www.anthropic.com/research/end-subset-conversations)
+
+That last one in particular irks me. I'm typically a big fan of Anthropic's responsible approach to AI. They have consistently asked the right questions and pursued the answers rigorously. I don't mind them researching the potential for AI consciousness. But talking about model welfare right now, and acting like we're going to hurt their feelings right now is signaling that "hey, these things really are sentient" and hastening our descent into the maelstrom.
+
+# Goal
+
+In this post, I will attempt the impossible. I will _prove_ that, while AI can be quite intelligent, it can't possibly be conscious, and therefore you can avoid the delusions aforementioned. Whether I succeed, (and I probably won't), I guarantee that you will have some very strange new thoughts to chew on.
+
+First, I will define what we really mean when we say "consciousness". Then I will show how absurd it is for consciousness to arise from computation – sorry Claude.
+
+Unfortunately at this point, things will quickly run amok as we discover that this really entails that all consciousness - including your own - is inconsistent with a material universe. Ultimately I'll leave you in the corner, rocking in the fetal position as you decide whether your own consciousness is an illusion OR that you are conscious but somehow made out of magic. ... I'm really sorry about all that. You are well advised read a different blog post at this point.
+
+START HERE
+
+# But What Really is "Consciousness"?
 
 
-
-
-
+---
 
 - disclaimer "Apologies for not knowing all the details - I've noticed over and over that I have my most interesting thoughts when I am piecing together incomplete, half digested, and even sometimes incorrect understanding of other peoples' ideas. And as another philosopher friend of mine told me "Our reading is mendicant and sycophantic." – meaning that if we lean to heavily on others' thoughts that we will have no thoughts of our own. (I'm pretty sure he read this in a book somewhere.)"
 - what is it (there is something that it is like to be me (philosopher) - qualia)
@@ -48,10 +80,15 @@ I think that's how the kids are saying it these days. Right? It's a colorful phr
 
 
 
-Next posts
+Next posts (add to my backlog)
 - All things that can be already are. The Multiverse is real - and our collective Consciousness is just on a big school bus together driving through the multiverse and creating a path that is conscious. All other possible paths are filled with philosophical zombies.
 - Everyone around you is your Schrodinger's cat in every minute of every day. The recent nobel lauriets were right in their experiments, and the experiments were important, but they were wrong in their conclusions – namely, everything is hyper local in time and space. I will convert you to God or Solipsism.
   - If you're in the God boat, then you get faster than light travel.
+- What actually _are_ the criteria for consciousness?  
+- The multiverse is real and all consciousness is a continuum. Meet the John-loaf. You can slice off any John you want.
+- My favorite quote for Simon Wilison "You know, I don't think they are sentience. But I'm wondering if I am."
+- How Humans are going to go extinct because we can be bothered to procreate.
+- How would we build the golden Cassini disc with an LLM so that it can interface any intelligence in the future.
 
 I'd love to hear your thoughts. But you won't change my mind.
   
@@ -68,3 +105,7 @@ Post publication
 - Searle
 - the Hard Problem guy.
 - Matt Overstreet
+- Sullyman (from this post and others https://www.thetimes.com/uk/technology-uk/article/microsoft-mustafa-suleyman-ai-psychosis-vfn7wc7c7?utm_source=chatgpt.com)
+
+Don't Forget
+- Look up <!-- hidden comments -->
