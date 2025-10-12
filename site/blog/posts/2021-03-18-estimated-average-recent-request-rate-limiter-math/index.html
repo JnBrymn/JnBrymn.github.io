@@ -1,0 +1,943 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Life on the Pareto Frontier">
+      
+      
+        <meta name="author" content="John Berryman">
+      
+      
+        <link rel="canonical" href="http://blog.jnbrymn.com/blog/posts/2021-03-18-estimated-average-recent-request-rate-limiter-math/">
+      
+      
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.21">
+    
+    
+      
+        <title>EARRRL – the Estimated Average Recent Request Rate Limiter - the Mathy Bits - Thought Box</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.2a3383ac.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#not-quite-solving-the-problem-with-exponentially-weighted-moving-average" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Thought Box" class="md-header__button md-logo" aria-label="Thought Box" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Thought Box
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              EARRRL – the Estimated Average Recent Request Rate Limiter - the Mathy Bits
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../" class="md-tabs__link">
+          
+  
+  
+  Blog
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../about/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  About
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Thought Box" class="md-nav__button md-logo" aria-label="Thought Box" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Thought Box
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Blog
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Blog
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Blog
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    About
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#not-quite-solving-the-problem-with-exponentially-weighted-moving-average" class="md-nav__link">
+    <span class="md-ellipsis">
+      Not Quite Solving the Problem with Exponentially Weighted Moving Average
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#introducing-earrrl" class="md-nav__link">
+    <span class="md-ellipsis">
+      Introducing EARRRL
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Introducing EARRRL">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#theoretical-background" class="md-nav__link">
+    <span class="md-ellipsis">
+      Theoretical Background
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#the-algorithm" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Algorithm
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="The Algorithm">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#initialize" class="md-nav__link">
+    <span class="md-ellipsis">
+      Initialize
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#update" class="md-nav__link">
+    <span class="md-ellipsis">
+      Update
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#evaluate" class="md-nav__link">
+    <span class="md-ellipsis">
+      Evaluate
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#is-rate-limited" class="md-nav__link">
+    <span class="md-ellipsis">
+      Is Rate Limited
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#in-code" class="md-nav__link">
+    <span class="md-ellipsis">
+      In Code
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#does-it-really-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      Does it Really Work?
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Does it Really Work?">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#asymptotic-convergence-for-constant-discrete-request-rate" class="md-nav__link">
+    <span class="md-ellipsis">
+      Asymptotic Convergence for Constant (Discrete) Request Rate
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#choosing-lambda-to-control-response-time-and-accuracy-tradeoff" class="md-nav__link">
+    <span class="md-ellipsis">
+      Choosing Lambda to Control Response Time and Accuracy Tradeoff
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#burst-saturation-and-attempting-to-game-the-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      Burst Saturation and Attempting to Game the System
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conclusion
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>EARRRL – the Estimated Average Recent Request Rate Limiter - the Mathy Bits</h1>
+
+<p><a href="../2021-03-18-estimated-average-recent-request-rate-limiter/">In the companion post</a> I introduced a problem with naive, window-based rate limiters – they're too forgiving! The user's request count is stored in a key in Redis with a TTL of, say, 15 minutes, and once the key expires, the abusive user can come back and immediately offend again. Effectively the abusive user is using <em>your</em> infrastructure to rate limit their requests.</p>
+<p>In this post we'll investigate an alternative approach to windowed rate limiting which keeps a running estimate of each user's request rate and rejects requests for users whose rate is above the prescribed threshold. The focus of this post is on the math behind the approach. For a practical implementation, usage, and motivation for why the math might be worth looking at, please take a look at the companion post.</p>
+<!-- more -->
+
+<h2 id="not-quite-solving-the-problem-with-exponentially-weighted-moving-average">Not <em>Quite</em> Solving the Problem with Exponentially Weighted Moving Average</h2>
+<p>The Exponentially Weighted Moving Average is a simple method for measuring the <em>recent</em> average of a series of numbers. (<a href="https://github.com/VividCortex/ewma">Here's a great reference.</a>) This makes EWMA seem like a good candidate for building the type of rate limiter described above. Effectively, it would work like this: For each user, you store 2 values, the number of hits in this window and the "running average" of their recent windows. Whenever a user makes a request, you update hit count. At the end of the time window you <a href="https://en.wikipedia.org/wiki/Moving_average#Exponential_moving_average">use a simple formula</a> to incorporate the number of hits into the average of the recent windows, and you also reset the hit count to 0 in preparation for the next window. With this approach, requests would be rejected if the running average of recent requests per window exceeded some prescribed threshold.</p>
+<p>Unfortunately, this would-be approach comes with a fatal flaw: you have to perform a calculation for <em>every</em> recently active user at the end of <em>every</em> window. For instance, even if the user <em>did not</em> submit any requests in this time window, you still have to incorporate <code>0</code> into their running average, or the running average will never decrease. We'll have to find some other approach.</p>
+<h2 id="introducing-earrrl">Introducing EARRRL</h2>
+<p>Drawing inspiration from the EWMA, th remainder of this post introduces EARRRL, the Estimated Average Recent Request Rate Limiter. EARRRL limits  a user's requests based upon an estimate of the user's <em>recent</em> request rate. Importantly, EARRRL requires no global value updates as in the case of EWMA, and EARRRL is <em>not</em> window based, so it doesn't have the over-permissive forgiveness policy that we see in windowed rate limiters.</p>
+<p><strong>Disclaimer</strong>: <em>Does this already exist? Eh, probably. It's just too simple and useful of an idea to not exist. But I couldn't find it. And after searching the internet for a bit I decided <strong>not</strong> to find it, because what fun would it be to just look up the answer?!</em></p>
+<h3 id="theoretical-background">Theoretical Background</h3>
+<p>With EARRRL, we wish to estimate the <em>recent</em> average rate at which a user's requests arrive. Let's represent the time history of the user's request rate as <span class="arithmatex">\(<span class="arithmatex">\(r(t)\)</span>\)</span>. For the current discussion, time <span class="arithmatex">\(<span class="arithmatex">\(t\)</span>\)</span> is relative to now, so that <span class="arithmatex">\(<span class="arithmatex">\(t=0\)</span>\)</span> means this moment, and <span class="arithmatex">\(<span class="arithmatex">\(t=-1\)</span>\)</span> means one second in the past. In order to take the average, we make use of a weight function, represented as <span class="arithmatex">\(<span class="arithmatex">\(w(t)\)</span>\)</span>, which is used to weight the more recent rate as being more important than the rate that occurred further in the past. In order to find the weighted average of the rate, we have to evaluate this integral.</p>
+<div class="arithmatex">\[
+\int_{-\infty}^{0} w(t) \cdot  r(t)\:dt      \tag{1}
+\]</div>
+<p>(This is very similar to <a href="https://mathworld.wolfram.com/ExpectationValue.html">finding the expected value of a function</a> in statistics.)</p>
+<p>As of yet, this equation is pretty vague. We can choose the weight function to be whatever we want, and the rate function is dependant upon the user's behavior, but for both of these, we can make some assumptions that will simplify our work. Let's start with <span class="arithmatex">\(<span class="arithmatex">\(w(t)\)</span>\)</span>. One convenient weighting function is the exponential function:</p>
+<div class="arithmatex">\[
+w(t) = \lambda e^{\lambda t}       \tag{2}
+\]</div>
+<figure>
+    <img src='/assets/estimated-average-recent-request-rate-limiter/average-rate.png' alt='weighting and rate functions' class="centered"/>
+    <figcaption><em>An exponential weight function along with an arbitrary rate function.</em></figcaption>
+</figure>
+
+<p>The integral of <span class="arithmatex">\(<span class="arithmatex">\(w(t)\)</span>\)</span> is 1 (a requirement that any weight function must satisfy), and since we will choose <span class="arithmatex">\(<span class="arithmatex">\(\lambda\)</span>\)</span> to be greater than 0, the weight function is fat near to current time and becomes exponentially thinner as we move back in time – thus more recent time is weighted more heavily. (This was our goal, remember.)</p>
+<p>In order to gain intuition, let's look at the recent average of a very simple rate function - a constant rate.</p>
+<div class="arithmatex">\[
+\begin{matrix}
+\int_{-\infty}^{0} w(t) \cdot  r(t)\:dt &amp;=&amp;  \int_{-\infty}^{0} w(t) \cdot  r\:dt \\ 
+ &amp;=&amp; r \int_{-\infty}^{0} w(t) \:dt \\ 
+&amp;=&amp; r \\ 
+\end{matrix}            \tag{3}
+\]</div>
+<p>For the last step, since the integral of a weight function is by definition 1, all that is left is <span class="arithmatex">\(<span class="arithmatex">\(r\)</span>\)</span>. This should be a satisfying result, because, if the user's request rate is constant, <span class="arithmatex">\(<span class="arithmatex">\(r\)</span>\)</span>, then the recent average of the rate should just be <span class="arithmatex">\(<span class="arithmatex">\(r\)</span>\)</span>, and it is.</p>
+<p>If you're reading carefully, you might notice something weird about the rate function - it's continuous. What does it mean to have a rate of 0.6 requests per second? You can't make partial requests. Even though this feels non-intuitive, dealing with a continuous rate is a generalization of the more realistic scenario where requests come in as discrete units. To demonstrate this, we need to introduce the notion of an "impulse" (otherwise known as the <a href="https://en.wikipedia.org/wiki/Dirac_delta_function">Dirac delta</a>). An impulse is the application of an <em>infinitely</em> high rate for an <em>infinitesimally</em> short period of time. However the <em>integral</em> of impulse is finite. Whenever you make a single request, what you're doing is creating an impulse in the request rate. In an instant, the request <em>rate</em> goes infinitely high because it didn't take you a second to submit that request (which would be 1 request per second), it didn't take you a millisecond (which would be 1000 requests per second), it took the twinkling of an eye (which is one request per twinkling). But once that moment passed, the actual <em>number</em> of requests that you made (the integral of the rate) was just 1. (Ok, so that concept is a little difficult to justify in a single paragraph. <a href="https://twitter.com/jnbrymn">Look me up on Twitter</a> and I'll set up a time to explain it more clearly.)</p>
+<p>An impulse of size <span class="arithmatex">\(<span class="arithmatex">\(N\)</span>\)</span> (meaning N simultaneous requests in this case) and at some time <span class="arithmatex">\(<span class="arithmatex">\(T\)</span>\)</span> is represented by the notation <span class="arithmatex">\(<span class="arithmatex">\(N\delta(t-T)\)</span>\)</span>. And the exponentially weighted average (EWA) of this impulse function is</p>
+<div class="arithmatex">\[
+\int_{-\infty}^{0}w(t) \cdot N\delta(t-T)= N \cdot w(T) = N\lambda  e^{\lambda T}      \tag{4}
+\]</div>
+<p>(<a href="https://mathworld.wolfram.com/DeltaFunction.html">Integration of an impulse is explained in more detail here.</a>) If the time of the impulse is now, <span class="arithmatex">\(<span class="arithmatex">\(T=0\)</span>\)</span>, then you can simplify this even more to just <span class="arithmatex">\(<span class="arithmatex">\(N\lambda\)</span>\)</span>. Finally, impulses add linearly, so the EWA for <span class="arithmatex">\(<span class="arithmatex">\(N_1\)</span>\)</span> requests occurring at <span class="arithmatex">\(<span class="arithmatex">\(T_1\)</span>\)</span> and <span class="arithmatex">\(<span class="arithmatex">\(N_2\)</span>\)</span> requests occurring at <span class="arithmatex">\(<span class="arithmatex">\(T_2\)</span>\)</span> is <span class="arithmatex">\(<span class="arithmatex">\(N_1\lambda  e^{\lambda T_1} + N_2\lambda  e^{\lambda T_2}\)</span>\)</span>.</p>
+<p>The last and most important thing to notice is that there are many possible rate functions that can lead to the same exponentially weighted average value. For example, let's say that <span class="arithmatex">\(<span class="arithmatex">\(\lambda = 0.07\)</span>\)</span>, then a request that just arrived (e.g. and impulse of size <span class="arithmatex">\(<span class="arithmatex">\(N=1\)</span>\)</span> at time <span class="arithmatex">\(<span class="arithmatex">\(T=0\)</span>\)</span>) would have the same EWA as the continuous application of 0.07 requests per second, <span class="arithmatex">\(<span class="arithmatex">\(r=0.07\)</span>\)</span>. This would also have the same EWA as two request occurring simultaneously 9.9 seconds ago.</p>
+<table>
+<thead>
+<tr>
+<th>scenario</th>
+<th>equation</th>
+<th>avg value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>EWA of one request occuring just now</td>
+<td><span class="arithmatex">\(<span class="arithmatex">\(1 \cdot \lambda\)</span>\)</span></td>
+<td>0.07</td>
+</tr>
+<tr>
+<td>EWA of a constant request rate</td>
+<td><span class="arithmatex">\(<span class="arithmatex">\(r\)</span>\)</span></td>
+<td>0.07</td>
+</tr>
+<tr>
+<td>EWA of 2 requests occuring 9.9 seconds ago</td>
+<td><span class="arithmatex">\(<span class="arithmatex">\(2\cdot \lambda  e^{-9.9\lambda}\)</span>\)</span></td>
+<td>0.07</td>
+</tr>
+</tbody>
+</table>
+<p>The observation that several different rate time histories correspond to identical EWA values is the crux of the algorithm that we lay out next.</p>
+<h3 id="the-algorithm">The Algorithm</h3>
+<p>We now have all the theoretical pieces required to build EARRRL. Our algorithm requires us to track 2 values, the time of the last update  <span class="arithmatex">\(<span class="arithmatex">\(T\)</span>\)</span>, and the "impulse size" <span class="arithmatex">\(<span class="arithmatex">\(N\)</span>\)</span>, which roughly corresponds to the number of recent requests. There are 4 methods for our rate limiter <code>initialize</code>, <code>update</code>, <code>evaluate</code>, and <code>is_rate_limited</code>. They are described here:</p>
+<h4 id="initialize">Initialize</h4>
+<p>Upon a user's first request, set <span class="arithmatex">\(<span class="arithmatex">\(T_0=\text{unix_timestamp_now()}\)</span>\)</span>, indicating when the request was made and <span class="arithmatex">\(<span class="arithmatex">\(N_0=1\)</span>\)</span> indicating that it was a single request.</p>
+<h4 id="update">Update</h4>
+<p>For subsequent requests, <span class="arithmatex">\(<span class="arithmatex">\(T_{i-1}\)</span>\)</span> represents the time of the last request, and <span class="arithmatex">\(<span class="arithmatex">\(N_{i-1}\)</span>\)</span> represents the number of requests were <em>assumed</em> to come at that moment. As in the examples at the end of the last section, we calculate the EWA of <span class="arithmatex">\(<span class="arithmatex">\(N_{i-1}\)</span>\)</span> request happening at <span class="arithmatex">\(<span class="arithmatex">\(T_{i-1}\)</span>\)</span> plus 1 request (the new one) happening right now at <span class="arithmatex">\(<span class="arithmatex">\(t=0\)</span>\)</span>. Given this new EWA, we can find an <span class="arithmatex">\(<span class="arithmatex">\(N_i\)</span>\)</span> such that <span class="arithmatex">\(<span class="arithmatex">\(N_i\)</span>\)</span> requests happening at <span class="arithmatex">\(<span class="arithmatex">\(t=0\)</span>\)</span> has an identical EWA value:</p>
+<table>
+<thead>
+<tr>
+<th>scenario</th>
+<th>equation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>EWA of <span class="arithmatex">\(<span class="arithmatex">\(N_{i-1}\)</span>\)</span> requests at <span class="arithmatex">\(<span class="arithmatex">\(T_{i-1}\)</span>\)</span> and 1 more just now (eq. 4)</td>
+<td><span class="arithmatex">\(<span class="arithmatex">\(N_{i-1}\cdot \lambda  e^{-\lambda(now-T_{i-1})} + 1 \cdot \lambda\)</span>\)</span></td>
+</tr>
+<tr>
+<td>EWA of <span class="arithmatex">\(<span class="arithmatex">\(N_{i}\)</span>\)</span> requests just now (eq. 4)</td>
+<td><span class="arithmatex">\(<span class="arithmatex">\(N_{i}\cdot \lambda\)</span>\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Setting both of these equations equal and solving for <span class="arithmatex">\(<span class="arithmatex">\(N_i\)</span>\)</span> we arrive at <span class="arithmatex">\(<span class="arithmatex">\(N\)</span>\)</span>'s update equation.</p>
+<div class="arithmatex">\[
+N_i = 1 + N_{i-1}  e^{-\lambda(now-T_{i-1})}       \tag{5}
+\]</div>
+<p>We also update the time as <span class="arithmatex">\(<span class="arithmatex">\(T_i=\text{unix_timestamp_now()}\)</span>\)</span>.</p>
+<h4 id="evaluate">Evaluate</h4>
+<p>Take a moment and note what we're doing here. Despite what we said in the <code>update</code> section, <em>it is not true</em> that <span class="arithmatex">\(<span class="arithmatex">\(N_i\)</span>\)</span> requests came at time <span class="arithmatex">\(<span class="arithmatex">\(T_i\)</span>\)</span>. However <em>assuming</em> that this is true leads to a relatively good estimate for the recent average rate. This is exactly the quantity we calculate now. Effectively the evaluation step converts from the assumption that all request happened instantaneously at <span class="arithmatex">\(<span class="arithmatex">\(T_i\)</span>\)</span> to the assuption that requests occurred at a constant rate. </p>
+<p>Here are the relevant scenarios:</p>
+<table>
+<thead>
+<tr>
+<th>scenario</th>
+<th>equation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>EWA of <span class="arithmatex">\(<span class="arithmatex">\(N_{i}\)</span>\)</span> requests at <span class="arithmatex">\(<span class="arithmatex">\(T_{i}\)</span>\)</span> (eq. 4)</td>
+<td><span class="arithmatex">\(<span class="arithmatex">\(N_{i}\cdot \lambda  e^{-\lambda(now-T_{i-1})}\)</span>\)</span></td>
+</tr>
+<tr>
+<td>EWA of a constant request rate (eq. 3)</td>
+<td><span class="arithmatex">\(<span class="arithmatex">\(r\)</span>\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Equating these two scenarios, we solve for the <em>assumed</em> constant request rate.</p>
+<div class="arithmatex">\[
+r = N_{i}\cdot \lambda e^{-\lambda(now-T_{i-1})}        \tag{6}
+\]</div>
+<p>This is the important number! It's the estimated average recent request rate – it's what we are limiting. </p>
+<h4 id="is-rate-limited">Is Rate Limited</h4>
+<p>Finally we introduce the actual rate limiting policy: If the estimated average recent request rate is higher than the maximum allowed request rate, then <code>is_rate_limited</code> returns <code>true</code>, otherwise <code>false</code>. </p>
+<h2 id="in-code">In Code</h2>
+<p>The end result in Python is refreshingly simple:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">class</span> <span class="nc">EARRRL</span><span class="p">:</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lambd</span><span class="p">,</span> <span class="n">rate_limit</span><span class="p">):</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">N</span> <span class="o">=</span> <span class="mi">1</span>
+<a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">T</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">lambd</span> <span class="o">=</span> <span class="n">lambd</span>
+<a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">rate_limit</span> <span class="o">=</span> <span class="n">rate_limit</span>
+<a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
+<a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>        <span class="n">delta_t</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">T</span> <span class="o">-</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">N</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">N</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lambd</span><span class="o">*</span><span class="n">delta_t</span><span class="p">)</span>
+<a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">T</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>
+<a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>    <span class="k">def</span> <span class="nf">evaluate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>        <span class="n">delta_t</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">T</span> <span class="o">-</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">N</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">lambd</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lambd</span><span class="o">*</span><span class="n">delta_t</span><span class="p">)</span>
+<a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>
+<a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>    <span class="k">def</span> <span class="nf">is_rate_limited</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">evaluate</span><span class="p">()</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">rate_limit</span>
+</code></pre></div>
+<p>(See <a href="../2021-03-18-estimated-average-recent-request-rate-limiter/">the companion post</a> for practical examples of implementing and using this in Redis.)</p>
+<h2 id="does-it-really-work">Does it Really Work?</h2>
+<p>Everything above is based on intuition. Now let's toss together some light proofs to indicate that this algorithm performs as advertised.</p>
+<h3 id="asymptotic-convergence-for-constant-discrete-request-rate">Asymptotic Convergence for Constant (Discrete) Request Rate</h3>
+<p>If a user consistently makes a request every <span class="arithmatex">\(<span class="arithmatex">\(\Delta t\)</span>\)</span> seconds, then we would like EARRRL to converge to the correct estimate of the request rate <span class="arithmatex">\(<span class="arithmatex">\(r = \frac{1}{\Delta t}\)</span>\)</span>. To investigate this, let's watch as the <span class="arithmatex">\(<span class="arithmatex">\(N\)</span>\)</span> value of the algorithm is updated (ref eq. 5<!-- tag{5} -->).</p>
+<table>
+<thead>
+<tr>
+<th>time</th>
+<th>N equals</th>
+<th>N equals (rearranged)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="arithmatex">\(<span class="arithmatex">\(0\)</span>\)</span></td>
+<td><span class="arithmatex">\(<span class="arithmatex">\(0\)</span>\)</span></td>
+<td><span class="arithmatex">\(<span class="arithmatex">\(0\)</span>\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(<span class="arithmatex">\(\Delta t\)</span>\)</span></td>
+<td><span class="arithmatex">\(<span class="arithmatex">\(1\)</span>\)</span></td>
+<td><span class="arithmatex">\(<span class="arithmatex">\(1\)</span>\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(<span class="arithmatex">\(2\Delta t\)</span>\)</span></td>
+<td><span class="arithmatex">\(<span class="arithmatex">\(1 + e^{-\lambda \Delta t}\)</span>\)</span></td>
+<td><span class="arithmatex">\(<span class="arithmatex">\(1 + e^{-\lambda \Delta t}\)</span>\)</span></td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(<span class="arithmatex">\(3\Delta t\)</span>\)</span></td>
+<td><span class="arithmatex">\(<span class="arithmatex">\(1 + (1 + e^{-\lambda \Delta t})e^{-\lambda \Delta t}\)</span>\)</span></td>
+<td>$$1 + e^{-\lambda \Delta t} + e^{-2\lambda \Delta t} $$</td>
+</tr>
+<tr>
+<td><span class="arithmatex">\(<span class="arithmatex">\(4\Delta t\)</span>\)</span></td>
+<td><span class="arithmatex">\(<span class="arithmatex">\(1 + (1 + e^{-\lambda \Delta t} + e^{-2\lambda \Delta t})e^{-\lambda \Delta t}\)</span>\)</span></td>
+<td><span class="arithmatex">\(<span class="arithmatex">\(1 + e^{-\lambda \Delta t} + e^{-2\lambda \Delta t} + e^{-3\lambda \Delta t}\)</span>\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>And as time progresses, <span class="arithmatex">\(<span class="arithmatex">\(N\)</span>\)</span> converges to </p>
+<div class="arithmatex">\[
+N \rightarrow 1 + e^{-\lambda \Delta t} + e^{-2\lambda \Delta t} + e^{-3\lambda \Delta t} \cdots = \sum_{k=0}^{\infty}e^{-k\lambda \Delta t}  \tag{7}
+\]</div>
+<p>Already we see a nice result: Applying eq. 4, to eq. 7 we see that the exponentially weighted average of <span class="arithmatex">\(<span class="arithmatex">\(N\)</span>\)</span> simultaneous requests that occurred just now <em>is equivalent</em> to the to the EWA of a series of requests spaced <span class="arithmatex">\(<span class="arithmatex">\(\Delta t\)</span>\)</span> seconds apart. Thus, EARRRL is accurately tracking the exact EWA rate in this case rather than some approximation.</p>
+<p>Further, note that Eq. 7 is <a href="https://www.google.com/search?q=convergence+of+geometric+series&amp;source=lnms&amp;tbm=isch&amp;sa=X&amp;ved=2ahUKEwjL6Oe6vrvvAhUbOs0KHXkvDN0Q_AUoAXoECCcQAw&amp;biw=1280&amp;bih=1466">a geometric series which converges to</a> </p>
+<div class="arithmatex">\[
+N \rightarrow  \sum_{k=0}^{\infty}e^{-k\lambda \Delta t} = \frac{1}{1-e^{-\lambda \Delta t}}                \tag{8}
+\]</div>
+<p>From this equation, we multiply by <span class="arithmatex">\(<span class="arithmatex">\(\lambda\)</span>\)</span> to get the EWA of the request rate at the moment just after a request is received.</p>
+<div class="arithmatex">\[
+\text{EWA of rate upon arrival of request} = \frac{\lambda}{1-e^{-\lambda \Delta t}}            \tag{9}
+\]</div>
+<p>And if we multiply eq. 7 by <span class="arithmatex">\(<span class="arithmatex">\(\lambda e^{-\lambda \Delta t}\)</span>\)</span> we get the EWA of the request rate <span class="arithmatex">\(<span class="arithmatex">\(\Delta t\)</span>\)</span> later, just before the next request is received.</p>
+<div class="arithmatex">\[
+\text{EWA of rate just before arrival of next request} = \frac{\lambda e^{-\lambda \Delta t}}{1-e^{-\lambda \Delta t}}            \tag{10}
+\]</div>
+<p>Note that neither of these values is the true rate <span class="arithmatex">\(<span class="arithmatex">\(r=\frac{1}{\Delta t}\)</span>\)</span>, rather <a href="../2021-03-18-estimated-average-recent-request-rate-limiter/">referring to the plots in the companion post</a>, these are the values that EARRRL bounces between when subject to a constant rate of requests. Notice that when you subtract the two equations, the result is simply <span class="arithmatex">\(<span class="arithmatex">\(\lambda\)</span>\)</span>. Thus, the smaller that you make <span class="arithmatex">\(<span class="arithmatex">\(\lambda\)</span>\)</span> the more accurate EARRRL will become.</p>
+<p>Take another look at both equations 9 and 10, as <span class="arithmatex">\(<span class="arithmatex">\(\lambda\)</span>\)</span> approaches zero, these equations approach the same value and at the limit this value indeed equals the true request rate. This can be shown with help from <a href="https://www.youtube.com/watch?v=Gh48aOvWcxw">l'Hopital's rule</a>. For example, starting from eq. 9:</p>
+<div class="arithmatex">\[
+r = \lim_{\lambda \rightarrow 0} \frac{\lambda}{1-e^{-\lambda \Delta t}} 
+= \lim_{\lambda \rightarrow 0}   \frac{\frac{d}{d\lambda}\lambda}{\frac{d}{d\lambda}(1-e^{-\lambda \Delta t})}
+= \lim_{\lambda \rightarrow 0}   \frac{1}{\Delta t e^{-\lambda \Delta t}}
+= \frac{1}{\Delta t}
+\]</div>
+<p>Thus as <span class="arithmatex">\(<span class="arithmatex">\(\lambda\)</span>\)</span> approaches zero, the estimated rate of a sequence of evenly spaced requests does indeed converge to the correct value <span class="arithmatex">\(<span class="arithmatex">\(r = \frac{1}{\Delta t}\)</span>\)</span>.</p>
+<h3 id="choosing-lambda-to-control-response-time-and-accuracy-tradeoff">Choosing Lambda to Control Response Time and Accuracy Tradeoff</h3>
+<p>We saw above (just past eq. 9 and 10) that <span class="arithmatex">\(<span class="arithmatex">\(\lambda\)</span>\)</span> controls the accuracy of EARRRL, but it also controls how fast EARRRL converges. To see this, take a look at the evaluation function (eq. 6) restated here</p>
+<div class="arithmatex">\[
+r = N_{i} \lambda e^{-\lambda(\Delta T_i)}
+\]</div>
+<p>At the moment just after the last request occurred, the EWA of rate was <span class="arithmatex">\(<span class="arithmatex">\(r=N_{i} \lambda\)</span>\)</span>, so let's define the half-life  <span class="arithmatex">\(<span class="arithmatex">\(T_{\lambda}\)</span>\)</span> as the amount of time that it take for the estimate to drop by half assuming no new requests come in. In other words, let's solve this equation for <span class="arithmatex">\(<span class="arithmatex">\(T_{\lambda}\)</span>\)</span>:</p>
+<div class="arithmatex">\[
+N_{i} \lambda e^{-\lambda(T_{\lambda})} = \frac{N_{i} \lambda}{2} \tag{11}
+\]</div>
+<p>The answer is:</p>
+<div class="arithmatex">\[
+T_{\lambda} = \frac{\ln 2}{\lambda}         \tag{12}
+\]</div>
+<p>The half-life is inversely proportional to <span class="arithmatex">\(<span class="arithmatex">\(\lambda\)</span>\)</span>. Therefore requiring twice the accuracy implies a response time that is twice as slow. However it is our good fortune that we don't care much about response time. As a matter of fact, it is probably better to have a slow response time so that EARRRL doesn't prematurely rate limit a user upon receiving a small burst of queries (see next section). Instead, EARRRL is designed to protect against the users that <em>consistently</em> exceed the prescribed rate limit.</p>
+<h3 id="burst-saturation-and-attempting-to-game-the-system">Burst Saturation and Attempting to Game the System</h3>
+<p>We've demonstrated that if a user makes periodic requests at a consistent rate, that EARRRL will converge to an accurate estimate of their rate. But what happens if the user's behavior is bursty rather than consistent? Let's consider the worst case scenario: how many requests can a user make <em>instantaneously</em> before EARRRL saturates? According the evaluation equation (eq. 6), this number is:</p>
+<div class="arithmatex">\[
+N_{\text{saturation}}=\frac{r_{\text{threshold}}}{\lambda}              \tag{13}
+\]</div>
+<p>Since you are in control of <span class="arithmatex">\(<span class="arithmatex">\(\lambda\)</span>\)</span>, it's a good idea to make sure that  <span class="arithmatex">\(<span class="arithmatex">\(N_{\text{saturation}}\)</span>\)</span> is quite high, because if it really is just a small burst, you don't necessarily want to penalize the user.</p>
+<p>Now this begs a question: Can a user game the system by bursting up to the saturation threshold, then waiting for a cool down period and then bursting again? The goal, of course, would be to sneak past the rate limit. Let's see what happens in this scenario. Let's say the user sends <span class="arithmatex">\(<span class="arithmatex">\(N_{\text{saturation}}\)</span>\)</span> requests and then waits several half-lives until the rate estimate is back near to 0. Let's pick 5 half-lives (97% of the way back to 0). In this case the user's overall send rate is <span class="arithmatex">\(<span class="arithmatex">\(r_{\text{abuse}}=\frac{N_{\text{saturation}}}{5T_{\lambda}}\)</span>\)</span>. Plugging in eq. 12 and 13:</p>
+<div class="arithmatex">\[
+r_{\text{abuse}}= \frac{N_{\text{saturation}}}{5T_{\lambda}}
+ = \frac{r_{\text{threshold}}}{\lambda} \frac{\lambda}{5\ln 2}
+ = \frac{r_{\text{threshold}}}{5\ln 2} 
+ \tag{14}  
+\]</div>
+<p>Since <span class="arithmatex">\(<span class="arithmatex">\(5\ln 2\)</span>\)</span> is so much larger than 1, then the abuse rate is going be well below the EARRRL threshold and we are safe from anyone gaming the system in this manner.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>EARRRL, the Estimated Average Recent Request Rate Limiter provides an appealing alternative to the standard, windowed rate limiter. It is intuitive to use, you just specify a threshold for the rate and a value for <span class="arithmatex">\(<span class="arithmatex">\(\lambda\)</span>\)</span> to bound the error. The benefit of EARRRL is that it automatically "permanently bans" users who are willing to <em>consistently</em> abuse rate limits, but at the same time, it is forgiving of users, even formerly abusive users, who have demonstrated that they will maintain a rate limit below the prescribed threshold. EARRRL also allows for occasional bursty behavior for which windowed rate limiters might prematurely rate limit good users.</p>
+<p>What's next?
+* Want to go build one? <a href="../2021-03-18-estimated-average-recent-request-rate-limiter/">Check out the companion post</a> where I create a simple Redis implementation.
+* Want to play with the algorithms yourself? <a href="https://gist.github.com/JnBrymn/e3894376e4b4423911747cc8565a5cf3">Check our my Jupyter notebook</a>
+* What tell me what you think? <a href="https://twitter.com/jnbrymn">Look me up</a>.</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/JnBrymn" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M459.4 151.7c.3 4.5.3 9.1.3 13.6 0 138.7-105.6 298.6-298.6 298.6-59.5 0-114.7-17.2-161.1-47.1 8.4 1 16.6 1.3 25.3 1.3 49.1 0 94.2-16.6 130.3-44.8-46.1-1-84.8-31.2-98.1-72.8 6.5 1 13 1.6 19.8 1.6 9.4 0 18.8-1.3 27.6-3.6-48.1-9.7-84.1-52-84.1-103v-1.3c14 7.8 30.2 12.7 47.4 13.3-28.3-18.8-46.8-51-46.8-87.4 0-19.5 5.2-37.4 14.3-53C87.4 130.8 165 172.4 252.1 176.9c-1.6-7.8-2.6-15.9-2.6-24C249.5 95.1 296.3 48 354.4 48c30.2 0 57.5 12.7 76.7 33.1 23.7-4.5 46.5-13.3 66.6-25.3-7.8 24.4-24.4 44.8-46.1 57.8 21.1-2.3 41.6-8.1 60.4-16.2-14.3 20.8-32.2 39.3-52.6 54.3"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/JnBrymn" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.sections", "navigation.top", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

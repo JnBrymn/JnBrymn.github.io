@@ -1,0 +1,630 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Life on the Pareto Frontier">
+      
+      
+        <meta name="author" content="John Berryman">
+      
+      
+        <link rel="canonical" href="http://blog.jnbrymn.com/blog/posts/2018-03-23-tokenizing-embedding-spaces/">
+      
+      
+      
+      
+      <link rel="icon" href="../../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.21">
+    
+    
+      
+        <title>Tokenizing Embedding Spaces for Faster, More Relevant Search - Thought Box</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.2a3383ac.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#using-search-technology-for-large-scale-face-recognition-tasks" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Thought Box" class="md-header__button md-logo" aria-label="Thought Box" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Thought Box
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Tokenizing Embedding Spaces for Faster, More Relevant Search
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../" class="md-tabs__link">
+          
+  
+  
+  Blog
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../../about/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  About
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Thought Box" class="md-nav__button md-logo" aria-label="Thought Box" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Thought Box
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Blog
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Blog
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Blog
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    About
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#using-search-technology-for-large-scale-face-recognition-tasks" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using Search Technology for Large Scale Face Recognition Tasks
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#tokenizing-embedding-spaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      Tokenizing Embedding Spaces
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#yeah-yeah-but-how-do-we-do-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      Yeah, Yeah... But how do we do it?
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#standard-disclaimer" class="md-nav__link">
+    <span class="md-ellipsis">
+      Standard Disclaimer
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+  <h1>Tokenizing Embedding Spaces for Faster, More Relevant Search</h1>
+
+<p>Embedding spaces are quite trendy right now machine learning. With word2vec for example, you can create an embedding for words that is capable of capturing analogy. Given the input "<em>man</em> is to <em>king</em> as <em>woman</em> is to what?", a word2vec embedding can be used to correctly answer "<em>queen</em>". (Remarkable isn't it?) Embeddings like this can be used for a wide variety of different domains. For example, facial photos can be projected into an embedding space and for tasks of facial recognition. However I wonder if embeddings fall short in a domain that I am very near to - search. Consider the facial recognition task: Each face photo is converted into an N-dimensional vector where N is often rather high (hundreds of values). Given a sample photograph of a face, if you want to find all of the photos of that person then you have to search for all the photo vectors near to the sample photo's vector. But, due to the curse of dimensionality, very high dimensional embedding spaces are not amenable to data structure commonly used for spatial search, such as k-d trees.</p>
+<p>Maybe we can take a lesson from search, because search engines have no problem at all with high-dimensional feature spaces. Consider a feature vector for an English document, say, a description of a product in a catalog. In principle, the cardinality of this feature vector is giant - one floating point value for each word in the English vocabulary. This is a bit misleading of course; the representation used by search engines is very sparse - most documents do not contain most words in the English vocabulary - so the feature vector is mostly zeros. However the point I'm making still stands: search engines are good at finding matches in high-dimensional feature sets. Given a query - a set of words - <em>a.k.a. a sparsely-encoded, high-dimensional feature vector</em> - then a search engine can very quickly identify all the documents that contain these words - <em>a.k.a. all similar feature vectors</em>.</p>
+<h2 id="using-search-technology-for-large-scale-face-recognition-tasks">Using Search Technology for Large Scale Face Recognition Tasks</h2>
+<p>So let's go back the the face recognition task. Let's say we have a data set of every photograph of every face on Facebook and we want to make a face search application. If somehow we could <em>tokenize</em> a face - that is, convert it into a bunch of symbols similar to words in a text document - then we could reduce facial recognition to a simple application of search. What would this look like? Well in principle you could assemble an army of well trained curators to write up a tagged description of each face. The tags could read something like this</p>
+<blockquote>
+<p><code>{caucasian, fair-complexion, straight-hair, black-hair, receeding-hairline, bald, no-beard, no-facial-hair, caterpillar-eyebrowse, arched-eyebrows, black-eyecolor, small-iris, bulging-eyes, large-nose, blubous-nose, broad-smile, missing-teeth, kinda-sinister-looking}</code></p>
+</blockquote>
+<p>(In this example, our curators are obviously describing <a href="https://en.wikipedia.org/wiki/Gargamel">Gargamel</a>.)</p>
+<figure>
+    <img src='/assets/gargamel.png' alt='missing' class="centered"/>
+</figure>
+
+<p>Given an index full of similarly tagged facial photos, someone searching for a new face would proceed as follows. First they would have a curator tag their face photo. (Don't worry, we'll relax this silly requirement in a moment.) Then they would make a <em>textual</em> search of these tags against the face search index. The search engine would quickly narrow the result down to only those that shared much of the terms in the query. Notice that a nice benefit of sparsely encoding faces as tags is that you become robust to missing or even incorrect information. For instance, if Gargamel wore a disguise as shown in the photo below, he would still have <code>{black-hair, large-nose, bulbous-nose, bulging-eyes}</code> and his photos would still be present in the filtered set of images!</p>
+<figure>
+    <img src='/assets/gargamel_in_disguise.png' alt='missing' class="centered"/>
+</figure>
+
+<p>Once the filtering step is done, the surviving images are then all scored and ordered from most likely to least likely matches. Out-of-the-box search engines use a TF*IDF-based scoring algorithm which serve as a pretty reasonable starting point even for a face search application like this. With TF*IDF scoring, less-common tokens, (such as Gargamel's <code>bulging-eyes</code>, <code>small-iris</code>, and <code>missing-teeth</code>) will carry larger weight. Intuitively this makes sense, <code>bulging-eyes</code> is more noteworthy than, say, <code>caucasian</code> or <code>black-hair</code>.</p>
+<p>Besides the natural ability to filter and sort result sets, using a search engine comes with other benefits. If you use Elasticsearch then you can immediately take advantage of the ability to partition your index across several machines and scale to very large data sets. Consequentially, you can also distribute search across these machines for fast searchability. Additionally, since we're using a search engine, you can combine facial feature search with other types of search. For instance in addition to the <code>facial_feature</code> field above, you could have a <code>geo_location</code> field that carries latitude and longitude. Now you have location aware face search: "Find me all individuals matching Gargamel's description in Tennessee".</p>
+<h2 id="tokenizing-embedding-spaces">Tokenizing Embedding Spaces</h2>
+<p>The above solution is of course silly, because we don't have an army of trained curators to tag face photos. However, if we could find some way to take a dense embedding vector and tokenize it into a sparse representation like that above, then we could have all of the benefits described above without the overhead of supporting that army of curators. </p>
+<p>What would such a tokenization look like? Well for one thing, it wouldn't be human readable; we wouldn't take a vector of floating numbers and convert it into words like <code>{fair-complexion, straight-hair, black-hair}</code>. Rather we would produce pure tokens - symbols that carried <em>some</em> sort of descriptive information, (though we wouldn't necessarily know what that information means). So we would send Gargamel's image through some swanky machine learning algorithm to convert it into an embedded vector and then we would send that vector through our algorithm (still T.B.D.) and it would emit tokens: <code>{a52b3gd2, b1a3ff63, 69e4a3b3, ...}</code>. If we do this, then we get all the benefits outlined in the above paragraphs, and we can fire off our curation staff. The only thing we've lost is the human readability of the tokens.</p>
+<p>But what algorithm is capable of mapping from embedding vectors to token space? Well, I don't rightly know. But I do know some of the qualities that it must exhibit to be successful:</p>
+<ul>
+<li>You have to have a <a href="https://en.wikipedia.org/wiki/Zipf%27s_law">Zipfian distribution</a>. Basically this is to say that</li>
+<li>A small number of tokens must be present in a large portion of the documents - analogous to common characteristics like "caucasion" and "black-hair". These tokens help to partition the space into large chunks and filter out much of irrelevant documents.</li>
+<li>A large number of tokens must be present in a small number of documents - analogous to highly specific words like "roman-nose" and "hazel-eyes". These tokens can be used to boost very similar matches toward the top of results.</li>
+<li>Each token must have only one meaning. You must avoid homonyms. For instance some token <code>ba44d91</code> should not simultaneously mean <code>red-hair</code>, <code>blond-hair</code>, and <code>black-eyes</code>. (English phrases like "sun dress" and "dress shoes" cause relevance engineers great frustration for this very reason!)</li>
+<li>A meaning must have only one token. You must avoid exact synonyms. It is wasteful if the tokens <code>9acc472</code>, <code>f856c13</code>, and <code>1399be3</code> all imply exactly <code>red-hair</code>.</li>
+<li>The tokens must cover the entirety of the embedded vector space. If a certain location in vector space does not have any corresponding tokens, then it is not searchable.</li>
+<li>Anything that is nearby in the embedding space must also be nearby (or more accurately <a href="https://en.wikipedia.org/wiki/Semantic_similarity">"similar"</a>) in the token space. The token space must capture the topology, the clustering, and the relationships of the embedded vectors.</li>
+<li>Tokens must have some "fuzziness" in meaning, some semantic overlap. This is important so that retrieval will be robust to slightly different descriptions, (or disguises in the case of Gargamel above).</li>
+</ul>
+<h2 id="yeah-yeah-but-how-do-we-do-it">Yeah, Yeah... But how do we do it?</h2>
+<p>How do we find an appropriate mapping between the embedding space and the token space?  This is a problem I leave to the reader - and a problem that I have not been able to solve myself! Here are some rough ideas that I have been working on, but I feel they all fall short:</p>
+<ul>
+<li>Perhaps we could use some sort of random projection approach where each embedded vector is projected against a random vector and if the result is a positive number then we emit a token. This would satisfy our nearness criteria above, but all the tokens would cover roughly the name number of documents, breaking our rule about Zipfian distribution.</li>
+<li>Maybe we can investigate some method for reversing existing factorization approaches which can be used to transform data from a large, sparse vector to a much lower dimensional dense vector. But the problem with the factorization approaches I have in mind now is that they are linear, and we would instantly lose important characteristics of the embedding space.</li>
+<li>Maybe the mapping could be generated from some fancy neural network. The output could be some very large softmax vector and the tokens would be indices of the top N outputs or something like that. But how on earth would you train this? The target is the very thing you're trying to find. It would have to be unsupervised.</li>
+<li>You could do some type of hierarchical clustering of the vectors in embedding space and for each vector emit a token for every level of the hierarchy in which it is included. But the strict hierarchy imposed on the token space breaks the "fuzziness" criteria (last bullet above) because the leaf tokens in this scheme would implicitly mean overly constrained things like "blond hair <em>and</em> a Roman nose <em>and</em> freckles". We would need a seperate token to describe "red hair <em>and</em> a Roman nose <em>and</em> freckles". Rather than such strict partitioning of token space, it would be better for tokens to carry semantics for individual attributes: "freckles", "red hair", and "roman nose", because no matter what color your hair is, "freckles" means the same thing.</li>
+</ul>
+<h2 id="standard-disclaimer">Standard Disclaimer</h2>
+<p>Per my usual, I did not do any exhaustive research prior to writing up this post. Perhaps this is an idea that has been well studied and perhaps my foundational presumptions are just wrong! If so, then would someone kindly point me in the right direction? On the other hand, maybe this is indeed something new. In that case I would love to get your ideas on how to push this idea further. In any case I'd love to get your thoughts. Let's start a conversation on Twitter - @JnBrymn.</p>
+
+
+
+
+
+
+
+  
+  
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/JnBrymn" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M459.4 151.7c.3 4.5.3 9.1.3 13.6 0 138.7-105.6 298.6-298.6 298.6-59.5 0-114.7-17.2-161.1-47.1 8.4 1 16.6 1.3 25.3 1.3 49.1 0 94.2-16.6 130.3-44.8-46.1-1-84.8-31.2-98.1-72.8 6.5 1 13 1.6 19.8 1.6 9.4 0 18.8-1.3 27.6-3.6-48.1-9.7-84.1-52-84.1-103v-1.3c14 7.8 30.2 12.7 47.4 13.3-28.3-18.8-46.8-51-46.8-87.4 0-19.5 5.2-37.4 14.3-53C87.4 130.8 165 172.4 252.1 176.9c-1.6-7.8-2.6-15.9-2.6-24C249.5 95.1 296.3 48 354.4 48c30.2 0 57.5 12.7 76.7 33.1 23.7-4.5 46.5-13.3 66.6-25.3-7.8 24.4-24.4 44.8-46.1 57.8 21.1-2.3 41.6-8.1 60.4-16.2-14.3 20.8-32.2 39.3-52.6 54.3"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://github.com/JnBrymn" target="_blank" rel="noopener" title="github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.0.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M173.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6m-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3m44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9M252.8 8C114.1 8 8 113.3 8 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C436.2 457.8 504 362.9 504 252 504 113.3 391.5 8 252.8 8M105.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1m-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7m32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1m-11.4-14.7c-1.6 1-1.6 3.6 0 5.9s4.3 3.3 5.6 2.3c1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["navigation.instant", "navigation.tracking", "navigation.tabs", "navigation.sections", "navigation.top", "search.suggest", "search.highlight", "content.code.copy"], "search": "../../../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+        <script src="../../../javascripts/mathjax.js"></script>
+      
+        <script src="https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

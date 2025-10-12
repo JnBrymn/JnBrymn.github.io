@@ -1,0 +1,6 @@
+mkdocs>=1.5.0
+mkdocs-material>=9.5.0
+mkdocs-material[imaging]
+pymdown-extensions>=10.0
+mkdocs-blog-plugin>=0.25
+
