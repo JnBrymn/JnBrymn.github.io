@@ -1,5 +1,5 @@
 ---
-date: '2022-08-07'
+date: 2022-08-07
 authors:
 - jnbrymn
 title: '"Who da Boss" Graph Clustering'

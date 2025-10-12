@@ -1,5 +1,5 @@
 ---
-date: '2018-09-02'
+date: 2018-09-02
 authors:
 - jnbrymn
 title: Load Testing Elasticsearch Using Python asyncio and the Slow Log

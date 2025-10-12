@@ -1,5 +1,5 @@
 ---
-date: '2022-11-29'
+date: 2022-11-29
 authors:
 - jnbrymn
 title: Train Whistles

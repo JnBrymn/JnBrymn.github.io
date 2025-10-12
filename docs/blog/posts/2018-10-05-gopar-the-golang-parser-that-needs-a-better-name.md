@@ -1,5 +1,5 @@
 ---
-date: '2018-10-05'
+date: 2018-10-05
 authors:
 - jnbrymn
 title: Gopar - The Golang Parser that Needs a Better Name

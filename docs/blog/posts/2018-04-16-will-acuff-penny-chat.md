@@ -1,5 +1,5 @@
 ---
-date: '2018-04-16'
+date: 2018-04-16
 authors:
 - jnbrymn
 title: Will Acuff on Building Relationship and Improving Communities

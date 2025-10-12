@@ -1,5 +1,5 @@
 ---
-date: '2018-03-23'
+date: 2018-03-23
 authors:
 - jnbrymn
 title: Tokenizing Embedding Spaces for Faster, More Relevant Search

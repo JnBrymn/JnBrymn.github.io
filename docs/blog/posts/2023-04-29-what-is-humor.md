@@ -1,5 +1,5 @@
 ---
-date: '2023-04-29'
+date: 2023-04-29
 authors:
 - jnbrymn
 title: What is Humor?

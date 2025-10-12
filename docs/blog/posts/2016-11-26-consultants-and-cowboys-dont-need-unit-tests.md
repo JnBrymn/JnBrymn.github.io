@@ -1,5 +1,5 @@
 ---
-date: '2016-11-26'
+date: 2016-11-26
 authors:
 - jnbrymn
 title: Cowboys and Consultants Don't Need Unit Tests

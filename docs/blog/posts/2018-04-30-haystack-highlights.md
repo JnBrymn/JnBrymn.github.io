@@ -1,5 +1,5 @@
 ---
-date: '2018-04-30'
+date: 2018-04-30
 authors:
 - jnbrymn
 title: Haystack Highlights

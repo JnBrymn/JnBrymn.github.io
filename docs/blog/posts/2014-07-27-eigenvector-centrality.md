@@ -1,5 +1,5 @@
 ---
-date: '2014-07-27'
+date: 2014-07-27
 authors:
 - jnbrymn
 title: Understanding Eigenvector Centrality with the Metaphor of Political Power

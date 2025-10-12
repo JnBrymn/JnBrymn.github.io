@@ -1,5 +1,5 @@
 ---
-date: '2024-01-30'
+date: 2024-01-30
 authors:
 - jnbrymn
 title: "Tool Invocation \u2013 Demonstrating the Marvel of GPT's Flexibility"

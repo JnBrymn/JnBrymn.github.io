@@ -1,5 +1,5 @@
 ---
-date: '2018-04-16'
+date: 2018-04-16
 authors:
 - jnbrymn
 title: Better Click Tracking for Identifying Statistically High Performers - Part

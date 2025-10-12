@@ -1,5 +1,5 @@
 ---
-date: '2017-09-27'
+date: 2017-09-27
 authors:
 - jnbrymn
 title: Neuroscience Penny Chat with Stephen Bailey

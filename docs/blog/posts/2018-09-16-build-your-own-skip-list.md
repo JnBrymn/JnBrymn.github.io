@@ -1,5 +1,5 @@
 ---
-date: '2018-09-16'
+date: 2018-09-16
 authors:
 - jnbrymn
 title: Build your own Skip List

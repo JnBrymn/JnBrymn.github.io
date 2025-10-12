@@ -1,5 +1,5 @@
 ---
-date: '2023-04-30'
+date: 2023-04-30
 authors:
 - jnbrymn
 title: Similarity Search for Grouped Content (Teaser)

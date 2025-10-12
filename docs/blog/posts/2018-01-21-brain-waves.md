@@ -1,5 +1,5 @@
 ---
-date: '2018-01-21'
+date: 2018-01-21
 authors:
 - jnbrymn
 title: Neuroscience Penny Chat with David Simon

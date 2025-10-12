@@ -30,6 +30,10 @@ theme:
 
 plugins:
   - search
+  - blog:
+      blog_dir: .
+      post_dir: blog/posts
+      authors_file: .authors.yml
 
 markdown_extensions:
   - pymdownx.highlight:
@@ -59,7 +63,5 @@ extra:
 
 nav:
   - Home: index.md
-  - Blog:
-    - blog/index.md
   - About: about.md
 

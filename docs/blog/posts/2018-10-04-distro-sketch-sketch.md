@@ -1,5 +1,5 @@
 ---
-date: '2018-10-04'
+date: 2018-10-04
 authors:
 - jnbrymn
 title: A Sketch for a new Distribution Sketch

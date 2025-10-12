@@ -1,5 +1,5 @@
 ---
-date: '2019-01-01'
+date: 2019-01-01
 authors:
 - jnbrymn
 title: Aircraft Control Theory - Applied to Product Growth

@@ -1,5 +1,5 @@
 ---
-date: '2017-07-19'
+date: 2017-07-19
 authors:
 - jnbrymn
 title: Algorithmic Influencer Marketing

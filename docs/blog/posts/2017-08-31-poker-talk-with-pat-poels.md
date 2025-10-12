@@ -1,5 +1,5 @@
 ---
-date: '2017-08-31'
+date: 2017-08-31
 authors:
 - jnbrymn
 title: Poker Talk with a Two-Time World Series of Poker Bracelet Winner

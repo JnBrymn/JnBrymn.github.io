@@ -1,5 +1,5 @@
 ---
-date: '2024-11-17'
+date: 2024-11-17
 authors:
 - jnbrymn
 title: The Brain's Amazing Ability to Process Stereo Sound

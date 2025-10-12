@@ -1,5 +1,5 @@
 ---
-date: '2018-05-12'
+date: 2018-05-12
 authors:
 - jnbrymn
 title: Are You Here Today?

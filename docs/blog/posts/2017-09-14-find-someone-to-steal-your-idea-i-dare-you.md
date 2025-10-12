@@ -1,5 +1,5 @@
 ---
-date: '2017-09-14'
+date: 2017-09-14
 authors:
 - jnbrymn
 title: Find Someone to Steal Your Idea - I Dare You!

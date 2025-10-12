@@ -1,5 +1,5 @@
 ---
-date: '2018-09-08'
+date: 2018-09-08
 authors:
 - jnbrymn
 title: The Fundamental Problem of Search

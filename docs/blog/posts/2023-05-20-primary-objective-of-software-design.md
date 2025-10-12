@@ -1,5 +1,5 @@
 ---
-date: '2023-05-20'
+date: 2023-05-20
 authors:
 - jnbrymn
 title: 'The Primary Objective of Software Design: Minimizing Total Cognitive Load'

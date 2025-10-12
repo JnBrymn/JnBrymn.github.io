@@ -1,5 +1,5 @@
 ---
-date: '2014-10-12'
+date: 2014-10-12
 authors:
 - jnbrymn
 title: Climbing Mount Maslow

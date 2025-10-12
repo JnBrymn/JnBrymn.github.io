@@ -1,5 +1,5 @@
 ---
-date: '2018-05-04'
+date: 2018-05-04
 authors:
 - jnbrymn
 title: Meg's First Camping Trip

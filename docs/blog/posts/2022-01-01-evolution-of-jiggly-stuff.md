@@ -1,5 +1,5 @@
 ---
-date: '2022-01-01'
+date: 2022-01-01
 authors:
 - jnbrymn
 title: Evolution of Jiggly Stuff
