@@ -14,7 +14,7 @@ Dear fellow spiritual traveler,
 
 You made a wrong turn along the way. Maybe the map was upside down. You find yourself alone in a wilderness... that is, aside from hidden pits that make you ever vigilant; aside from tangling vines that impede your progress; aside from lonesome howling winds; and aside from the silence – the absence of the only voice you *really* want to hear. There is a light at the distant horizon, and you must reach it ... or maybe it was a mirage. – Why, oh why, couldn't you have been one of those crystal rubbing hippies? At least they act like they've figured it out. At least they *seem*... at peace?
 
-<!--more-->
+<!-- more -->
 
 [Scrupulocity](https://en.wikipedia.org/wiki/Scrupulosity) is a form of OCD. It preoccupies the sufferer with feelings of excessive religious or moral guilt. In response, the sufferer will seek solace in compulsive rituals. These can be anything – prayer for imagined sins, obsessive study of religious texts, exaggerated adherence to religious rituals. The goal is to just feel "right" again – righteous again – whole again. But the compulsions are a weak balm. Soon, the same old doubts creep back in – "Do my thoughts mean that I'm evil?", "Am I *really* good enough to get to Heaven?", "Did I commit the unforgivable sin? Maybe I didn't even notice\!" So, to protect yourself, you *avoid*. Maybe you avoid religious stimuli of any kind. Maybe you avoid other religions. Maybe you avoid things that could cause you to "sin". Maybe you avoid life altogether.
 

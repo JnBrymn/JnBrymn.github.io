@@ -9,7 +9,7 @@ categories:
 ---
 
 
-As many of my friends know, I've picked up neuroscience as a sort of side hobby. (Some people collect stamps, I memorize anatomical structures of the brain.) Last time I blogged about this was regarding my [Penny Chat with Stephen Bailey on his work with MRIs](2017-09-27-brain-scans.md). But this week I sat down with one of Stephen's friends David Simon to talk about his research involving Electroencephalography a.k.a. EEG.
+As many of my friends know, I've picked up neuroscience as a sort of side hobby. (Some people collect stamps, I memorize anatomical structures of the brain.) Last time I blogged about this was regarding my [Penny Chat with Stephen Bailey on his work with MRIs](brain-scans.md). But this week I sat down with one of Stephen's friends David Simon to talk about his research involving Electroencephalography a.k.a. EEG.
 
 <figure>
     <img src='/assets/EEG_cap.jpg' alt='missing' class="centered"/>

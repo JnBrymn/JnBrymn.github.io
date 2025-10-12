@@ -34,6 +34,7 @@ plugins:
       blog_dir: .
       post_dir: blog/posts
       authors_file: .authors.yml
+      post_excerpt: required
 
 markdown_extensions:
   - pymdownx.highlight:

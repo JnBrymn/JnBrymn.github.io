@@ -11,7 +11,7 @@ title: "EARRRL \u2013 the Estimated Average Recent Request Rate Limiter - the Ma
 ---
 
 
-[In the companion post](2021-03-18-estimated-average-recent-request-rate-limiter.md) I introduced a problem with naive, window-based rate limiters – they're too forgiving! The user's request count is stored in a key in Redis with a TTL of, say, 15 minutes, and once the key expires, the abusive user can come back and immediately offend again. Effectively the abusive user is using _your_ infrastructure to rate limit their requests.
+[In the companion post](estimated-average-recent-request-rate-limiter.md) I introduced a problem with naive, window-based rate limiters – they're too forgiving! The user's request count is stored in a key in Redis with a TTL of, say, 15 minutes, and once the key expires, the abusive user can come back and immediately offend again. Effectively the abusive user is using _your_ infrastructure to rate limit their requests.
 
 In this post we'll investigate an alternative approach to windowed rate limiting which keeps a running estimate of each user's request rate and rejects requests for users whose rate is above the prescribed threshold. The focus of this post is on the math behind the approach. For a practical implementation, usage, and motivation for why the math might be worth looking at, please take a look at the companion post.
 
@@ -154,7 +154,7 @@ class EARRRL:
         return self.evaluate() > self.rate_limit
 ```
 
-(See [the companion post](2021-03-18-estimated-average-recent-request-rate-limiter.md) for practical examples of implementing and using this in Redis.)
+(See [the companion post](estimated-average-recent-request-rate-limiter.md) for practical examples of implementing and using this in Redis.)
 
 ## Does it Really Work?
 Everything above is based on intuition. Now let's toss together some light proofs to indicate that this algorithm performs as advertised.
@@ -196,7 +196,7 @@ $$
 \text{EWA of rate just before arrival of next request} = \frac{\lambda e^{-\lambda \Delta t}}{1-e^{-\lambda \Delta t}}            \tag{10}
 $$
 
-Note that neither of these values is the true rate $r=\frac{1}{\Delta t}$, rather [referring to the plots in the companion post](2021-03-18-estimated-average-recent-request-rate-limiter.md), these are the values that EARRRL bounces between when subject to a constant rate of requests. Notice that when you subtract the two equations, the result is simply $\lambda$. Thus, the smaller that you make $\lambda$ the more accurate EARRRL will become.
+Note that neither of these values is the true rate $r=\frac{1}{\Delta t}$, rather [referring to the plots in the companion post](estimated-average-recent-request-rate-limiter.md), these are the values that EARRRL bounces between when subject to a constant rate of requests. Notice that when you subtract the two equations, the result is simply $\lambda$. Thus, the smaller that you make $\lambda$ the more accurate EARRRL will become.
 
 Take another look at both equations 9 and 10, as $\lambda$ approaches zero, these equations approach the same value and at the limit this value indeed equals the true request rate. This can be shown with help from [l'Hopital's rule](https://www.youtube.com/watch?v=Gh48aOvWcxw). For example, starting from eq. 9:
 
@@ -254,7 +254,7 @@ Since $5\ln 2$ is so much larger than 1, then the abuse rate is going be well be
 EARRRL, the Estimated Average Recent Request Rate Limiter provides an appealing alternative to the standard, windowed rate limiter. It is intuitive to use, you just specify a threshold for the rate and a value for $\lambda$ to bound the error. The benefit of EARRRL is that it automatically "permanently bans" users who are willing to _consistently_ abuse rate limits, but at the same time, it is forgiving of users, even formerly abusive users, who have demonstrated that they will maintain a rate limit below the prescribed threshold. EARRRL also allows for occasional bursty behavior for which windowed rate limiters might prematurely rate limit good users.
 
 What's next?
-* Want to go build one? [Check out the companion post](2021-03-18-estimated-average-recent-request-rate-limiter.md) where I create a simple Redis implementation.
+* Want to go build one? [Check out the companion post](estimated-average-recent-request-rate-limiter.md) where I create a simple Redis implementation.
 * Want to play with the algorithms yourself? [Check our my Jupyter notebook](https://gist.github.com/JnBrymn/e3894376e4b4423911747cc8565a5cf3)
 * What tell me what you think? [Look me up](https://twitter.com/jnbrymn).
 

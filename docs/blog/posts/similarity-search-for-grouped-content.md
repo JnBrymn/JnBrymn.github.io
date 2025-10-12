@@ -61,6 +61,6 @@ This implies that we would want a different way of measuring similarity. Rather 
 The natural next point is that Guassians themselves are likely not a great model for content groups. But if we describe the content groups as a mixture of Gaussian distributions, then, by including enough Gaussian distributions, we're guaranteed to have a good model for the content distribution.
 
 # What to Do Next
-[This is a mind-meld teaser post](2023-04-23-what-is-a-teaser-post.md) meaning that I wrote it just to get the idea out there. But if you are interested, you can work with me to help complete it. (Interested? Contact me: jfberrymanⓐgmail·com.)
+[This is a mind-meld teaser post](what-is-a-teaser-post.md) meaning that I wrote it just to get the idea out there. But if you are interested, you can work with me to help complete it. (Interested? Contact me: jfberrymanⓐgmail·com.)
 
 I think the most interesting direction to take this research is to see if we can follow the intuition of [Hierarchical Navigable Small Worlds (HNSW)](https://www.pinecone.io/learn/hnsw/) and come up with a data structure to quickly find the closest clusters in terms of Mahalanobis distance. That's plenty hard enough, but if we figure that out, then maybe we could tackle the harder problem of assuming the user's query is also a Gaussian and figuring out some way to quickly determine overlap the the user's query Gaussian with every content cluster Gaussian.
