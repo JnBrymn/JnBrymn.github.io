@@ -608,12 +608,12 @@
 <p>Drawing inspiration from the EWMA, th remainder of this post introduces EARRRL, the Estimated Average Recent Request Rate Limiter. EARRRL limits  a user's requests based upon an estimate of the user's <em>recent</em> request rate. Importantly, EARRRL requires no global value updates as in the case of EWMA, and EARRRL is <em>not</em> window based, so it doesn't have the over-permissive forgiveness policy that we see in windowed rate limiters.</p>
 <p><strong>Disclaimer</strong>: <em>Does this already exist? Eh, probably. It's just too simple and useful of an idea to not exist. But I couldn't find it. And after searching the internet for a bit I decided <strong>not</strong> to find it, because what fun would it be to just look up the answer?!</em></p>
 <h3 id="theoretical-background">Theoretical Background</h3>
-<p>With EARRRL, we wish to estimate the <em>recent</em> average rate at which a user's requests arrive. Let's represent the time history of the user's request rate as <span class="arithmatex">\(<span class="arithmatex">\(r(t)\)</span>\)</span>. For the current discussion, time <span class="arithmatex">\(<span class="arithmatex">\(t\)</span>\)</span> is relative to now, so that <span class="arithmatex">\(<span class="arithmatex">\(t=0\)</span>\)</span> means this moment, and <span class="arithmatex">\(<span class="arithmatex">\(t=-1\)</span>\)</span> means one second in the past. In order to take the average, we make use of a weight function, represented as <span class="arithmatex">\(<span class="arithmatex">\(w(t)\)</span>\)</span>, which is used to weight the more recent rate as being more important than the rate that occurred further in the past. In order to find the weighted average of the rate, we have to evaluate this integral.</p>
+<p>With EARRRL, we wish to estimate the <em>recent</em> average rate at which a user's requests arrive. Let's represent the time history of the user's request rate as <span class="arithmatex">\(r(t)\)</span>. For the current discussion, time <span class="arithmatex">\(t\)</span> is relative to now, so that <span class="arithmatex">\(t=0\)</span> means this moment, and <span class="arithmatex">\(t=-1\)</span> means one second in the past. In order to take the average, we make use of a weight function, represented as <span class="arithmatex">\(w(t)\)</span>, which is used to weight the more recent rate as being more important than the rate that occurred further in the past. In order to find the weighted average of the rate, we have to evaluate this integral.</p>
 <div class="arithmatex">\[
 \int_{-\infty}^{0} w(t) \cdot  r(t)\:dt      \tag{1}
 \]</div>
 <p>(This is very similar to <a href="https://mathworld.wolfram.com/ExpectationValue.html">finding the expected value of a function</a> in statistics.)</p>
-<p>As of yet, this equation is pretty vague. We can choose the weight function to be whatever we want, and the rate function is dependant upon the user's behavior, but for both of these, we can make some assumptions that will simplify our work. Let's start with <span class="arithmatex">\(<span class="arithmatex">\(w(t)\)</span>\)</span>. One convenient weighting function is the exponential function:</p>
+<p>As of yet, this equation is pretty vague. We can choose the weight function to be whatever we want, and the rate function is dependant upon the user's behavior, but for both of these, we can make some assumptions that will simplify our work. Let's start with <span class="arithmatex">\(w(t)\)</span>. One convenient weighting function is the exponential function:</p>
 <div class="arithmatex">\[
 w(t) = \lambda e^{\lambda t}       \tag{2}
 \]</div>
@@ -622,7 +622,7 @@ w(t) = \lambda e^{\lambda t}       \tag{2}
     <figcaption><em>An exponential weight function along with an arbitrary rate function.</em></figcaption>
 </figure>
 
-<p>The integral of <span class="arithmatex">\(<span class="arithmatex">\(w(t)\)</span>\)</span> is 1 (a requirement that any weight function must satisfy), and since we will choose <span class="arithmatex">\(<span class="arithmatex">\(\lambda\)</span>\)</span> to be greater than 0, the weight function is fat near to current time and becomes exponentially thinner as we move back in time – thus more recent time is weighted more heavily. (This was our goal, remember.)</p>
+<p>The integral of <span class="arithmatex">\(w(t)\)</span> is 1 (a requirement that any weight function must satisfy), and since we will choose <span class="arithmatex">\(\lambda\)</span> to be greater than 0, the weight function is fat near to current time and becomes exponentially thinner as we move back in time – thus more recent time is weighted more heavily. (This was our goal, remember.)</p>
 <p>In order to gain intuition, let's look at the recent average of a very simple rate function - a constant rate.</p>
 <div class="arithmatex">\[
 \begin{matrix}
@@ -631,14 +631,14 @@ w(t) = \lambda e^{\lambda t}       \tag{2}
 &amp;=&amp; r \\ 
 \end{matrix}            \tag{3}
 \]</div>
-<p>For the last step, since the integral of a weight function is by definition 1, all that is left is <span class="arithmatex">\(<span class="arithmatex">\(r\)</span>\)</span>. This should be a satisfying result, because, if the user's request rate is constant, <span class="arithmatex">\(<span class="arithmatex">\(r\)</span>\)</span>, then the recent average of the rate should just be <span class="arithmatex">\(<span class="arithmatex">\(r\)</span>\)</span>, and it is.</p>
+<p>For the last step, since the integral of a weight function is by definition 1, all that is left is <span class="arithmatex">\(r\)</span>. This should be a satisfying result, because, if the user's request rate is constant, <span class="arithmatex">\(r\)</span>, then the recent average of the rate should just be <span class="arithmatex">\(r\)</span>, and it is.</p>
 <p>If you're reading carefully, you might notice something weird about the rate function - it's continuous. What does it mean to have a rate of 0.6 requests per second? You can't make partial requests. Even though this feels non-intuitive, dealing with a continuous rate is a generalization of the more realistic scenario where requests come in as discrete units. To demonstrate this, we need to introduce the notion of an "impulse" (otherwise known as the <a href="https://en.wikipedia.org/wiki/Dirac_delta_function">Dirac delta</a>). An impulse is the application of an <em>infinitely</em> high rate for an <em>infinitesimally</em> short period of time. However the <em>integral</em> of impulse is finite. Whenever you make a single request, what you're doing is creating an impulse in the request rate. In an instant, the request <em>rate</em> goes infinitely high because it didn't take you a second to submit that request (which would be 1 request per second), it didn't take you a millisecond (which would be 1000 requests per second), it took the twinkling of an eye (which is one request per twinkling). But once that moment passed, the actual <em>number</em> of requests that you made (the integral of the rate) was just 1. (Ok, so that concept is a little difficult to justify in a single paragraph. <a href="https://twitter.com/jnbrymn">Look me up on Twitter</a> and I'll set up a time to explain it more clearly.)</p>
-<p>An impulse of size <span class="arithmatex">\(<span class="arithmatex">\(N\)</span>\)</span> (meaning N simultaneous requests in this case) and at some time <span class="arithmatex">\(<span class="arithmatex">\(T\)</span>\)</span> is represented by the notation <span class="arithmatex">\(<span class="arithmatex">\(N\delta(t-T)\)</span>\)</span>. And the exponentially weighted average (EWA) of this impulse function is</p>
+<p>An impulse of size <span class="arithmatex">\(N\)</span> (meaning N simultaneous requests in this case) and at some time <span class="arithmatex">\(T\)</span> is represented by the notation <span class="arithmatex">\(N\delta(t-T)\)</span>. And the exponentially weighted average (EWA) of this impulse function is</p>
 <div class="arithmatex">\[
 \int_{-\infty}^{0}w(t) \cdot N\delta(t-T)= N \cdot w(T) = N\lambda  e^{\lambda T}      \tag{4}
 \]</div>
-<p>(<a href="https://mathworld.wolfram.com/DeltaFunction.html">Integration of an impulse is explained in more detail here.</a>) If the time of the impulse is now, <span class="arithmatex">\(<span class="arithmatex">\(T=0\)</span>\)</span>, then you can simplify this even more to just <span class="arithmatex">\(<span class="arithmatex">\(N\lambda\)</span>\)</span>. Finally, impulses add linearly, so the EWA for <span class="arithmatex">\(<span class="arithmatex">\(N_1\)</span>\)</span> requests occurring at <span class="arithmatex">\(<span class="arithmatex">\(T_1\)</span>\)</span> and <span class="arithmatex">\(<span class="arithmatex">\(N_2\)</span>\)</span> requests occurring at <span class="arithmatex">\(<span class="arithmatex">\(T_2\)</span>\)</span> is <span class="arithmatex">\(<span class="arithmatex">\(N_1\lambda  e^{\lambda T_1} + N_2\lambda  e^{\lambda T_2}\)</span>\)</span>.</p>
-<p>The last and most important thing to notice is that there are many possible rate functions that can lead to the same exponentially weighted average value. For example, let's say that <span class="arithmatex">\(<span class="arithmatex">\(\lambda = 0.07\)</span>\)</span>, then a request that just arrived (e.g. and impulse of size <span class="arithmatex">\(<span class="arithmatex">\(N=1\)</span>\)</span> at time <span class="arithmatex">\(<span class="arithmatex">\(T=0\)</span>\)</span>) would have the same EWA as the continuous application of 0.07 requests per second, <span class="arithmatex">\(<span class="arithmatex">\(r=0.07\)</span>\)</span>. This would also have the same EWA as two request occurring simultaneously 9.9 seconds ago.</p>
+<p>(<a href="https://mathworld.wolfram.com/DeltaFunction.html">Integration of an impulse is explained in more detail here.</a>) If the time of the impulse is now, <span class="arithmatex">\(T=0\)</span>, then you can simplify this even more to just <span class="arithmatex">\(N\lambda\)</span>. Finally, impulses add linearly, so the EWA for <span class="arithmatex">\(N_1\)</span> requests occurring at <span class="arithmatex">\(T_1\)</span> and <span class="arithmatex">\(N_2\)</span> requests occurring at <span class="arithmatex">\(T_2\)</span> is <span class="arithmatex">\(N_1\lambda  e^{\lambda T_1} + N_2\lambda  e^{\lambda T_2}\)</span>.</p>
+<p>The last and most important thing to notice is that there are many possible rate functions that can lead to the same exponentially weighted average value. For example, let's say that <span class="arithmatex">\(\lambda = 0.07\)</span>, then a request that just arrived (e.g. and impulse of size <span class="arithmatex">\(N=1\)</span> at time <span class="arithmatex">\(T=0\)</span>) would have the same EWA as the continuous application of 0.07 requests per second, <span class="arithmatex">\(r=0.07\)</span>. This would also have the same EWA as two request occurring simultaneously 9.9 seconds ago.</p>
 <table>
 <thead>
 <tr>
@@ -650,28 +650,28 @@ w(t) = \lambda e^{\lambda t}       \tag{2}
 <tbody>
 <tr>
 <td>EWA of one request occuring just now</td>
-<td><span class="arithmatex">\(<span class="arithmatex">\(1 \cdot \lambda\)</span>\)</span></td>
+<td><span class="arithmatex">\(1 \cdot \lambda\)</span></td>
 <td>0.07</td>
 </tr>
 <tr>
 <td>EWA of a constant request rate</td>
-<td><span class="arithmatex">\(<span class="arithmatex">\(r\)</span>\)</span></td>
+<td><span class="arithmatex">\(r\)</span></td>
 <td>0.07</td>
 </tr>
 <tr>
 <td>EWA of 2 requests occuring 9.9 seconds ago</td>
-<td><span class="arithmatex">\(<span class="arithmatex">\(2\cdot \lambda  e^{-9.9\lambda}\)</span>\)</span></td>
+<td><span class="arithmatex">\(2\cdot \lambda  e^{-9.9\lambda}\)</span></td>
 <td>0.07</td>
 </tr>
 </tbody>
 </table>
 <p>The observation that several different rate time histories correspond to identical EWA values is the crux of the algorithm that we lay out next.</p>
 <h3 id="the-algorithm">The Algorithm</h3>
-<p>We now have all the theoretical pieces required to build EARRRL. Our algorithm requires us to track 2 values, the time of the last update  <span class="arithmatex">\(<span class="arithmatex">\(T\)</span>\)</span>, and the "impulse size" <span class="arithmatex">\(<span class="arithmatex">\(N\)</span>\)</span>, which roughly corresponds to the number of recent requests. There are 4 methods for our rate limiter <code>initialize</code>, <code>update</code>, <code>evaluate</code>, and <code>is_rate_limited</code>. They are described here:</p>
+<p>We now have all the theoretical pieces required to build EARRRL. Our algorithm requires us to track 2 values, the time of the last update  <span class="arithmatex">\(T\)</span>, and the "impulse size" <span class="arithmatex">\(N\)</span>, which roughly corresponds to the number of recent requests. There are 4 methods for our rate limiter <code>initialize</code>, <code>update</code>, <code>evaluate</code>, and <code>is_rate_limited</code>. They are described here:</p>
 <h4 id="initialize">Initialize</h4>
-<p>Upon a user's first request, set <span class="arithmatex">\(<span class="arithmatex">\(T_0=\text{unix_timestamp_now()}\)</span>\)</span>, indicating when the request was made and <span class="arithmatex">\(<span class="arithmatex">\(N_0=1\)</span>\)</span> indicating that it was a single request.</p>
+<p>Upon a user's first request, set <span class="arithmatex">\(T_0=\text{unix_timestamp_now()}\)</span>, indicating when the request was made and <span class="arithmatex">\(N_0=1\)</span> indicating that it was a single request.</p>
 <h4 id="update">Update</h4>
-<p>For subsequent requests, <span class="arithmatex">\(<span class="arithmatex">\(T_{i-1}\)</span>\)</span> represents the time of the last request, and <span class="arithmatex">\(<span class="arithmatex">\(N_{i-1}\)</span>\)</span> represents the number of requests were <em>assumed</em> to come at that moment. As in the examples at the end of the last section, we calculate the EWA of <span class="arithmatex">\(<span class="arithmatex">\(N_{i-1}\)</span>\)</span> request happening at <span class="arithmatex">\(<span class="arithmatex">\(T_{i-1}\)</span>\)</span> plus 1 request (the new one) happening right now at <span class="arithmatex">\(<span class="arithmatex">\(t=0\)</span>\)</span>. Given this new EWA, we can find an <span class="arithmatex">\(<span class="arithmatex">\(N_i\)</span>\)</span> such that <span class="arithmatex">\(<span class="arithmatex">\(N_i\)</span>\)</span> requests happening at <span class="arithmatex">\(<span class="arithmatex">\(t=0\)</span>\)</span> has an identical EWA value:</p>
+<p>For subsequent requests, <span class="arithmatex">\(T_{i-1}\)</span> represents the time of the last request, and <span class="arithmatex">\(N_{i-1}\)</span> represents the number of requests were <em>assumed</em> to come at that moment. As in the examples at the end of the last section, we calculate the EWA of <span class="arithmatex">\(N_{i-1}\)</span> request happening at <span class="arithmatex">\(T_{i-1}\)</span> plus 1 request (the new one) happening right now at <span class="arithmatex">\(t=0\)</span>. Given this new EWA, we can find an <span class="arithmatex">\(N_i\)</span> such that <span class="arithmatex">\(N_i\)</span> requests happening at <span class="arithmatex">\(t=0\)</span> has an identical EWA value:</p>
 <table>
 <thead>
 <tr>
@@ -681,22 +681,22 @@ w(t) = \lambda e^{\lambda t}       \tag{2}
 </thead>
 <tbody>
 <tr>
-<td>EWA of <span class="arithmatex">\(<span class="arithmatex">\(N_{i-1}\)</span>\)</span> requests at <span class="arithmatex">\(<span class="arithmatex">\(T_{i-1}\)</span>\)</span> and 1 more just now (eq. 4)</td>
-<td><span class="arithmatex">\(<span class="arithmatex">\(N_{i-1}\cdot \lambda  e^{-\lambda(now-T_{i-1})} + 1 \cdot \lambda\)</span>\)</span></td>
+<td>EWA of <span class="arithmatex">\(N_{i-1}\)</span> requests at <span class="arithmatex">\(T_{i-1}\)</span> and 1 more just now (eq. 4)</td>
+<td><span class="arithmatex">\(N_{i-1}\cdot \lambda  e^{-\lambda(now-T_{i-1})} + 1 \cdot \lambda\)</span></td>
 </tr>
 <tr>
-<td>EWA of <span class="arithmatex">\(<span class="arithmatex">\(N_{i}\)</span>\)</span> requests just now (eq. 4)</td>
-<td><span class="arithmatex">\(<span class="arithmatex">\(N_{i}\cdot \lambda\)</span>\)</span></td>
+<td>EWA of <span class="arithmatex">\(N_{i}\)</span> requests just now (eq. 4)</td>
+<td><span class="arithmatex">\(N_{i}\cdot \lambda\)</span></td>
 </tr>
 </tbody>
 </table>
-<p>Setting both of these equations equal and solving for <span class="arithmatex">\(<span class="arithmatex">\(N_i\)</span>\)</span> we arrive at <span class="arithmatex">\(<span class="arithmatex">\(N\)</span>\)</span>'s update equation.</p>
+<p>Setting both of these equations equal and solving for <span class="arithmatex">\(N_i\)</span> we arrive at <span class="arithmatex">\(N\)</span>'s update equation.</p>
 <div class="arithmatex">\[
 N_i = 1 + N_{i-1}  e^{-\lambda(now-T_{i-1})}       \tag{5}
 \]</div>
-<p>We also update the time as <span class="arithmatex">\(<span class="arithmatex">\(T_i=\text{unix_timestamp_now()}\)</span>\)</span>.</p>
+<p>We also update the time as <span class="arithmatex">\(T_i=\text{unix_timestamp_now()}\)</span>.</p>
 <h4 id="evaluate">Evaluate</h4>
-<p>Take a moment and note what we're doing here. Despite what we said in the <code>update</code> section, <em>it is not true</em> that <span class="arithmatex">\(<span class="arithmatex">\(N_i\)</span>\)</span> requests came at time <span class="arithmatex">\(<span class="arithmatex">\(T_i\)</span>\)</span>. However <em>assuming</em> that this is true leads to a relatively good estimate for the recent average rate. This is exactly the quantity we calculate now. Effectively the evaluation step converts from the assumption that all request happened instantaneously at <span class="arithmatex">\(<span class="arithmatex">\(T_i\)</span>\)</span> to the assuption that requests occurred at a constant rate. </p>
+<p>Take a moment and note what we're doing here. Despite what we said in the <code>update</code> section, <em>it is not true</em> that <span class="arithmatex">\(N_i\)</span> requests came at time <span class="arithmatex">\(T_i\)</span>. However <em>assuming</em> that this is true leads to a relatively good estimate for the recent average rate. This is exactly the quantity we calculate now. Effectively the evaluation step converts from the assumption that all request happened instantaneously at <span class="arithmatex">\(T_i\)</span> to the assuption that requests occurred at a constant rate. </p>
 <p>Here are the relevant scenarios:</p>
 <table>
 <thead>
@@ -707,12 +707,12 @@ N_i = 1 + N_{i-1}  e^{-\lambda(now-T_{i-1})}       \tag{5}
 </thead>
 <tbody>
 <tr>
-<td>EWA of <span class="arithmatex">\(<span class="arithmatex">\(N_{i}\)</span>\)</span> requests at <span class="arithmatex">\(<span class="arithmatex">\(T_{i}\)</span>\)</span> (eq. 4)</td>
-<td><span class="arithmatex">\(<span class="arithmatex">\(N_{i}\cdot \lambda  e^{-\lambda(now-T_{i-1})}\)</span>\)</span></td>
+<td>EWA of <span class="arithmatex">\(N_{i}\)</span> requests at <span class="arithmatex">\(T_{i}\)</span> (eq. 4)</td>
+<td><span class="arithmatex">\(N_{i}\cdot \lambda  e^{-\lambda(now-T_{i-1})}\)</span></td>
 </tr>
 <tr>
 <td>EWA of a constant request rate (eq. 3)</td>
-<td><span class="arithmatex">\(<span class="arithmatex">\(r\)</span>\)</span></td>
+<td><span class="arithmatex">\(r\)</span></td>
 </tr>
 </tbody>
 </table>
@@ -748,7 +748,7 @@ r = N_{i}\cdot \lambda e^{-\lambda(now-T_{i-1})}        \tag{6}
 <h2 id="does-it-really-work">Does it Really Work?</h2>
 <p>Everything above is based on intuition. Now let's toss together some light proofs to indicate that this algorithm performs as advertised.</p>
 <h3 id="asymptotic-convergence-for-constant-discrete-request-rate">Asymptotic Convergence for Constant (Discrete) Request Rate</h3>
-<p>If a user consistently makes a request every <span class="arithmatex">\(<span class="arithmatex">\(\Delta t\)</span>\)</span> seconds, then we would like EARRRL to converge to the correct estimate of the request rate <span class="arithmatex">\(<span class="arithmatex">\(r = \frac{1}{\Delta t}\)</span>\)</span>. To investigate this, let's watch as the <span class="arithmatex">\(<span class="arithmatex">\(N\)</span>\)</span> value of the algorithm is updated (ref eq. 5<!-- tag{5} -->).</p>
+<p>If a user consistently makes a request every <span class="arithmatex">\(\Delta t\)</span> seconds, then we would like EARRRL to converge to the correct estimate of the request rate <span class="arithmatex">\(r = \frac{1}{\Delta t}\)</span>. To investigate this, let's watch as the <span class="arithmatex">\(N\)</span> value of the algorithm is updated (ref eq. 5<!-- tag{5} -->).</p>
 <table>
 <thead>
 <tr>
@@ -759,64 +759,64 @@ r = N_{i}\cdot \lambda e^{-\lambda(now-T_{i-1})}        \tag{6}
 </thead>
 <tbody>
 <tr>
-<td><span class="arithmatex">\(<span class="arithmatex">\(0\)</span>\)</span></td>
-<td><span class="arithmatex">\(<span class="arithmatex">\(0\)</span>\)</span></td>
-<td><span class="arithmatex">\(<span class="arithmatex">\(0\)</span>\)</span></td>
+<td><span class="arithmatex">\(0\)</span></td>
+<td><span class="arithmatex">\(0\)</span></td>
+<td><span class="arithmatex">\(0\)</span></td>
 </tr>
 <tr>
-<td><span class="arithmatex">\(<span class="arithmatex">\(\Delta t\)</span>\)</span></td>
-<td><span class="arithmatex">\(<span class="arithmatex">\(1\)</span>\)</span></td>
-<td><span class="arithmatex">\(<span class="arithmatex">\(1\)</span>\)</span></td>
+<td><span class="arithmatex">\(\Delta t\)</span></td>
+<td><span class="arithmatex">\(1\)</span></td>
+<td><span class="arithmatex">\(1\)</span></td>
 </tr>
 <tr>
-<td><span class="arithmatex">\(<span class="arithmatex">\(2\Delta t\)</span>\)</span></td>
-<td><span class="arithmatex">\(<span class="arithmatex">\(1 + e^{-\lambda \Delta t}\)</span>\)</span></td>
-<td><span class="arithmatex">\(<span class="arithmatex">\(1 + e^{-\lambda \Delta t}\)</span>\)</span></td>
+<td><span class="arithmatex">\(2\Delta t\)</span></td>
+<td><span class="arithmatex">\(1 + e^{-\lambda \Delta t}\)</span></td>
+<td><span class="arithmatex">\(1 + e^{-\lambda \Delta t}\)</span></td>
 </tr>
 <tr>
-<td><span class="arithmatex">\(<span class="arithmatex">\(3\Delta t\)</span>\)</span></td>
-<td><span class="arithmatex">\(<span class="arithmatex">\(1 + (1 + e^{-\lambda \Delta t})e^{-\lambda \Delta t}\)</span>\)</span></td>
-<td>$$1 + e^{-\lambda \Delta t} + e^{-2\lambda \Delta t} $$</td>
+<td><span class="arithmatex">\(3\Delta t\)</span></td>
+<td><span class="arithmatex">\(1 + (1 + e^{-\lambda \Delta t})e^{-\lambda \Delta t}\)</span></td>
+<td>$1 + e^{-\lambda \Delta t} + e^{-2\lambda \Delta t} $</td>
 </tr>
 <tr>
-<td><span class="arithmatex">\(<span class="arithmatex">\(4\Delta t\)</span>\)</span></td>
-<td><span class="arithmatex">\(<span class="arithmatex">\(1 + (1 + e^{-\lambda \Delta t} + e^{-2\lambda \Delta t})e^{-\lambda \Delta t}\)</span>\)</span></td>
-<td><span class="arithmatex">\(<span class="arithmatex">\(1 + e^{-\lambda \Delta t} + e^{-2\lambda \Delta t} + e^{-3\lambda \Delta t}\)</span>\)</span></td>
+<td><span class="arithmatex">\(4\Delta t\)</span></td>
+<td><span class="arithmatex">\(1 + (1 + e^{-\lambda \Delta t} + e^{-2\lambda \Delta t})e^{-\lambda \Delta t}\)</span></td>
+<td><span class="arithmatex">\(1 + e^{-\lambda \Delta t} + e^{-2\lambda \Delta t} + e^{-3\lambda \Delta t}\)</span></td>
 </tr>
 </tbody>
 </table>
-<p>And as time progresses, <span class="arithmatex">\(<span class="arithmatex">\(N\)</span>\)</span> converges to </p>
+<p>And as time progresses, <span class="arithmatex">\(N\)</span> converges to </p>
 <div class="arithmatex">\[
 N \rightarrow 1 + e^{-\lambda \Delta t} + e^{-2\lambda \Delta t} + e^{-3\lambda \Delta t} \cdots = \sum_{k=0}^{\infty}e^{-k\lambda \Delta t}  \tag{7}
 \]</div>
-<p>Already we see a nice result: Applying eq. 4, to eq. 7 we see that the exponentially weighted average of <span class="arithmatex">\(<span class="arithmatex">\(N\)</span>\)</span> simultaneous requests that occurred just now <em>is equivalent</em> to the to the EWA of a series of requests spaced <span class="arithmatex">\(<span class="arithmatex">\(\Delta t\)</span>\)</span> seconds apart. Thus, EARRRL is accurately tracking the exact EWA rate in this case rather than some approximation.</p>
+<p>Already we see a nice result: Applying eq. 4, to eq. 7 we see that the exponentially weighted average of <span class="arithmatex">\(N\)</span> simultaneous requests that occurred just now <em>is equivalent</em> to the to the EWA of a series of requests spaced <span class="arithmatex">\(\Delta t\)</span> seconds apart. Thus, EARRRL is accurately tracking the exact EWA rate in this case rather than some approximation.</p>
 <p>Further, note that Eq. 7 is <a href="https://www.google.com/search?q=convergence+of+geometric+series&amp;source=lnms&amp;tbm=isch&amp;sa=X&amp;ved=2ahUKEwjL6Oe6vrvvAhUbOs0KHXkvDN0Q_AUoAXoECCcQAw&amp;biw=1280&amp;bih=1466">a geometric series which converges to</a> </p>
 <div class="arithmatex">\[
 N \rightarrow  \sum_{k=0}^{\infty}e^{-k\lambda \Delta t} = \frac{1}{1-e^{-\lambda \Delta t}}                \tag{8}
 \]</div>
-<p>From this equation, we multiply by <span class="arithmatex">\(<span class="arithmatex">\(\lambda\)</span>\)</span> to get the EWA of the request rate at the moment just after a request is received.</p>
+<p>From this equation, we multiply by <span class="arithmatex">\(\lambda\)</span> to get the EWA of the request rate at the moment just after a request is received.</p>
 <div class="arithmatex">\[
 \text{EWA of rate upon arrival of request} = \frac{\lambda}{1-e^{-\lambda \Delta t}}            \tag{9}
 \]</div>
-<p>And if we multiply eq. 7 by <span class="arithmatex">\(<span class="arithmatex">\(\lambda e^{-\lambda \Delta t}\)</span>\)</span> we get the EWA of the request rate <span class="arithmatex">\(<span class="arithmatex">\(\Delta t\)</span>\)</span> later, just before the next request is received.</p>
+<p>And if we multiply eq. 7 by <span class="arithmatex">\(\lambda e^{-\lambda \Delta t}\)</span> we get the EWA of the request rate <span class="arithmatex">\(\Delta t\)</span> later, just before the next request is received.</p>
 <div class="arithmatex">\[
 \text{EWA of rate just before arrival of next request} = \frac{\lambda e^{-\lambda \Delta t}}{1-e^{-\lambda \Delta t}}            \tag{10}
 \]</div>
-<p>Note that neither of these values is the true rate <span class="arithmatex">\(<span class="arithmatex">\(r=\frac{1}{\Delta t}\)</span>\)</span>, rather <a href="../2021-03-18-estimated-average-recent-request-rate-limiter/">referring to the plots in the companion post</a>, these are the values that EARRRL bounces between when subject to a constant rate of requests. Notice that when you subtract the two equations, the result is simply <span class="arithmatex">\(<span class="arithmatex">\(\lambda\)</span>\)</span>. Thus, the smaller that you make <span class="arithmatex">\(<span class="arithmatex">\(\lambda\)</span>\)</span> the more accurate EARRRL will become.</p>
-<p>Take another look at both equations 9 and 10, as <span class="arithmatex">\(<span class="arithmatex">\(\lambda\)</span>\)</span> approaches zero, these equations approach the same value and at the limit this value indeed equals the true request rate. This can be shown with help from <a href="https://www.youtube.com/watch?v=Gh48aOvWcxw">l'Hopital's rule</a>. For example, starting from eq. 9:</p>
+<p>Note that neither of these values is the true rate <span class="arithmatex">\(r=\frac{1}{\Delta t}\)</span>, rather <a href="../2021-03-18-estimated-average-recent-request-rate-limiter/">referring to the plots in the companion post</a>, these are the values that EARRRL bounces between when subject to a constant rate of requests. Notice that when you subtract the two equations, the result is simply <span class="arithmatex">\(\lambda\)</span>. Thus, the smaller that you make <span class="arithmatex">\(\lambda\)</span> the more accurate EARRRL will become.</p>
+<p>Take another look at both equations 9 and 10, as <span class="arithmatex">\(\lambda\)</span> approaches zero, these equations approach the same value and at the limit this value indeed equals the true request rate. This can be shown with help from <a href="https://www.youtube.com/watch?v=Gh48aOvWcxw">l'Hopital's rule</a>. For example, starting from eq. 9:</p>
 <div class="arithmatex">\[
 r = \lim_{\lambda \rightarrow 0} \frac{\lambda}{1-e^{-\lambda \Delta t}} 
 = \lim_{\lambda \rightarrow 0}   \frac{\frac{d}{d\lambda}\lambda}{\frac{d}{d\lambda}(1-e^{-\lambda \Delta t})}
 = \lim_{\lambda \rightarrow 0}   \frac{1}{\Delta t e^{-\lambda \Delta t}}
 = \frac{1}{\Delta t}
 \]</div>
-<p>Thus as <span class="arithmatex">\(<span class="arithmatex">\(\lambda\)</span>\)</span> approaches zero, the estimated rate of a sequence of evenly spaced requests does indeed converge to the correct value <span class="arithmatex">\(<span class="arithmatex">\(r = \frac{1}{\Delta t}\)</span>\)</span>.</p>
+<p>Thus as <span class="arithmatex">\(\lambda\)</span> approaches zero, the estimated rate of a sequence of evenly spaced requests does indeed converge to the correct value <span class="arithmatex">\(r = \frac{1}{\Delta t}\)</span>.</p>
 <h3 id="choosing-lambda-to-control-response-time-and-accuracy-tradeoff">Choosing Lambda to Control Response Time and Accuracy Tradeoff</h3>
-<p>We saw above (just past eq. 9 and 10) that <span class="arithmatex">\(<span class="arithmatex">\(\lambda\)</span>\)</span> controls the accuracy of EARRRL, but it also controls how fast EARRRL converges. To see this, take a look at the evaluation function (eq. 6) restated here</p>
+<p>We saw above (just past eq. 9 and 10) that <span class="arithmatex">\(\lambda\)</span> controls the accuracy of EARRRL, but it also controls how fast EARRRL converges. To see this, take a look at the evaluation function (eq. 6) restated here</p>
 <div class="arithmatex">\[
 r = N_{i} \lambda e^{-\lambda(\Delta T_i)}
 \]</div>
-<p>At the moment just after the last request occurred, the EWA of rate was <span class="arithmatex">\(<span class="arithmatex">\(r=N_{i} \lambda\)</span>\)</span>, so let's define the half-life  <span class="arithmatex">\(<span class="arithmatex">\(T_{\lambda}\)</span>\)</span> as the amount of time that it take for the estimate to drop by half assuming no new requests come in. In other words, let's solve this equation for <span class="arithmatex">\(<span class="arithmatex">\(T_{\lambda}\)</span>\)</span>:</p>
+<p>At the moment just after the last request occurred, the EWA of rate was <span class="arithmatex">\(r=N_{i} \lambda\)</span>, so let's define the half-life  <span class="arithmatex">\(T_{\lambda}\)</span> as the amount of time that it take for the estimate to drop by half assuming no new requests come in. In other words, let's solve this equation for <span class="arithmatex">\(T_{\lambda}\)</span>:</p>
 <div class="arithmatex">\[
 N_{i} \lambda e^{-\lambda(T_{\lambda})} = \frac{N_{i} \lambda}{2} \tag{11}
 \]</div>
@@ -824,23 +824,23 @@ N_{i} \lambda e^{-\lambda(T_{\lambda})} = \frac{N_{i} \lambda}{2} \tag{11}
 <div class="arithmatex">\[
 T_{\lambda} = \frac{\ln 2}{\lambda}         \tag{12}
 \]</div>
-<p>The half-life is inversely proportional to <span class="arithmatex">\(<span class="arithmatex">\(\lambda\)</span>\)</span>. Therefore requiring twice the accuracy implies a response time that is twice as slow. However it is our good fortune that we don't care much about response time. As a matter of fact, it is probably better to have a slow response time so that EARRRL doesn't prematurely rate limit a user upon receiving a small burst of queries (see next section). Instead, EARRRL is designed to protect against the users that <em>consistently</em> exceed the prescribed rate limit.</p>
+<p>The half-life is inversely proportional to <span class="arithmatex">\(\lambda\)</span>. Therefore requiring twice the accuracy implies a response time that is twice as slow. However it is our good fortune that we don't care much about response time. As a matter of fact, it is probably better to have a slow response time so that EARRRL doesn't prematurely rate limit a user upon receiving a small burst of queries (see next section). Instead, EARRRL is designed to protect against the users that <em>consistently</em> exceed the prescribed rate limit.</p>
 <h3 id="burst-saturation-and-attempting-to-game-the-system">Burst Saturation and Attempting to Game the System</h3>
 <p>We've demonstrated that if a user makes periodic requests at a consistent rate, that EARRRL will converge to an accurate estimate of their rate. But what happens if the user's behavior is bursty rather than consistent? Let's consider the worst case scenario: how many requests can a user make <em>instantaneously</em> before EARRRL saturates? According the evaluation equation (eq. 6), this number is:</p>
 <div class="arithmatex">\[
 N_{\text{saturation}}=\frac{r_{\text{threshold}}}{\lambda}              \tag{13}
 \]</div>
-<p>Since you are in control of <span class="arithmatex">\(<span class="arithmatex">\(\lambda\)</span>\)</span>, it's a good idea to make sure that  <span class="arithmatex">\(<span class="arithmatex">\(N_{\text{saturation}}\)</span>\)</span> is quite high, because if it really is just a small burst, you don't necessarily want to penalize the user.</p>
-<p>Now this begs a question: Can a user game the system by bursting up to the saturation threshold, then waiting for a cool down period and then bursting again? The goal, of course, would be to sneak past the rate limit. Let's see what happens in this scenario. Let's say the user sends <span class="arithmatex">\(<span class="arithmatex">\(N_{\text{saturation}}\)</span>\)</span> requests and then waits several half-lives until the rate estimate is back near to 0. Let's pick 5 half-lives (97% of the way back to 0). In this case the user's overall send rate is <span class="arithmatex">\(<span class="arithmatex">\(r_{\text{abuse}}=\frac{N_{\text{saturation}}}{5T_{\lambda}}\)</span>\)</span>. Plugging in eq. 12 and 13:</p>
+<p>Since you are in control of <span class="arithmatex">\(\lambda\)</span>, it's a good idea to make sure that  <span class="arithmatex">\(N_{\text{saturation}}\)</span> is quite high, because if it really is just a small burst, you don't necessarily want to penalize the user.</p>
+<p>Now this begs a question: Can a user game the system by bursting up to the saturation threshold, then waiting for a cool down period and then bursting again? The goal, of course, would be to sneak past the rate limit. Let's see what happens in this scenario. Let's say the user sends <span class="arithmatex">\(N_{\text{saturation}}\)</span> requests and then waits several half-lives until the rate estimate is back near to 0. Let's pick 5 half-lives (97% of the way back to 0). In this case the user's overall send rate is <span class="arithmatex">\(r_{\text{abuse}}=\frac{N_{\text{saturation}}}{5T_{\lambda}}\)</span>. Plugging in eq. 12 and 13:</p>
 <div class="arithmatex">\[
 r_{\text{abuse}}= \frac{N_{\text{saturation}}}{5T_{\lambda}}
  = \frac{r_{\text{threshold}}}{\lambda} \frac{\lambda}{5\ln 2}
  = \frac{r_{\text{threshold}}}{5\ln 2} 
  \tag{14}  
 \]</div>
-<p>Since <span class="arithmatex">\(<span class="arithmatex">\(5\ln 2\)</span>\)</span> is so much larger than 1, then the abuse rate is going be well below the EARRRL threshold and we are safe from anyone gaming the system in this manner.</p>
+<p>Since <span class="arithmatex">\(5\ln 2\)</span> is so much larger than 1, then the abuse rate is going be well below the EARRRL threshold and we are safe from anyone gaming the system in this manner.</p>
 <h2 id="conclusion">Conclusion</h2>
-<p>EARRRL, the Estimated Average Recent Request Rate Limiter provides an appealing alternative to the standard, windowed rate limiter. It is intuitive to use, you just specify a threshold for the rate and a value for <span class="arithmatex">\(<span class="arithmatex">\(\lambda\)</span>\)</span> to bound the error. The benefit of EARRRL is that it automatically "permanently bans" users who are willing to <em>consistently</em> abuse rate limits, but at the same time, it is forgiving of users, even formerly abusive users, who have demonstrated that they will maintain a rate limit below the prescribed threshold. EARRRL also allows for occasional bursty behavior for which windowed rate limiters might prematurely rate limit good users.</p>
+<p>EARRRL, the Estimated Average Recent Request Rate Limiter provides an appealing alternative to the standard, windowed rate limiter. It is intuitive to use, you just specify a threshold for the rate and a value for <span class="arithmatex">\(\lambda\)</span> to bound the error. The benefit of EARRRL is that it automatically "permanently bans" users who are willing to <em>consistently</em> abuse rate limits, but at the same time, it is forgiving of users, even formerly abusive users, who have demonstrated that they will maintain a rate limit below the prescribed threshold. EARRRL also allows for occasional bursty behavior for which windowed rate limiters might prematurely rate limit good users.</p>
 <p>What's next?
 * Want to go build one? <a href="../2021-03-18-estimated-average-recent-request-rate-limiter/">Check out the companion post</a> where I create a simple Redis implementation.
 * Want to play with the algorithms yourself? <a href="https://gist.github.com/JnBrymn/e3894376e4b4423911747cc8565a5cf3">Check our my Jupyter notebook</a>

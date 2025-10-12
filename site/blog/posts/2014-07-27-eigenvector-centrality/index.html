@@ -489,54 +489,48 @@
 <p>Let's model the power of a politician. Let's assume that his power is not derived by any virtue or talent of his own. But rather, any power held by a politician is merely a function of those he is connected to. Afterall - it's not what you know... it's who you know.</p>
 </blockquote>
 <p>Perhaps the most simplistic way to put this to math is to assume that <em>political power</em> is a numerical measure, and the power of a particular politician is proportional to the power of the politicians that he is connected to. In equation form this relationship can be represented as follows:</p>
-<div>$$
+<div class="arithmatex">\[
     \begin{array}{l l}
-    \lambda P_i= \sum P_j & \quad \text{for all politicians }j\text{ connected to politician }i
+    \lambda P_i= \sum P_j &amp; \quad \text{for all politicians }j\text{ connected to politician }i
     \end{array}
-$$</div>
-
-<p>Here \(P_i\) represents the power of a politician and sum on the right hand side represents the cumulative power of all his buddies. The proportionality itself is represented by the value some constant \(\lambda\). What is the value of \(\lambda\)? Is it \(\frac{1}{2}\)? Is it \(\pi\)? We don't know quite yet, but we will soon.</p>
+\]</div>
+<p>Here <span class="arithmatex">\(P_i\)</span> represents the power of a politician and sum on the right hand side represents the cumulative power of all his buddies. The proportionality itself is represented by the value some constant <span class="arithmatex">\(\lambda\)</span>. What is the value of <span class="arithmatex">\(\lambda\)</span>? Is it <span class="arithmatex">\(\frac{1}{2}\)</span>? Is it <span class="arithmatex">\(\pi\)</span>? We don't know quite yet, but we will soon.</p>
 <p>Now, based upon our assumptions, this equation should hold for any politician. So, let's consider an example set of politicians.</p>
 <p><img alt="graph of politicians' connections" src="/assets/politicians.png" class="centered"/></p>
 <p>Here we have 5 politicians, so that the corresponding political power equations should look like this:</p>
-<div>$$
+<div class="arithmatex">\[
     \begin{matrix}
-    \lambda P_A &=& P_B + P_D  \\ 
-    \lambda P_B &=& P_A + P_C + P_D + P_E  \\ 
-    \lambda P_C &=& P_B \\ 
-    \lambda P_D &=& P_A + P_B + P_E  \\ 
-    \lambda P_E &=& P_B + P_D
+    \lambda P_A &amp;=&amp; P_B + P_D  \\ 
+    \lambda P_B &amp;=&amp; P_A + P_C + P_D + P_E  \\ 
+    \lambda P_C &amp;=&amp; P_B \\ 
+    \lambda P_D &amp;=&amp; P_A + P_B + P_E  \\ 
+    \lambda P_E &amp;=&amp; P_B + P_D
     \end{matrix}
-$$</div>
-
-<div class="highlight"><pre><span></span><code>
-</code></pre></div>
+\]</div>
 <p>(Here the subscripts refer to the individual politicians' names.) If we solve this set of equations then we will know which politicians are stronger or weaker than the others. However this set of equations only applies to this particular group. We would like to generalize these equations to apply to any group of connected individuals. Let's try using matrices and see if that helps:</p>
-<div>$$
+<div class="arithmatex">\[
     \lambda \begin{bmatrix}
     P_A \\ P_B \\ P_C \\ P_D \\ P_E
     \end{bmatrix}
     =
     \begin{bmatrix}
-    0 & 1 & 0 & 1 & 0 \\
-    1 & 0 & 1 & 1 & 1 \\
-    0 & 1 & 0 & 0 & 0 \\
-    1 & 1 & 0 & 0 & 1 \\
-    0 & 1 & 0 & 1 & 0 \\
+    0 &amp; 1 &amp; 0 &amp; 1 &amp; 0 \\
+    1 &amp; 0 &amp; 1 &amp; 1 &amp; 1 \\
+    0 &amp; 1 &amp; 0 &amp; 0 &amp; 0 \\
+    1 &amp; 1 &amp; 0 &amp; 0 &amp; 1 \\
+    0 &amp; 1 &amp; 0 &amp; 1 &amp; 0 \\
     \end{bmatrix}
     \begin{bmatrix}
     P_A \\ P_B \\ P_C \\ P_D \\ P_E
     \end{bmatrix}   
-$$</div>
-
+\]</div>
 <p>Now the cool thing here is that the essence of the politicians' social network is encoded in that matrix. If there is a 1 it indicates that the politicians corresponding to that row and column are connected. In graph theory, this matrix is called the adjacency matrix because it defines which nodes are adjacent to one another. In shorthand the above equation could be written as:</p>
-<div>$$
+<div class="arithmatex">\[
     \lambda \mathbf{P} = \mathbf{A} \mathbf{P}
-$$</div>
-
+\]</div>
 <p>The astute reader will immediately recognize this as the classical <a href="http://en.wikipedia.org/wiki/Eigenvalues_and_eigenvectors">eigenvalue</a> problem. The catch, though, is that there are actually several solutions to the eigenvalue problem - which one should we choose? Fortunately, we are able to place an extra criteria upon the solution which will identify the unique solution. Political power as defined above only makes sense if it's a positive definite value. And even more fortunately, the <a href="http://en.wikipedia.org/wiki/Perron%E2%80%93Frobenius_theorem">Perron–Frobenius theorem</a> states that any real square matrix with positive entries will have only a single eigenvector which is composed completely of positive values (all of the others will be a mix of positive and negative values).</p>
 <p>So, how do our politician friends fare? Here is the solution to the eigenvalue problem.</p>
-<div>$$
+<div class="arithmatex">\[
     \begin{bmatrix}
     P_A \\ P_B \\ P_C \\ P_D \\ P_E
     \end{bmatrix}
@@ -548,9 +542,8 @@ $$</div>
     0.524 \\
     0.412 \\
     \end{bmatrix}
-$$</div>
-
-<p>As you can see Bob holds the most power in the group followed soon after by Dave, while Cindy holds the least power in the group. Referring back to the diagram above, this result should agree well with your intuition as Bob seems well connected while Cindy is barely connected at all. (And, in case you're wondering, \(\lambda=2.686\).)</p>
+\]</div>
+<p>As you can see Bob holds the most power in the group followed soon after by Dave, while Cindy holds the least power in the group. Referring back to the diagram above, this result should agree well with your intuition as Bob seems well connected while Cindy is barely connected at all. (And, in case you're wondering, <span class="arithmatex">\(\lambda=2.686\)</span>.)</p>
 <h2 id="the-eigenvector-centrality-metric">The Eigenvector Centrality Metric</h2>
 <p>If you haven't figured it out by now, this quantity that I'm call <em>political power</em> in the discussion above is none other than the eigenvector centrality of the politicians based upon their connection to one another. But is this notion of centrality actually useful? Yes, quite. Perhaps most obviously, the above analysis can be applied to any social network to help identify who the big players are. Want to know how you rank among your friends? Download everyone on Twitter within two jumps away from you, pull out the adjacency matrix and solve the eigenvalue problem - there's your answer.</p>
 <p>Outside of social circles, eigenvector centrality pops up again with text summarization. In this case, rather than looking at <em>people</em> in a <em>social network</em>, the analysis considers <em>sentences</em> in a <em>document</em>. In this case the values of the adjacency matrix are merely a measure of how similarly each sentences is worded to all of the others.</p>
