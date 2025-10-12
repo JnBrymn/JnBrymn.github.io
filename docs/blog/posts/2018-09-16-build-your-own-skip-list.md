@@ -15,6 +15,8 @@ categories:
 * It doesn't require any complex re-balancing like some of the other ordered-list structures.
 * It's fast. And all of the operations - insert, search, delete - are O(log n) on average. 
 
+<!-- more -->
+
 Here's my ASCII-art schematic for what a skip list might look like for a sorted list of numbers from 0 through 9. Let's dig into how we get here. 
 ```
 [7]-------------------------->[6]

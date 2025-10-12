@@ -19,6 +19,7 @@ $$\textrm{adoption}=\frac{\textrm{number of people using feature in a given repo
 
 The question is, what should the distribution of feature adoption look like across all repos? Pause here and think about it. (Don't even scroll down!) Leaning upon my normal intuition with continuous distributions I was initially a bit surprised with what I found.
 
+<!-- more -->
 
 ## Motivation with an Analogous Continuous Distribution.
 Let's make a ridiculous assumption. Rather than having a distinct integer number of people active in a repo, you can have a real-valued number of people. Yep, you can have 32.74 active users, or $\pi$ users for that matter. Most likely the distribution would be long tailed with most repos having a relatively low number of users, say 0 to 7.3 users, but a few repos having a large number of users say 1000.2 users. Let's describe this using the [exponential distribution](https://en.wikipedia.org/wiki/Exponential_distribution) so that $X$ is the number of people active in that repo.

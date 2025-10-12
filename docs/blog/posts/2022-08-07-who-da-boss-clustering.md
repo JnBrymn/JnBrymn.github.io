@@ -14,6 +14,8 @@ categories:
 
 I've been playing with my Twitter social graph recently, and it occurred to me that the people that I'm friends with form several clusters. I wanted to see if I could come up with some sort of clustering algorithm to identify these clusters. Why? Well for one, it could be of practical use; maybe I can find some good use for it. But, perhaps more than that, I was curious if I could make a clustering algorithm – _I've kinda got a thing for reinventing wheels_. 
 
+<!-- more -->
+
 ## The Algorithm
 Consider the following graph. There are two obvious clusters here, the 5 nodes on the left including node 2 at their center and the 4 nodes on the right including node 7 at their center. 
 

@@ -12,6 +12,8 @@ categories:
 
 As a developer, my understanding and respect for software testing has been slow coming because in my previous work I have been an engineer and a consultant, and in these roles it wasn't yet obvious how important testing really is. But over the past year I have finally gained an appropriate respect and appreciation for testing; and it's even improving the way I write code. In this post I will explain where I've come from and how far I've traveled in my testing practices. I'll then list out some of the more important principles I've picked up along the way.
 
+<!-- more -->
+
 ## Engineers are cowboys ... and cowboys don't need no stinkin' tests.
 I got my start as an Aerospace engineer and as an engineer, _if_ you do any programming at all, testing is probably not part of it. Why? _Because engineers are cowboy coders._ As engineering students, we are taught just enough programming to implement whatever algorithm we have in mind, make some pretty graphs, and then we graduate.
 

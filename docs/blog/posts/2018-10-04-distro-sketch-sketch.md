@@ -14,6 +14,8 @@ categories:
 
 About three and a half years ago I came up with a clever trick for accurately approximating and tightly bounding a cumulative distribution in a rather small data structure. It's high time that I blogged about it! In this post I'll talk about the problem space, my technique, the potential benefits of my approach over other approaches, and ways to improve in the future.
 
+<!-- more -->
+
 ## Percentiles and Cumulative Distributions
 
 A common way of summarizing a stream of numerical values is by talking about the value at a given percentile. For instance when talking about how long a web page takes to load, you might take a sampling of the loading times:

@@ -14,6 +14,7 @@ On April 10th and 11th OpenSource Connections held their first (annual I hope) H
 
 Needless to say, I came away with a ton of good information that I'm going to put to work at Eventbrite as soon as possible. 
 
+<!-- more -->
 
 ## Big Themes
 In the talks that I attended there seemed to be two major threads of content. The first has to do with the maturation of search relevance as a practice. At the time I wrote the book with Doug, judgement lists seemed fairly academic. However at this conference there was an entire talk dedicated judgement lists and at least three talks that casually mentioned relevance scoring methods (MMR, ERR, Precision@k, NDCG) which are based on the availability of judgement lists. Most exciting though, there seems to be a push toward using judgement lists to enable Learning-to-Rank. And Learning-to-Rank appears to be helping us to reach never-before reached heights with search quality.

@@ -26,7 +26,7 @@ There's a lot of amazing things about how the brain works, and in this post I'm 
   <!-- <figcaption></figcaption> -->
 </figure>
 
-
+<!-- more -->
 
 
 

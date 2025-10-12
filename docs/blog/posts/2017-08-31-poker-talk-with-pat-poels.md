@@ -18,6 +18,8 @@ Following Pats story I aimed the conversation more towards business. "In the tim
 
 "It's not a psychic ability." This is where Pat turned my thoughts around on me. "And the important lessons that I learned from poker were not about reading others but about reading myself." Then he explained: Even though reading others' tells could give you an advantage in poker and in life, that advantage pales in comparison to being able to understand your _own_ intentions and motivations, your _own_ abilities, and the limitations of what you can know about the world around you.
 
+<!-- more -->
+
 ## The Lessons
 
 Pats first lesson here was that you needed to be able to fairly assess your decisions _outside_ of their actual outcomes. In poker, as in life, you can make a great decision that leads to a disastrous outcome and you can make a horrible decision that leads to a fantastic outcome. But since you are continuously making new decisions it is important to not get bogged down by the outcomes themselves. Try _not_ to award yourself credit for an outcome that you know was really dumb luck and try _not_ the be too hard on yourself if a great idea just doesn't pan out. As a result, Pat says, you will be able to be able to treat decisions more pragmatically, unemotionally, and -- this is important -- decisively.

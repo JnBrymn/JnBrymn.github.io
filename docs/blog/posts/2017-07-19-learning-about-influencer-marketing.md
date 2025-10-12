@@ -19,6 +19,8 @@ Influence Marketing is a form of marketing in which focus is placed on specific 
 ## Why on earth am I suddenly interested in Influence Marketing?
 If you've been friends with me for very long, you've probably heard me reference my mysterious side-project, the *social-network-infiltrator!* Basically it is a Twitter graph scraper that is able to apply simple algorithms and answer interesting questions. Questions like:
 
+<!-- more -->
+
  - Who are the 10 most central thought leaders in Nashville Python?
  - Who are the top 1000 people in Nashville that are interested in Python?
  - Who works in the engineering department at Emma?

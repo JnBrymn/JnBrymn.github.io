@@ -19,6 +19,8 @@ The problem is feedback. In the context of search results, the first page, and r
 
 This is the first in a series of blog posts where we will examine how a more sophisticated version of click tracking can be implemented and we will examine some of the neat off-shoots of this work that allow you to things like turning click logs into judgement lists. But first we start with a very simple example... a _very_ simple example:
 
+<!-- more -->
+
 ## Meet Milton Acme, the Founder and CEO of Acme Plumbing
 
 > **Milton Acme, Founder/CEO:** Howdy! I'm Milton Acme, Founder and CEO of ACME Plumbing and it's high time that we joined the ranks of our competitors and became part of the computer-net-world.

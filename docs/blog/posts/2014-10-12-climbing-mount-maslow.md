@@ -11,6 +11,8 @@ categories:
 
 In his 1943 paper, *[A Theory of Human Motivation](http://psychclassics.yorku.ca/Maslow/motivation.htm)*, Abraham Maslow introduced a simple principle that has had a profound influence in the fields of psychology and sociology. Namely, he introduce the concept of a hierarchy of human needs which he termed Physiological, Safety, Belongingness and Love, Esteem, Self-Actualization and Self-Transcendence. And Maslow's big main point here was that it is necessary to first satisfy the basic needs before we can even have the luxury to start worrying about the higher-level concerns. But for me, looking through Maslow's hierarchy in some detail, it seems that all the cool kids hang out towards the top of that hierarchy. I've been there in the past, and am occasionally so fortunate as to touch the top of the hierarchy again from time to time. But I think that I (we) can do better than this! So I determined myself to try and devise a way to "hack" Maslow's Hierarchy so as to maximize the time I'm spending near the top.
 
+<!-- more -->
+
 ## Maslow's Hierarchy in Depth
 
 Before we plot out how to hack Maslow's Hierarchy, it's good to first take a closer look so that we can understand what we're dealing with! As shown in the figure below, Maslow's Hierarchy is composed of 5 levels.

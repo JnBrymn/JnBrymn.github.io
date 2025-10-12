@@ -17,6 +17,8 @@ This past weekend I took Baby Meg (3.5yrs old) on her first camping trip. And bo
 
 It's not a tent, and it looks an awful lot like an upscale deer blind. But no... as far as Meg is concerned, this is her "Castle in the Sky". I showed it to her in the afternoon and she was excited to find out that that night we were going to sleep in the Castle in the Sky.
 
+<!-- more -->
+
 After dinner Meg was ready to go.
 
 <figure>

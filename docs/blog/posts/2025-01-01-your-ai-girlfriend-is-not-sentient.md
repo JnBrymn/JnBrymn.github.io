@@ -23,6 +23,8 @@ _Oh man, we are cooked!_
 
 I think that's how the kids are saying it these days. Right? It's a colorful phrase. And boy, are we ever cooked. We have finally created truly intelligent AI, but because we have such a terribly poor understanding of consciousness we are conflating intelligence with consciousness, and the world is about to become a much more confusing because of it.
 
+<!-- more -->
+
 Let's start off with an experiment, shall we? Take a look at this picture. What do you see?
 
 <!-- change image dir -->

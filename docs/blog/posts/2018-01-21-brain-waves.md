@@ -16,6 +16,8 @@ As many of my friends know, I've picked up neuroscience as a sort of side hobby.
     <figcaption><a href="https://en.wikipedia.org/wiki/Electroencephalography">Electroencephalography a.k.a. EEG.</a></figcaption>
 </figure>
 
+<!-- more -->
+
 ## EEG - the "opposite" of MRI
 I touched on this in my blog post with Steven, but EEG technology is in some ways on the opposite end of the spectrum from MRIs. The spatial resolution of MRIs is pretty good - on the order of a millimeter; but the temporal resolution of MRIs is rather large - on the order of several seconds. The speed of _thought_ is much faster than the speed of an MRI.
 

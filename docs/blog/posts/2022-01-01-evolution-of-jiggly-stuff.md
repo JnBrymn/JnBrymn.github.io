@@ -12,6 +12,7 @@ categories:
 
 I like positing hypotheses that are completely unverified and poorly examined. Why? Because it's easier to play with ideas when you don't have to check your work. 🤣 Here are two somewhat related hypotheses about how evolution has made two very different jiggly things more durable and resistant to distress: your brain and trees.
 
+<!-- more -->
  
 ## The Brain and its Ventricles
   

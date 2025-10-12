@@ -19,6 +19,8 @@ Vector search has taken the world by storm. The idea is this - cast documents in
 
 It occurred to me today while staring at the sky blankly, that this type of search won't work when searching for grouped content. For instance, what if I go onto Reddit, and I'm not really looking for a single reddit page, but I'm looking for an entire subreddit that matches my interests. Here I'm not looking a document, but a group of documents that match my intent.
 
+<!-- more -->
+
 So how _could_ we make this search work? Well the most obvious and naive way is that for every subreddit, we could concatennate all the entries into a single mega-document, and use our embedding transformation to make a single vector for every single subreddit. Not only would this be technically infeasible, it wouldn't really be a great search experience either. Why? Because a subreddit is composed of many docs which form a cloud of points rather than a single point in the embedding space.
 
 # Gaussian Search

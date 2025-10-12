@@ -21,6 +21,7 @@ Last week I took part in a Medical Imaging study at Vanderbilt in Stephen Bailey
 
 ... it's my brain! Yeah, literally, _that is my brain_! And if you want to know what I think... I think it's a beautiful specimen!
 
+<!-- more -->
 
 So this week I followed up with Stephen and learned more about his work and about neuroscience in general. Here are some of the high points:
 

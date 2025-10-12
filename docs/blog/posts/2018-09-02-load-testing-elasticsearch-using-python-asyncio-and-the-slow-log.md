@@ -20,6 +20,8 @@ categories:
 
 Over the past couple of days I've been reading over Yeray Diaz's wonderful blog posts on python3 `asyncio` ([_AsyncIO for the Working Python Developer_](https://hackernoon.com/asyncio-for-the-working-python-developer-5c468e6e2e8e) and [_Asyncio Coroutine Patterns: Beyond await_](https://medium.com/python-pandemonium/asyncio-coroutine-patterns-beyond-await-a6121486656f)) and I decided to see if I could come up with some sort of Elasticsearch load testing framework.
 
+<!-- more -->
+
 Soon after directing my attention to Elasticsearch I ran across a neat idea in Florian Hopf's blog post [_Logging Requests to Elasticsearch_](http://blog.florian-hopf.de/2016/03/logging-requests-to-elasticsearch.html): If you set all of the slow log thresholds to 0s then you will log all of the traffic coming through elasticsearch in its entirety.
 ```yaml
 index.search.slowlog.threshold.query.debug: 0s

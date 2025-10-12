@@ -22,6 +22,8 @@ It has gnawed on my subconscious for the past 5 years. Even as I wrote [Relevant
 
 > Users don't know what the heck they want and couldn't tell you even if they did.
 
+<!-- more -->
+
 Yeah... so that's about as far as I've gotten with it. I feel like I need something pithier. _But_ let me break it down a bit and then you too will understand what's been in my mind all these years. To put the above phrase less succinctly, but more accurately:
 
 * Modern search interfaces are minimalistic and users don't have much opportunity to tell you what they want - usually just a text box.

@@ -14,6 +14,8 @@ A week ago I met with an aspiring entrepreneur who had some interesting ideas re
 
 This got me thinking. I was also once this way - I held my "good ideas" close so they wouldn't be stolen away. And when people poked at the faults in my ideas... well, it hurt. But over the years I came to realize that this way of thinking is flawed.
 
+<!-- more -->
+
 ## Hearing Criticism About Your Ideas
 
 Somehow you need to be stoically detached from your own ideas. If your arm got cut off it would hurt, but if an idea gets cut off it should not be a painful thing at all. It's not an appendage. It's not a physical part of you at all. (And I'll make a point soon that your ideas aren't really "owned" by you or anyone anyway!) The point here is that if you came up with one good idea, then there are probably plenty of other interesting ones waiting in the back of your mind.

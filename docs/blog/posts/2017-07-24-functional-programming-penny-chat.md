@@ -14,6 +14,8 @@ categories:
 
 Better late than never for my Penny Chat Review for Bryan Hunter's FP discussion. Here are some of the things that I picked up:
 
+<!-- more -->
+
 ## I finally grokked tail recursion
 
 I'm actually embarrassed that I didn't get this earlier since it's such a simple idea. Recursion, as you know, is when a function calls itself. The difficult part of recursion in most languages is stack overflow. This happens because with each call to the function you have to keep track of the value of all of its variables for every call, and if you keep going deeper and deeper, you have more and more to keep track of -- until BOOM! Python protects you by just bailing when the recursion depth reaches 1000. But, if the recursive call is the very last statement in the function, then you are using so-called tail recursion. In this case, it's not necessary to keep track of the existing scope any more because you won't use it anymore and in this case an infinite stack depth is A-OK. In Python, tail recursion brings no benefit because Python just still bails out after the stack depth reaches 1000. But in other languages, like Elixir, infinite tail recursion is depended upon and is a primary feature of the language.

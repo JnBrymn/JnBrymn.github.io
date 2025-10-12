@@ -22,7 +22,7 @@ If you play around much with graphs, one of the first things that you'll run int
 
 But, my favorite measure of centrality is *eigenvector centrality*. Why? Because I invented it! Ok, ok... that's not exactly true, but I did at least *independently* discover it. And the way I discovered it helped it stick in my mind ever since.
 
-
+<!-- more -->
 
 ## The Power of a Politician
 

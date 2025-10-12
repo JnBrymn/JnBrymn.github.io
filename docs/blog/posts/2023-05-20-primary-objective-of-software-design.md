@@ -18,6 +18,8 @@ Over my half-career in software development, I've started to collect some insigh
     <img src='/assets/primary-objective-of-software-design/cognitive-overload.jpeg' alt='Edvard Munch"s the Scream but setting at a computer, looking at the screen, and typing angrily' class="centered" style="width:70%;"/>
 </figure>
 
+<!-- more -->
+
 ## What causes cognitive load?
 Humans have a limited capacity to pay attention to a specific topic and humans are limited in the amount of content they can carry in their minds at any one point in time. Therefore, when designing software, one must be careful to remain within the bounds of human capability.
 
