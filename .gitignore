@@ -1,40 +1,52 @@
+
+# Python specific
 __pycache__/
 *.py[cod]
-.Python
 *.pyo
 *.pyd
-*~
 *.pyc
+.Python
+*.egg-info/
+*.egg
+
+# Virtual environments and package files
 .venv
 build/
 develop-eggs/
 dist/
-downloads/
 .eggs/
 .eggs
 lib/
 lib64/
 parts/
 sdist/
-var/
 wheels/
 share/python-wheels/
-*.egg-info/
 .installed.cfg
-*.egg
 MANIFEST
+
+# Logs
 pip-log.txt
 pip-delete-this-directory.txt
 
+# IDE and editor files
 .vscode/
 *.code-workspace
 *.cursor
 
+# Temporary files
+*~
 
+# Static site generators
 _site
 .sass-cache
 .jekyll-cache
 .jekyll-metadata
 vendor
 
+# System files
 .DS_Store
+
+# Generated content
+site/
+
