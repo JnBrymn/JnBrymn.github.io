@@ -34,15 +34,15 @@ However, looking at figure B, if we preserve the cloud of documents within each 
     <img src='/assets/similarity-search-for-grouped-content/B.png' alt='missing' class="centered" style="width:70%;"/>
 </figure>
 
-Notice that I'm calling this "Gaussian" search? The reason is that I'm proposing that each grouping of documents be modeled as a Gaussian distribution in embedding space. This will serve us well as Gaussians are really easy to specify using matrices. For instance, a Gaussian (or Normal) distribution is usually represented in 1-D as $$N(\mu, \sigma^2)$$ where $$\mu$$ is a scalar representing the mean of the distribution and $$\sigma^2$$ is a scalar representing the variance. In higher dimensions this becomes $$N(\boldsymbol{\mu}, \boldsymbol{\Sigma})$$ where $$\boldsymbol{\mu}$$ again represents the mean, but this time it's a vector and $$\boldsymbol{\Sigma}$$ is again the variance but it's a matrix. To _sorta_ make this clearer, consider the equation:
+Notice that I'm calling this "Gaussian" search? The reason is that I'm proposing that each grouping of documents be modeled as a Gaussian distribution in embedding space. This will serve us well as Gaussians are really easy to specify using matrices. For instance, a Gaussian (or Normal) distribution is usually represented in 1-D as $N(\mu, \sigma^2)$ where $\mu$ is a scalar representing the mean of the distribution and $\sigma^2$ is a scalar representing the variance. In higher dimensions this becomes $N(\boldsymbol{\mu}, \boldsymbol{\Sigma})$ where $\boldsymbol{\mu}$ again represents the mean, but this time it's a vector and $\boldsymbol{\Sigma}$ is again the variance but it's a matrix. To _sorta_ make this clearer, consider the equation:
 
 $$
 M = (\boldsymbol{x} - \boldsymbol{\mu})^T\boldsymbol{\Sigma}^{-1}(\boldsymbol{x} - \boldsymbol{\mu})
 $$
 
-$$M$$ is the Mahalanobis distance, and if you hold M constant, then the resulting locus of points $$\boldsymbol{x}$$ form an ellipsoid just like those in the illustration above.
+$M$ is the Mahalanobis distance, and if you hold M constant, then the resulting locus of points $\boldsymbol{x}$ form an ellipsoid just like those in the illustration above.
 
-Simple? Intuitive? Well... no, not immediately, but the important thing to know is that there is a direct connection between the "space that a subreddit takes up" and a numerical representation defined by $$\boldsymbol{\mu}$$ and $$\boldsymbol{\Sigma}$$, and now that we're in the land of numbers, then perhaps we can have computers answer questions about these numbers. In this case, the question is which group of content is "closest" to the users query in terms of Mahalanobis distance.
+Simple? Intuitive? Well... no, not immediately, but the important thing to know is that there is a direct connection between the "space that a subreddit takes up" and a numerical representation defined by $\boldsymbol{\mu}$ and $\boldsymbol{\Sigma}$, and now that we're in the land of numbers, then perhaps we can have computers answer questions about these numbers. In this case, the question is which group of content is "closest" to the users query in terms of Mahalanobis distance.
 
 # Gaussian-to-Gaussian Search
 There's a possible problem in the above formulation. In just the same way that the content group isn't describable by a single point, the user's query likely also covers a volume of the embedding space rather than just a point. Consider figure C below. Once we see how large of a domain "female vocalists" covers, then perhaps "tuvan throat singing" begins to look a little more relevant.

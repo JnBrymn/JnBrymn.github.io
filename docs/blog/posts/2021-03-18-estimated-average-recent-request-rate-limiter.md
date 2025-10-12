@@ -47,7 +47,7 @@ At the bottom of this post we will implement EARRRL in Redis, but before we get 
 
 ### Convergence
 
-It is important that EARRRL can correctly estimate a user's recent request rate. To demonstrat that this works correctly, let's consider the scenario where at $$t=50\text{s}$$, three different users being making sustained periodic API requests, and then at $$t=200\text{s}$$ they stop. The user represented in red makes 10 requests per second, the green user makes 1 request per second, and the blue user makes one request every 10 seconds. The corresponding lines in the following figure represents the EARRRL-estimated average request rate. You can see that shortly after the requests begin, EARRRL converges to the true rate, and then in the same period of time after the requests stop, EARRRL converges back to zero.
+It is important that EARRRL can correctly estimate a user's recent request rate. To demonstrat that this works correctly, let's consider the scenario where at $t=50\text{s}$, three different users being making sustained periodic API requests, and then at $t=200\text{s}$ they stop. The user represented in red makes 10 requests per second, the green user makes 1 request per second, and the blue user makes one request every 10 seconds. The corresponding lines in the following figure represents the EARRRL-estimated average request rate. You can see that shortly after the requests begin, EARRRL converges to the true rate, and then in the same period of time after the requests stop, EARRRL converges back to zero.
 
 <figure>
     <img src='/assets/estimated-average-recent-request-rate-limiter/filter-estimate-halflife-10.png' alt='EARRRL tracking periodic requests at 3 different rates' class="centered"/>

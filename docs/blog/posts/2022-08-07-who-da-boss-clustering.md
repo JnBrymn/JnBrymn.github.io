@@ -38,7 +38,7 @@ Let's pretend that each node is a person. As a group, they wish to somehow fairl
 </figure>
 
 
-**Step 3:** The distribution is "exaggerated", so that the high probabilities are made higher and the lower probabilities are made lower. For instance, if the values of the distribution are labeled $$d_i$$, then the exaggerated values are $$\hat{d}_i=d_i^g / \Sigma_j d_j^g$$ where $$g$$ is the "granularity". A higher granularity will result in more, smaller clusters.
+**Step 3:** The distribution is "exaggerated", so that the high probabilities are made higher and the lower probabilities are made lower. For instance, if the values of the distribution are labeled $d_i$, then the exaggerated values are $\hat{d}_i=d_i^g / \Sigma_j d_j^g$ where $g$ is the "granularity". A higher granularity will result in more, smaller clusters.
 
 <figure>
     <img src='/assets/who-da-boss-clustering/example_graph_3.png' alt='missing' class="centered"/>

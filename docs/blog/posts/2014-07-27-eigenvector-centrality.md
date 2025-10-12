@@ -32,13 +32,13 @@ There is a generalization that all politicians are merely empty suits and that t
 
 Perhaps the most simplistic way to put this to math is to assume that *political power* is a numerical measure, and the power of a particular politician is proportional to the power of the politicians that he is connected to. In equation form this relationship can be represented as follows:
 
-<div>$$
+$$
 	\begin{array}{l l}
     \lambda P_i= \sum P_j & \quad \text{for all politicians }j\text{ connected to politician }i
   	\end{array}
-$$</div>
+$$
 
-Here \\(P\_i\\) represents the power of a politician and sum on the right hand side represents the cumulative power of all his buddies. The proportionality itself is represented by the value some constant \\(\lambda\\). What is the value of \\(\lambda\\)? Is it \\(\frac{1}{2}\\)? Is it \\(\pi\\)? We don't know quite yet, but we will soon.
+Here $P_i$ represents the power of a politician and sum on the right hand side represents the cumulative power of all his buddies. The proportionality itself is represented by the value some constant $\lambda$. What is the value of $\lambda$? Is it $\frac{1}{2}$? Is it $\pi$? We don't know quite yet, but we will soon.
 
 Now, based upon our assumptions, this equation should hold for any politician. So, let's consider an example set of politicians.
 
@@ -46,7 +46,7 @@ Now, based upon our assumptions, this equation should hold for any politician. S
 
 Here we have 5 politicians, so that the corresponding political power equations should look like this:
 
-<div>$$
+$$
 	\begin{matrix}
 	\lambda P_A &=& P_B + P_D  \\ 
 	\lambda P_B &=& P_A + P_C + P_D + P_E  \\ 
@@ -54,11 +54,11 @@ Here we have 5 politicians, so that the corresponding political power equations 
 	\lambda P_D &=& P_A + P_B + P_E  \\ 
 	\lambda P_E &=& P_B + P_D
 	\end{matrix}
-$$</div>	
+$$	
 
 (Here the subscripts refer to the individual politicians' names.) If we solve this set of equations then we will know which politicians are stronger or weaker than the others. However this set of equations only applies to this particular group. We would like to generalize these equations to apply to any group of connected individuals. Let's try using matrices and see if that helps:
 
-<div>$$
+$$
 	\lambda \begin{bmatrix}
 	P_A \\ P_B \\ P_C \\ P_D \\ P_E
 	\end{bmatrix}
@@ -73,19 +73,19 @@ $$</div>
 	\begin{bmatrix}
 	P_A \\ P_B \\ P_C \\ P_D \\ P_E
 	\end{bmatrix}	
-$$</div>
+$$
 
 Now the cool thing here is that the essence of the politicians' social network is encoded in that matrix. If there is a 1 it indicates that the politicians corresponding to that row and column are connected. In graph theory, this matrix is called the adjacency matrix because it defines which nodes are adjacent to one another. In shorthand the above equation could be written as:
 
-<div>$$
+$$
 	\lambda \mathbf{P} = \mathbf{A} \mathbf{P}
-$$</div>
+$$
 
 The astute reader will immediately recognize this as the classical [eigenvalue](http://en.wikipedia.org/wiki/Eigenvalues_and_eigenvectors) problem. The catch, though, is that there are actually several solutions to the eigenvalue problem - which one should we choose? Fortunately, we are able to place an extra criteria upon the solution which will identify the unique solution. Political power as defined above only makes sense if it's a positive definite value. And even more fortunately, the [Perron–Frobenius theorem](http://en.wikipedia.org/wiki/Perron%E2%80%93Frobenius_theorem) states that any real square matrix with positive entries will have only a single eigenvector which is composed completely of positive values (all of the others will be a mix of positive and negative values).
 
 So, how do our politician friends fare? Here is the solution to the eigenvalue problem.
 
-<div>$$
+$$
 	\begin{bmatrix}
 	P_A \\ P_B \\ P_C \\ P_D \\ P_E
 	\end{bmatrix}
@@ -97,9 +97,9 @@ So, how do our politician friends fare? Here is the solution to the eigenvalue p
 	0.524 \\
 	0.412 \\
 	\end{bmatrix}
-$$</div>
+$$
 
- As you can see Bob holds the most power in the group followed soon after by Dave, while Cindy holds the least power in the group. Referring back to the diagram above, this result should agree well with your intuition as Bob seems well connected while Cindy is barely connected at all. (And, in case you're wondering, \\(\lambda=2.686\\).)
+ As you can see Bob holds the most power in the group followed soon after by Dave, while Cindy holds the least power in the group. Referring back to the diagram above, this result should agree well with your intuition as Bob seems well connected while Cindy is barely connected at all. (And, in case you're wondering, $\lambda=2.686$.)
 
 ## The Eigenvector Centrality Metric
 If you haven't figured it out by now, this quantity that I'm call *political power* in the discussion above is none other than the eigenvector centrality of the politicians based upon their connection to one another. But is this notion of centrality actually useful? Yes, quite. Perhaps most obviously, the above analysis can be applied to any social network to help identify who the big players are. Want to know how you rank among your friends? Download everyone on Twitter within two jumps away from you, pull out the adjacency matrix and solve the eigenvalue problem - there's your answer.
