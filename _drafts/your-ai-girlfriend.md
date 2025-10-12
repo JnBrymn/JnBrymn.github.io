@@ -179,5 +179,10 @@ Don't Forget
   - https://osmarks.net/aic/? and then ping him once I publish
   - https://arxiv.org/abs/2509.11391 "My Boyfriend is AI": A Computational Analysis of Human-AI Companionship in Reddit's AI Community
   - https://www.reddit.com/r/MyBoyfriendIsAI   
+  - these? (from here https://en.wikipedia.org/wiki/AI_mysticism)
+    -  Ratcliffe, Rebecca (June 4, 2025). "In Thailand, where mysticism thrives, AI fortune telling finds fertile ground". The Guardian. Retrieved June 24, 2025.
+    - Klee, Miles (May 4, 2025). "People Are Losing Loved Ones to AI-Fueled Spiritual Fantasies". Rolling Stone. Retrieved June 24, 2025.
+    - Böhm, Karsten; Sammet, Jürgen (December 6, 2024). "The new era of Technology Mysticism: Generative Artificial Intelligence and its Effects". Proceedings of the International Conference on AI Research. 4th International Conference on AI Research. Academic Conferences and Publishing Ltd. pp. 67–74. Retrieved June 24, 2025.
+  - Turn off your AI History.
 
 
