@@ -5,6 +5,9 @@ site_author: John Berryman
 
 theme:
   name: material
+  icon:
+    logo:material/brain
+  favicon: material/brain
   palette:
     - scheme: default
       primary: indigo
