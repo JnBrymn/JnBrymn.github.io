@@ -4,8 +4,10 @@ authors:
 - jnbrymn
 title: Climbing Mount Maslow
 categories:
-- Personal
-- Psychology
+  - Philosophy
+  - Reflections
+description: Maslow's hierarchy says you need to satisfy basic needs before reaching self-actualization. But what if you could hack it? Minimize possessions, embrace measured risk, ditch the ego-driven esteem chase, and spend less time worrying about safety theater. The goal—maximize time at the peak where creativity and exploration happen. It's a pep talk to myself, really.
+image: /assets/maslows_hierarchy_of_needs.png
 ---
 
 

@@ -4,8 +4,8 @@ authors:
 - jnbrymn
 title: Gopar - The Golang Parser that Needs a Better Name
 categories:
-- Programming
-- Go
+  - Software Engineering
+description: I built a PEG parser in Go called Gopar. The API is clean enough that building a JSON parser reads like defining the grammar—sequences, alternatives, placeholders for forward references. It handles nested structures elegantly. Short post, but the code is on GitHub if you want to check it out.
 ---
 
 

@@ -5,8 +5,10 @@ authors:
 title: Better Click Tracking for Identifying Statistically High Performers - Part
   I
 categories:
-- Analytics
-- Web Development
+  - Search & Retrieval
+  - Algorithms
+description: Naive click tracking creates feedback loops where popular items get more popular. The fix? Statistical significance testing using binomial distributions to identify items that truly outperform, not just items that got lucky. Milton Acme's ridiculous ACME Thing-o-the-Moment becomes a surprisingly good teaching tool for proper relevance engineering.
+image: /assets/acme_thing_o_the_moment.png
 ---
 
 

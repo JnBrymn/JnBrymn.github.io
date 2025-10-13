@@ -4,14 +4,10 @@ authors:
 - jnbrymn
 title: Tokenizing Embedding Spaces for Faster, More Relevant Search
 categories:
-- Search
-- Data Science
-- AI
-- NLP
-- Search
-- Open Source
-- Search
-- AI
+  - Search & Retrieval
+  - Artificial Intelligence
+description: High-dimensional embeddings (word2vec, face recognition) don't work well with spatial search structures like k-d trees. But search engines handle high-dimensional sparse vectors easily. What if we tokenize embeddings—convert dense vectors into sparse token sets—and index them like text? Random projections, locality-sensitive hashing, quantization. Could make embedding search fast and scalable. Exploratory idea needing validation.
+image: /assets/gargamel.png
 ---
 
 

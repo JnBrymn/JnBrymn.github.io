@@ -4,8 +4,8 @@ authors:
 - jnbrymn
 title: Cowboys and Consultants Don't Need Unit Tests
 categories:
-- Programming
-- Business
+  - Software Engineering
+description: As an aerospace engineer I built plane-crashing algorithms. As a consultant I built "temporary" prototypes that lived forever. At Eventbrite I finally learned testing matters. The secret—mock only one level deep, structure code hierarchically like recipes, and embrace TDD. Tests aren't a nice-to-have, they're part of the deliverable. Cowboys beware.
 ---
 
 

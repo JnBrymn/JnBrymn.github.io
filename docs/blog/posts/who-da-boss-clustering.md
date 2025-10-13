@@ -4,10 +4,9 @@ authors:
 - jnbrymn
 title: '"Who da Boss" Graph Clustering'
 categories:
-- Search
-- Data Science
-- Data Science
-- Clustering
+  - Algorithms
+description: I invented a clustering algorithm for social graphs—"Who da Boss." Each node votes for the most-connected neighbor as boss. Nodes with same boss form clusters. It's simple, fast, and actually works on my Twitter graph. Reinventing wheels because I can. Includes Python implementation and comparisons to other algorithms. Hierarchical clustering emerges naturally from the boss-of-boss relationships.
+image: /assets/who-da-boss-clustering/example_graph_0.png
 ---
 
 

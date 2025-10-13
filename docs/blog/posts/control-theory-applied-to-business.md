@@ -4,10 +4,10 @@ authors:
 - jnbrymn
 title: Aircraft Control Theory - Applied to Product Growth
 categories:
-- AI
-- Neuroscience
-- Business
-- Mathematics
+  - Business
+  - Math
+description: Stable aircraft correct perturbations to maintain level flight. But products? You want instability—viral feedback loops that amplify small popularity spikes into exponential growth. I apply aerospace control theory to product dynamics, showing how eigenvalues and sensitivity analysis can identify which growth levers to pull. From backflipping planes to hockey-stick charts.
+image: /assets/control-theory-applied-to-business/plane-flip.gif
 ---
 
 

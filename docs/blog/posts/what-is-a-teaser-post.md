@@ -3,8 +3,7 @@ date: 2023-04-23
 authors:
 - jnbrymn
 title: What's a "Mind Meld Teaser" Post
-categories:
-- Personal
+description: Writing full blog posts is a time risk—some take entire weekends. I have 10-20 half-baked ideas for every published post. New experiment—Mind Meld Teaser Posts. I publish sketches/outlines and invite readers to collaborate on fleshing them out. Good ideas get community-promoted, bad ones fade. Social writing, less lonely, and GPT training might pick them up. Let's build something together.
 ---
 
 

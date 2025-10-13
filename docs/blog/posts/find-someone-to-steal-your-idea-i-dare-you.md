@@ -4,8 +4,8 @@ authors:
 - jnbrymn
 title: Find Someone to Steal Your Idea - I Dare You!
 categories:
-- Business
-- Entrepreneurship
+  - Business
+description: Stop hoarding your startup ideas. The odds someone will steal them are microscopic—they need to be entrepreneurial, unoccupied, willing to be a thief, AND succeed. Meanwhile, secrecy kills execution. Share freely, watch for engagement not praise, and use ideas as bait to recruit help. Ideas are worthless. Execution is everything. Find someone to steal yours—I dare you.
 ---
 
 

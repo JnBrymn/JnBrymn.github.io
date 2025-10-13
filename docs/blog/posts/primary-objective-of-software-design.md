@@ -4,10 +4,9 @@ authors:
 - jnbrymn
 title: 'The Primary Objective of Software Design: Minimizing Total Cognitive Load'
 categories:
-- Programming
-- Performance
-- Programming
-- Design
+  - Software Engineering
+description: "All good design principles—modularity, abstraction, loose coupling, separation of concerns—serve one master goal: minimizing cognitive load. Humans can only hold so much in their heads at once. The best code lets you understand one piece without needing to understand everything else. Make it easy for future-you and future-developer. They'll thank you."
+image: /assets/primary-objective-of-software-design/cognitive-overload.jpeg
 ---
 
 

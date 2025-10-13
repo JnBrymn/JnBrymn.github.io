@@ -4,8 +4,9 @@ authors:
 - jnbrymn
 title: Poker Talk with a Two-Time World Series of Poker Bracelet Winner
 categories:
-- Personal
-- Business
+  - Business
+  - Philosophy
+description: Pat Poels (Eventbrite VP, two-time WSOP bracelet winner) taught me poker isn't about reading others—it's about reading yourself. Judge decisions separate from outcomes. Don't confuse dumb luck with skill. Understand your own intentions and limitations. The edge comes from self-awareness, not psychic mind-reading. Business lessons disguised as poker stories over beers.
 ---
 
 

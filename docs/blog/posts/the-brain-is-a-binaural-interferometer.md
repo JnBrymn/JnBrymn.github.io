@@ -4,14 +4,9 @@ authors:
 - jnbrymn
 title: The Brain's Amazing Ability to Process Stereo Sound
 categories:
-- AI
-- Neuroscience
-- Neuroscience
-- Audio
-- Neuroscience
-- Science
-- Neuroscience
-- Science
+  - Neuroscience
+description: Your brain does impossible math to locate sounds—detecting microsecond delays between ears using neurons that fire in milliseconds. It's literally doing phase interferometry with sound waves, like a biological oscilloscope. Binaural beats, sound localization, the precedence effect—all emerge from neural timing precision that shouldn't be possible. The meat-computer is shockingly good at signal processing.
+image: /assets/the-brain-is-a-binaural-interferometer/face.png
 ---
 
 

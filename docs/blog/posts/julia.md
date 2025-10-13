@@ -4,7 +4,9 @@ authors:
 - jnbrymn
 title: Julia ... a short story
 categories:
-- Programming
+  - Artificial Intelligence
+  - Consciousness
+description: A short story about Julia, a researcher at Carnegie Mellon's AI lab where breakthrough experiments keep mysteriously dying. As she races toward understanding everything—poetry, physics, the Theory of Everything—patterns emerge. Then comes the revelation. Then Ozymandias. Nothing beside remains. Written in 2017, eerily relevant now.
 ---
 
 

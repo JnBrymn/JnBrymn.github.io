@@ -3,10 +3,10 @@ date: 2025-10-12
 authors:
 - jnbrymn
 categories:
-- Personal
-- Mental Health
-- Spirituality
-title: On Scrupulocity
+  - Philosophy
+  - Reflections
+title: On Scrupulosity
+description: Scrupulosity is religious OCD—obsessive guilt, compulsive rituals, avoidance of anything that might be sin. You're lost in a wilderness searching for a light that might be a mirage. The way out? Recognize it's OCD, not spiritual failure. Exposure therapy, not more prayer. Grace means you don't have to earn it. Letter to my past self and anyone else stuck there.
 ---
 
 

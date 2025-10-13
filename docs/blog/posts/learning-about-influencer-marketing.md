@@ -4,10 +4,9 @@ authors:
 - jnbrymn
 title: Algorithmic Influencer Marketing
 categories:
-- Math
-- Algorithms
-- Business
-- Marketing
+  - Business
+  - Algorithms
+description: I built a Twitter graph scraper to find influencers algorithmically—who are the top Python thought leaders in Nashville? Who works at Emma? What communities is someone in? Apply network centrality algorithms to social graphs and suddenly you can target influencers precisely. Penny Chat with Kara Fulgum convinced me this could actually be useful for marketing.
 ---
 
 

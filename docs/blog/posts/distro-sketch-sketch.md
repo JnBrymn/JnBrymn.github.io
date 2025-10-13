@@ -4,10 +4,10 @@ authors:
 - jnbrymn
 title: A Sketch for a new Distribution Sketch
 categories:
-- Design
-- Programming
-- Math
-- Statistics
+  - Algorithms
+  - Math
+description: Tracking percentiles in streaming data is hard when you can't store everything. I built a data sketch that bounds cumulative distributions in minimal memory by intelligently discarding points that contribute least to bound growth. It's accurate, flexible, parallelizable, and doesn't need prior knowledge of your distribution. Skip lists make it fast. Math inside.
+image: /assets/distro-sketch-sketch/dots.png
 ---
 
 

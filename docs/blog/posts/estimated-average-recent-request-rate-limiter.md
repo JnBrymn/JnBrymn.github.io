@@ -3,10 +3,10 @@ date: 2021-03-18
 authors:
 - jnbrymn
 categories:
-- Algorithms
-- Rate Limiting
-- Redis
-title: "EARRRL \u2013 the Estimated Average Recent Request Rate Limiter"
+  - Algorithms
+title: "EARRRL – the Estimated Average Recent Request Rate Limiter"
+description: Abusive users spam your API until they hit 429, then wait for the next window to spam again. EARRRL tracks persistent recent rate and permanently bans consistent abusers until they reform. Implemented in Redis+Lua with ~30 lines of code. Converges quickly, handles bursts gracefully, and uses LRU cache instead of TTLs. Elegant solution to a real problem.
+image: /assets/estimated-average-recent-request-rate-limiter/stock-photo-of-bad-guy.jpg
 ---
 
 

@@ -4,10 +4,9 @@ authors:
 - jnbrymn
 title: Neuroscience Penny Chat with Stephen Bailey
 categories:
-- AI
-- Neuroscience
-- Personal
-- Business
+  - Neuroscience
+description: I got my brain scanned at Vanderbilt and it's gorgeous. MRIs track blood flow to measure brain activity, but Stephen Bailey's research goes deeper—detecting signals in white matter to map how different brain regions actually connect. Plus a crash course on EEG, MEG, and why building truly intelligent systems might not be impossible after all.
+image: /assets/john_brain.png
 ---
 
 

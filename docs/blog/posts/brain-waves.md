@@ -4,8 +4,9 @@ authors:
 - jnbrymn
 title: Neuroscience Penny Chat with David Simon
 categories:
-- Personal
-- Business
+  - Neuroscience
+description: EEG is the opposite of MRI—terrible spatial resolution but sub-millisecond temporal precision, fast enough to watch thoughts happen. David Simon's research uses EEG to study how brains merge audio and visual input into unified perception. Thoughts might literally be strange attractors, looping neural activation patterns that never quite repeat. Wild stuff.
+image: /assets/EEG_cap.jpg
 ---
 
 

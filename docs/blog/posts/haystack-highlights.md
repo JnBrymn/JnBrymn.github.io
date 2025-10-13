@@ -4,8 +4,9 @@ authors:
 - jnbrymn
 title: Haystack Highlights
 categories:
-- Search
-- Open Source
+  - Search & Retrieval
+description: Haystack search relevance conference—120 people geeking out on judgement lists, Learning-to-Rank, and embedding vectors in search. Doug Turnbull's keynote featured scrapple and sea turtles. Talks covered everything from statistical significance in click tracking to GPU-powered vector search. The lowest common denominator was absurdly high. Best conference I've ever attended.
+image: /assets/doug_keynote.png
 ---
 
 

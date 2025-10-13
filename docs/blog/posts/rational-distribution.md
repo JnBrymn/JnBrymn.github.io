@@ -4,8 +4,9 @@ authors:
 - jnbrymn
 title: Playing with a Rational Distribution
 categories:
-- Math
-- Statistics
+  - Math
+description: I hit my first distribution defined on rational numbers—feature adoption rates across repos. Turns out when you marginalize discrete denominators from continuous distributions, you get weird spiky patterns at simple fractions like 1/2, 1/3. Probability mass concentrates where denominators are small. Math I wrote for myself. Possibly boring. Possibly fascinating if you're into this stuff.
+image: /assets/rational-distribution/uniform_distribution.png
 ---
 
 

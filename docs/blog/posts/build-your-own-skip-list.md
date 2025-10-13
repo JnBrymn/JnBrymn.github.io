@@ -4,8 +4,9 @@ authors:
 - jnbrymn
 title: Build your own Skip List
 categories:
-- Programming
-- Data Structures
+  - Algorithms
+description: Skip lists are elegant—O(log n) operations without the rebalancing headaches of trees. You probabilistically promote nodes into faster "lanes" for quick traversal. I built one from scratch in Python with full insert/delete and benchmarked it. Spoiler—my implementation is slower than Python's bisect for small lists, but the algorithm itself is brilliant.
+image: /assets/list_vs_skip_list_linear.png
 ---
 
 

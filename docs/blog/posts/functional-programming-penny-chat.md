@@ -4,10 +4,8 @@ authors:
 - jnbrymn
 title: Functional Programming Penny Chat
 categories:
-- Programming
-- Programming
-- Personal
-- Business
+  - Software Engineering
+description: Penny Chat with Bryan Hunter on functional programming. I finally grokked tail recursion—when the recursive call is last, you don't need stack frames. Elixir looks way more readable than Clojure's parentheses-everywhere syntax. And FP doesn't mean one giant state blob—you can partition state management hierarchically. Learning in progress.
 ---
 
 

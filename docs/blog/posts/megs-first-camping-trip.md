@@ -4,7 +4,9 @@ authors:
 - jnbrymn
 title: Meg's First Camping Trip
 categories:
-- Personal
+  - Reflections
+description: Took 3.5-year-old Meg camping in a "Castle in the Sky" (upscale deer blind). She slept like a rock in criss-cross-applesauce position taking more than her fair share of the cheap sleeping bag. I got maybe 2 hours of sleep fighting a zipper while coyotes howled. Sub-freezing morning, froze-over 4-wheeler. She loved it. Dad survived.
+image: /assets/castle_in_the_sky.jpg
 ---
 
 

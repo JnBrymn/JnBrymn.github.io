@@ -4,7 +4,8 @@ authors:
 - jnbrymn
 title: Will Acuff on Building Relationship and Improving Communities
 categories:
-- General
+  - Business
+description: Penny Chat with Will Acuff (Corner to Corner founder) on community building. Don't lead with handouts—focus on community assets, not needs. Build relationships first, deeper discussions later. Play the long game. Lead by following—catalyze others to lead. Engage in your own neighborhood first. Practical wisdom for churches and anyone trying to make real impact in communities.
 ---
 
 

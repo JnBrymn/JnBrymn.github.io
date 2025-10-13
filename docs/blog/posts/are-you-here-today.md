@@ -4,7 +4,8 @@ authors:
 - jnbrymn
 title: Are You Here Today?
 categories:
-- Personal
+  - Philosophy
+description: A simple Slack message turns into a deep dive on metaphysics. What does it mean to exist? What is "you"? Is "here" even real? And what about "now"? Spoiler—quantum mechanics, split-brain patients, and the nature of consciousness all make cameo appearances. Descartes was onto something, but maybe not quite enough.
 ---
 
 

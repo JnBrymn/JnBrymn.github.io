@@ -2,10 +2,10 @@
 date: 2024-01-30
 authors:
 - jnbrymn
-title: "Tool Invocation \u2013 Demonstrating the Marvel of GPT's Flexibility"
+title: "Tool Invocation – Demonstrating the Marvel of GPT's Flexibility"
 categories:
-- AI
-- GPT
+  - Artificial Intelligence
+description: Human intelligence comes from general computational components repeated throughout the brain—same 6-layer structure everywhere. Brain rewiring studies prove it—ferrets can "see" with auditory cortex. GPT's transformer architecture might be the digital analog. Tool invocation shows this—GPT wasn't trained for function calling, yet it does it perfectly. The attention mechanism is shockingly general. Just like brains.
 ---
 
 

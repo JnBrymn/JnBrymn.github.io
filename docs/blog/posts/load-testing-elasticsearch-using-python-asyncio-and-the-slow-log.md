@@ -4,17 +4,9 @@ authors:
 - jnbrymn
 title: Load Testing Elasticsearch Using Python asyncio and the Slow Log
 categories:
-- Programming
-- Search
-- Data Science
-- Programming
-- Business
-- Search
-- Open Source
-- Programming
-- Performance
-- Search
-- AI
+  - Search & Retrieval
+  - Software Engineering
+description: I built an Elasticsearch load testing framework using Python's asyncio to replay production queries at scale. Uses the slow log as input, fires concurrent async requests, and measures performance under realistic load. Great way to test cluster changes before production. Asyncio's concurrency model makes this surprisingly clean—coroutines and event loops FTW.
 ---
 
 

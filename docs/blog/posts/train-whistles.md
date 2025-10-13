@@ -4,10 +4,9 @@ authors:
 - jnbrymn
 title: Train Whistles
 categories:
-- AI
-- Neuroscience
-- Personal
-- Audio
+  - Neuroscience
+description: You can tell if a train is approaching or receding by comparing the whistle to its echo. Doppler effect makes approaching trains sound higher-pitched than their echo (which comes from behind the train), and receding trains sound lower than their echo. You don't need perfect pitch—just relative pitch. Physics is neat. Short observation from working outside.
+image: /assets/train-whistle/trains.png
 ---
 
 

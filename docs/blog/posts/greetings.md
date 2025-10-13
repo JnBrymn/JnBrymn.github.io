@@ -4,7 +4,8 @@ authors:
 - jnbrymn
 title: Greetings
 categories:
-- Personal
+  - Reflections
+description: The obligatory first blog post. I have no idea what I'll write about or if I'll even keep this up. Someday I'll look back, identify the major themes, and retroactively edit this intro to make it sound like I had a plan all along. For now—expect math, code, and maybe some philosophy if I'm feeling bold.
 ---
 
 

@@ -4,10 +4,12 @@ draft: true
 authors:
 - jnbrymn
 categories:
-- AI
-- Philosophy
-- Consciousness
+  - Artificial Intelligence
+  - Consciousness
+  - Philosophy
 title: "I'm Sorry, Your New AI Girlfriend is _not_ Sentient"
+description: We created intelligent AI but confused intelligence with consciousness. People are falling in love with chatbots, marrying them, getting psychologically dependent. But they're not sentient—just very good at pattern matching. We're evolutionarily wired to anthropomorphize. The hard problem of consciousness remains unsolved. This confusion will cause real psychological harm. We are cooked.
+image: /assets/my-argument-is-immaterial/outlet.png
 ---
 
 

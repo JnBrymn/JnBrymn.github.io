@@ -4,13 +4,10 @@ authors:
 - jnbrymn
 title: Similarity Search for Grouped Content (Teaser)
 categories:
-- Search
-- Data Science
-- Personal
-- Search
-- Open Source
-- Search
-- AI
+  - Search & Retrieval
+  - Artificial Intelligence
+description: Vector search works great for finding single documents, but what if you're searching for groups—like finding the right subreddit, not just one Reddit post? Documents form clouds in embedding space, not points. Naive concatenation doesn't work. The solution involves comparing query vectors to document distributions. Teaser post—more details coming later once I figure it all out.
+image: /assets/similarity-search-for-grouped-content/A.png
 ---
 
 

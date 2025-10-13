@@ -4,8 +4,9 @@ authors:
 - jnbrymn
 title: Evolution of Jiggly Stuff
 categories:
-- Science
-- Biology
+  - Neuroscience
+description: Two unverified hypotheses about evolution optimizing jiggly things. Brain ventricles distribute impact stress to protect thinking-tofu from head strikes. Tree branches evolved anti-resonance to dissipate wind energy instead of shaking apart. Both cases—structural voids and detuned harmonics make things more durable. Bradford Pears missed the memo. Science-ish shower thoughts.
+image: /assets/john_brain.png
 ---
 
 

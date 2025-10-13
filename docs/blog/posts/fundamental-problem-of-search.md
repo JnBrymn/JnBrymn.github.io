@@ -4,16 +4,9 @@ authors:
 - jnbrymn
 title: The Fundamental Problem of Search
 categories:
-- Search
-- Data Science
-- Personal
-- Mental Health
-- Search
-- Open Source
-- Search
-- Philosophy
-- Search
-- AI
+  - Search & Retrieval
+  - Philosophy
+description: Users don't know what they want and couldn't tell you if they did. Search interfaces are minimalist text boxes, but users juggle dozens of fuzzy criteria. TF*IDF scoring isn't absolute, quality boosts create weird interactions, and date-sorting dredges up garbage. Multiple-objective optimization with unknown weights. Learning-to-Rank helps, but corner cases remain forever. Search is fundamentally hard.
 ---
 
 

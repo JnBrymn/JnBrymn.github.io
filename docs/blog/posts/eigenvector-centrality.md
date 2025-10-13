@@ -4,8 +4,10 @@ authors:
 - jnbrymn
 title: Understanding Eigenvector Centrality with the Metaphor of Political Power
 categories:
-- Math
-- Graph Theory
+  - Math
+  - Algorithms
+description: I independently discovered eigenvector centrality by modeling politician power—your influence equals the sum of your connections' influence. Turns out this is just the eigenvalue problem with the adjacency matrix. It's how PageRank works, how to find important people in social networks, and even how to summarize text documents. Math is neat.
+image: /assets/centrality.png
 ---
 
 

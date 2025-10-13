@@ -3,11 +3,11 @@ date: 2021-03-18
 authors:
 - jnbrymn
 categories:
-- Math
-- Algorithms
-- Rate Limiting
-title: "EARRRL \u2013 the Estimated Average Recent Request Rate Limiter - the Mathy\
-  \ Bits"
+  - Algorithms
+  - Math
+title: "EARRRL – the Estimated Average Recent Request Rate Limiter - the Mathy Bits"
+description: Windowed rate limiters are too forgiving—abusers just wait for the next window. EARRRL uses exponentially weighted averaging to track recent request rates without global updates. The math involves integrals, Dirac deltas, and proving convergence for constant rates. Lambda controls the accuracy/response-time tradeoff. It's elegant, and the proofs are actually pretty satisfying.
+image: /assets/estimated-average-recent-request-rate-limiter/average-rate.png
 ---
 
 
