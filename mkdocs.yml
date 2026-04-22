@@ -1,6 +1,6 @@
 site_name: Thought Box
 site_description: Life on the Pareto Frontier
-site_url: http://blog.jnbrymn.com
+site_url: https://blog.jnbrymn.com
 site_author: John Berryman
 
 theme:
@@ -68,4 +68,3 @@ extra:
 nav:
   - Home: index.md
   - About: about.md
-
