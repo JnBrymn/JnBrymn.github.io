@@ -15,6 +15,8 @@ At our core, humans are driven by a _sense_ of purpose. Even if the actual tasks
 
 The psychological aspect is crucial to understand because it determines whether we're headed toward a utopia or a dystopia.
 
+<!-- more -->
+
 We need to answer the question: What drives our sense of purpose? And how can we align that drive towards productive outcomes?
 
 Looking at my own psychology, I suspect that purpose is not driven by lofty pursuits (philosophy, the arts, science), because in a world where all needs are met, these pursuits will feel performative – especially if AI is already better at pursuing new developments in these domains.
