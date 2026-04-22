@@ -21,6 +21,8 @@ _Oh man, we are cooked!_
 - correct spelling
 - look at all other HTML comments
 - remove "So" and "But" and all the other extra words - tighten this up
+
+- refer to https://youtu.be/wm642z2048c?si=SuJqta2yICJ5WjVU
 -->
 
 I think that's how the kids are saying it these days. Right? It's a colorful phrase. And boy, are we ever cooked. We have finally created truly intelligent AI, but because we have such a terribly poor understanding of consciousness we are conflating intelligence with consciousness, and the world is about to become a much more confusing because of it.
