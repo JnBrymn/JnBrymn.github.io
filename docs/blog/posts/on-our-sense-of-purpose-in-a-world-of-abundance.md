@@ -23,13 +23,13 @@ Looking at my own psychology, I suspect that purpose is not driven by lofty purs
 
 Rather, I think that purpose is driven by having needs and incrementally fulfilling them – climbing Maslow's hierarchy of needs. It's baked into our biology. Until recently, humans have evolved in an environment of overwhelming scarcity. We find purpose in doing whatever it takes to make sure that we don't starve to death and neither does our family or our tribe. Everything else is icing.
 
-This is why that "dumb email job" actually feels more meaningful than some other lofty pursuit. Someone (society) says that your job is meaningful. And because you do it, you get money. The money lets you buy food so that your family stays safe. The chain of causality is unbroken. But when we get a stipend for just breathing, the causal chain _is_ broken, and I fear we will lose the sense of purpose – we aren't doing anything to keep our family safe.
+This is why that "dumb email job" actually feels more meaningful than some other lofty pursuit. Someone (society) says that your job is meaningful. And because you do it, you get money. The money lets you buy food so that your family stays safe. The chain of causality is unbroken. But when we get a stipend for just breathing, the causal chain _is_ broken, and I fear we will lose the sense of purpose – we aren't doing anything to keep our family safe. It is entirely irrelevant that the family already _is_ safe. If anything this makes the problem worse because we can't be the hero of our story.
 
 So what then?
 
 There are two options. Distraction or deeper purpose.
 
-I fear that in absence of the _sense_ of purpose we will try to avoid discomfort by diving into entertainment and "idle" pursuits. This is a bandaid. After we beat the final boss in the video game and the screen goes black, we'll see our reflection and know that we have achieving nothing. We are without purpose.
+I fear that in absence of the _sense_ of purpose we will try to avoid discomfort by diving into entertainment and "idle" pursuits. This is a bandaid. After we beat the final boss in the video game and the screen goes black, we'll see our reflection in the screen and know that we have achieving nothing. We are without purpose.
 
 So ultimately we seek purpose.
 
