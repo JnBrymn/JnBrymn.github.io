@@ -10,6 +10,14 @@ categories:
 description: The purpose of life is to bring glory to God — not because God needs our praise, but because He is the only lasting source of fulfillment.
 ---
 
+# Missing
+- Inspired by this sermon https://achurchforyou.com/sermons/jesus-genesis-and-please-excuse-my-dear-aunt-sally/
+- A good ending
+- I want some softer "my glory" verses at the beginning and I don't think "pride" is the right word, but maybe neediness or narcissism even.
+- Totally missing a big section about what bringing glory to God even means - it is gratitude and service and loving others with action and being different "let your gentleness be evident to all" and ... (ask AI)
+
+--- 
+
 I always thought that some bible verses make God sound a bit prideful.
 
 > For my own sake, for my own sake, I do this.
@@ -91,8 +99,3 @@ you can do anything in the service of this new purpose - life's your oyester
 
 
 ---
-
-# Missing
-- A good ending
-- I want some softer "my glory" verses at the beginning and I don't think "pride" is the right word, but maybe neediness or narcissism even.
-- Totally missing a big section about what bringing glory to God even means - it is gratitude and service and loving others with action and being different "let your gentleness be evident to all" and ... (ask AI)
